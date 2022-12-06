@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>atong的网站</title>
+    <link>http://example.com/</link>
+    
+    <atom:link href="http://example.com/rss2.xml" rel="self" type="application/rss+xml"/>
+    
+    <description>万千不如意，睡得着就过的去</description>
+    <pubDate>Tue, 06 Dec 2022 12:24:22 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>atong的主页</title>
+      <link>http://example.com/2022/12/06/hello-world/</link>
+      <guid>http://example.com/2022/12/06/hello-world/</guid>
+      <pubDate>Tue, 06 Dec 2022 05:28:42 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h2 id=&quot;About-Me&quot;&gt;&lt;a href=&quot;#About-Me&quot; class=&quot;headerlink&quot; title=&quot;About Me&quot;&gt;&lt;/a&gt;About Me&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;🔭 一个菜鸡研究生（希望毕业顺利）&lt;/li&gt;
+&lt;li&gt;🤔 方向：EMS | </description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<h2 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h2><ul><li>🔭 一个菜鸡研究生（希望毕业顺利）</li><li>🤔 方向：EMS | 智能驾驶</li><li>⚡ 个签：万千不如意，睡得着就过的去。</li></ul><h2 id="Orientation"><a href="#Orientation" class="headerlink" title="Orientation"></a>Orientation</h2><ul><li>😁 coding. </li><li>✨ nothing.</li></ul><h2 id="Key-Skills"><a href="#Key-Skills" class="headerlink" title="Key Skills"></a>Key Skills</h2><ul><li>1️⃣ c&#x2F;cpp.</li><li>2️⃣ matlab&#x2F;simulink.</li><li>3️⃣ python.</li><li>4️⃣ linux.</li><li>5️⃣ RL.</li></ul>]]></content:encoded>
+      
+      
+      
+      
+      <comments>http://example.com/2022/12/06/hello-world/#disqus_thread</comments>
+      
+    </item>
+    
+  </channel>
+</rss>
