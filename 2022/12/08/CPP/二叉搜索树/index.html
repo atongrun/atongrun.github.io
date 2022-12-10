@@ -17,15 +17,15 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="二叉搜索树概念 二叉搜索树又称二叉排序树，它或者是一棵空树，或者是具有以下性质的二叉树:    若它的左子树不为空，则左子树上所有节点的值都小于根节点的值   若它的右子树不为空，则右子树上所有节点的值都大于根节点的值   它的左右子树也分别为二叉搜索树    二叉搜索树实现结构框架1234567891011121314151617181920template &lt;class K&gt;str">
+  <meta name="description" content="二叉搜索树概念 二叉搜索树又称二叉排序树，它或者是一棵空树，或者是具有以下性质的二叉树:    若它的左子树不为空，则左子树上所有节点的值都小于根节点的值   若它的右子树不为空，则右子树上所有节点的值都大于根节点的值   它的左右子树也分别为二叉搜索树">
 <meta property="og:type" content="article">
 <meta property="og:title" content="二叉搜索树">
-<meta property="og:url" content="http://example.com/2022/12/08/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/index.html">
+<meta property="og:url" content="http://example.com/2022/12/08/CPP/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/index.html">
 <meta property="og:site_name" content="atong的网站">
-<meta property="og:description" content="二叉搜索树概念 二叉搜索树又称二叉排序树，它或者是一棵空树，或者是具有以下性质的二叉树:    若它的左子树不为空，则左子树上所有节点的值都小于根节点的值   若它的右子树不为空，则右子树上所有节点的值都大于根节点的值   它的左右子树也分别为二叉搜索树    二叉搜索树实现结构框架1234567891011121314151617181920template &lt;class K&gt;str">
+<meta property="og:description" content="二叉搜索树概念 二叉搜索树又称二叉排序树，它或者是一棵空树，或者是具有以下性质的二叉树:    若它的左子树不为空，则左子树上所有节点的值都小于根节点的值   若它的右子树不为空，则右子树上所有节点的值都大于根节点的值   它的左右子树也分别为二叉搜索树">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202212081211954.png">
 <meta property="og:image" content="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202212081334295.png">
@@ -35,13 +35,13 @@
 <meta property="og:image" content="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202212081509463.png">
 <meta property="og:image" content="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202212081509737.png">
 <meta property="article:published_time" content="2022-12-08T11:21:32.226Z">
-<meta property="article:modified_time" content="2022-12-10T10:58:53.311Z">
+<meta property="article:modified_time" content="2022-12-10T11:07:46.512Z">
 <meta property="article:author" content="atong">
 <meta property="article:tag" content="二叉树">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202212081211954.png">
 
-<link rel="canonical" href="http://example.com/2022/12/08/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">
+<link rel="canonical" href="http://example.com/2022/12/08/CPP/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">
 
 
 <script id="page-configurations">
@@ -208,7 +208,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/08/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/08/CPP/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202212061540847.jpg">
@@ -239,7 +239,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-10 18:58:53" itemprop="dateModified" datetime="2022-12-10T18:58:53+08:00">2022-12-10</time>
+                <time title="修改时间：2022-12-10 19:07:46" itemprop="dateModified" datetime="2022-12-10T19:07:46+08:00">2022-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -292,6 +292,7 @@
 </ul>
 </blockquote>
 <p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202212081211954.png"></p>
+ <span id="more"></span>
 <h1 id="二叉搜索树实现"><a href="#二叉搜索树实现" class="headerlink" title="二叉搜索树实现"></a>二叉搜索树实现</h1><h2 id="结构框架"><a href="#结构框架" class="headerlink" title="结构框架"></a>结构框架</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">K</span>&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">BSTreeNode</span></span><br><span class="line">&#123;</span><br><span class="line">	BSTreeNode *left;</span><br><span class="line">	BSTreeNode *right;</span><br><span class="line">	K _key;</span><br><span class="line">	<span class="built_in">BSTreeNode</span>(<span class="type">const</span> K &amp;key) : <span class="built_in">left</span>(<span class="literal">nullptr</span>), <span class="built_in">right</span>(<span class="literal">nullptr</span>), _key(key)&#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">K</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BSTree</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">typedef</span> BSTreeNode&lt;K&gt; Node;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	Node *_root = <span class="literal">nullptr</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
 
 
@@ -417,7 +418,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2022/12/08/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" title="二叉搜索树">http://example.com/2022/12/08/二叉搜索树/</a>
+    <a href="http://example.com/2022/12/08/CPP/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" title="二叉搜索树">http://example.com/2022/12/08/CPP/二叉搜索树/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -467,7 +468,7 @@
     <div class="post-nav">
       <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2022/12/10/102%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="next" title="102. 二叉树的层序遍历">
+    <a href="/2022/12/10/%E5%8A%9B%E6%89%A3/102%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="next" title="102. 二叉树的层序遍历">
       102. 二叉树的层序遍历 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
