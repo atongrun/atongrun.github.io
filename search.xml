@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>如何最快的打造一个帅气好看可以装逼的github主页呢？</title>
+      <link href="/2023/01/22/%E5%B7%A5%E5%85%B7/github/github%E4%B8%BB%E9%A1%B5/"/>
+      <url>/2023/01/22/%E5%B7%A5%E5%85%B7/github/github%E4%B8%BB%E9%A1%B5/</url>
+      
+        <content type="html"><![CDATA[<p><strong>先说结论：抄别人好看的主页</strong></p><blockquote><p>PS：自己去搞得话，并不一定好弄，而且不如人家的好看，当然我也在后边放了几个小网站，想自己丰富的可以去看看。</p></blockquote><h2 id="好看主页推荐"><a href="#好看主页推荐" class="headerlink" title="好看主页推荐"></a>好看主页推荐</h2><blockquote><p>这边推荐四个主页，后边会说复制主页的方法，github的主页是需要建立一个与github的ID同名的仓库的，然后里面放README.md的文档，这个文档内容就会被展示到主页。</p></blockquote><p><a href="https://github.com/blinkfox">blinkfox (闪烁之狐 (blinkfox)) (github.com)</a></p><p>推荐指数：⭐⭐⭐⭐</p><p>好看指数：⭐⭐</p><p>复制难易：⭐⭐</p><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202301210027622.png"></p><p><a href="https://github.com/L1cardo">L1cardo (Licardo) (github.com)</a></p><p>推荐指数：⭐⭐⭐⭐⭐</p><p>好看指数：⭐⭐⭐⭐</p><p>复制难易：⭐⭐⭐⭐</p><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202301210034952.png"></p><p><a href="https://github.com/appotry">appotry (夜法之书(appotry)) (github.com)</a></p><p>推荐指数：⭐⭐</p><p>好看指数：⭐⭐⭐</p><p>复制难易：⭐⭐⭐⭐</p><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202301210041636.png"></p><p><a href="https://github.com/atongrun">atongrun (孙菜菜) (github.com)</a></p><p>推荐指数：⭐⭐⭐</p><p>好看指数：⭐⭐</p><p>复制难易：⭐⭐</p><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202301210049534.png"></p><blockquote><p>前三个是大佬的，最后一个是我的，我是抄的大佬的，这里就没必要放太多了，因为大差不差，大家可以自己打开github主页下载文档，当然方便点也可以关注我的公众号【孙菜菜】，回复【帅气主页】，获取源文件。</p></blockquote><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202301210119032.png"></p><h2 id="如何复制"><a href="#如何复制" class="headerlink" title="如何复制"></a>如何复制</h2><h3 id="步骤1、建立同名仓库"><a href="#步骤1、建立同名仓库" class="headerlink" title="步骤1、建立同名仓库"></a>步骤1、建立同名仓库</h3><p>在github上建立一个同名的仓库，这里就不多说，看主页美化的大家应该都会的，然后对README.md文档操作就OK了</p><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202301211357638.png"></p><h2 id="步骤2、Copy大法"><a href="#步骤2、Copy大法" class="headerlink" title="步骤2、Copy大法"></a>步骤2、Copy大法</h2><blockquote><p>具体步骤如下，记得一定用markdown编辑器弄最好，容易显示出实时的效果，可以按照自己的喜欢酌情删减哦，或者几个文档混合copy</p></blockquote><ul><li>打开四个文件夹的任何一个（你喜欢的）</li><li>将所有内容放到你本地仓库</li><li>打开README.md文档，将里面的github用户名换成自己的</li><li>将各种链接换成自己的</li><li>git add -&gt; git commit -&gt; git push 大功告成</li></ul><blockquote><p>当然，如果大家嫌麻烦怕改链接名错误啥的话，同样关注【孙菜菜】公众号，回复【帅气主页】，获取源文件。里面我还放了个详细的说明，以我的github主页为例子，放到word里面了，将所有需要修改的地方都加上了高亮和注释。</p></blockquote><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202301211354492.png"></p><blockquote><p>欢迎关注哦。</p></blockquote><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202301211358151.gif"></p><h2 id="网站推荐"><a href="#网站推荐" class="headerlink" title="网站推荐"></a>网站推荐</h2><blockquote><p>如果大家非得说不喜欢直接copy别人的，那么你就可以看看下面几个网站了，这下边是我觉得最常见的github主页的几个部件了，如果你要配的比较好看的话，可能还需要懂一点HTML语言哦</p></blockquote><p><a href="https://www.webfx.com/tools/emoji-cheat-sheet/">各种表情</a></p><blockquote><p>在这里有许多 emoji 的符号代码，你可以直接将它们用到 README 中。</p></blockquote><p>实用指数：⭐⭐⭐</p><p><a href="https://github.com/anuraghazra/github-readme-stats/blob/master/docs/readme_cn.md">统计卡片</a></p><blockquote><p>这个就是github主页最常见的小部件了</p></blockquote><p>实用指数：⭐⭐⭐⭐</p><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202301210105140.png"></p><p><a href="https://shields.io/">丰富标签</a></p><blockquote><p>无论是项目还是github主页出现频率超高的小标签，非常的实用。</p></blockquote><p>实用指数：⭐⭐⭐⭐⭐</p><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202301210106308.png"></p><p><a href="https://github.com/ryo-ma/github-profile-trophy/blob/master/README.md">各种奖杯</a></p><blockquote><p>这个也是和卡片差不多的统计相关的小部件，出现频率也挺高</p></blockquote><p>实用指数：⭐⭐⭐</p><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202301211413651.png"></p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>有一个好看的github主页挺好玩主要的可以装逼，希望大家都能搞一个令自己满意的主页。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+          <category> github </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>白嫖零花钱</title>
       <link href="/2023/01/19/%E5%89%AF%E4%B8%9A/%E9%9B%B6%E8%8A%B1%E9%92%B1/"/>
       <url>/2023/01/19/%E5%89%AF%E4%B8%9A/%E9%9B%B6%E8%8A%B1%E9%92%B1/</url>
