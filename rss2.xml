@@ -9,8 +9,35 @@
     <atom:link href="http://example.com/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>万千不如意，睡得着就过得去</description>
-    <pubDate>Sat, 28 Jan 2023 06:34:31 GMT</pubDate>
+    <pubDate>Sun, 29 Jan 2023 14:28:59 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>高并发内存池-序章</title>
+      <link>http://example.com/2023/01/29/%E9%A1%B9%E7%9B%AE/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0-%E5%BA%8F%E7%AB%A0/</link>
+      <guid>http://example.com/2023/01/29/%E9%A1%B9%E7%9B%AE/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0-%E5%BA%8F%E7%AB%A0/</guid>
+      <pubDate>Sun, 29 Jan 2023 14:10:09 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;项目介绍&quot;&gt;&lt;a href=&quot;#项目介绍&quot; class=&quot;headerlink&quot; title=&quot;项目介绍&quot;&gt;&lt;/a&gt;项目介绍&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;这是一个CPP实现的高并发内存池，原型是谷歌的tcmalloc开源项目（Thread-Cachin</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><blockquote><p>这是一个CPP实现的高并发内存池，原型是谷歌的tcmalloc开源项目（Thread-Caching Malloc），既线程缓存的malloc，实现了高效的多线程内存管理，用于替代系统的内存分配相关函数（malloc、free）</p></blockquote><h1 id="前置需求"><a href="#前置需求" class="headerlink" title="前置需求"></a>前置需求</h1><ul><li>C&#x2F;C++</li><li>数据结构（链表、哈希桶）</li><li>操作系统内存管理</li><li>单例模式</li><li>多线程</li><li>互斥锁</li><li>….</li></ul><h1 id="内存池简介"><a href="#内存池简介" class="headerlink" title="内存池简介"></a>内存池简介</h1><h2 id="1、池化技术"><a href="#1、池化技术" class="headerlink" title="1、池化技术"></a>1、池化技术</h2><blockquote><p>池化技术就是程序先向系统申请过量的资源，然后自己管理，能大大提升程序的运行效率</p></blockquote><p>常见的池化技术场景</p><ul><li>内存池</li><li>线程池</li><li>对象池</li><li>…..</li></ul><h2 id="2、内存池"><a href="#2、内存池" class="headerlink" title="2、内存池"></a>2、内存池</h2><blockquote><p>内存池是指程序预先从操作系统申请一块足够大内存，此后，当程序中需要申请内存的时候，不是直接向操作系统申请，而是直接从内存池中获取；同理，当程序释放内存的时候，并不真正将内存返回给操作系统，而是返回内存池。当程序退出(或者特定时间)时，内存池才将之前申请的内存真正释放。</p></blockquote><h2 id="3、内存池解决的问题"><a href="#3、内存池解决的问题" class="headerlink" title="3、内存池解决的问题"></a>3、内存池解决的问题</h2><h3 id="内存碎片问题"><a href="#内存碎片问题" class="headerlink" title="内存碎片问题"></a>内存碎片问题</h3><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202301292200227.png" alt="内存碎片.png"></p><h3 id="效率问题"><a href="#效率问题" class="headerlink" title="效率问题"></a>效率问题</h3><blockquote><p>向操作系统频繁申请内存消耗较大，内存池能够避免让程序频繁的向系统申请和释放内存</p></blockquote><h2 id="4、malloc"><a href="#4、malloc" class="headerlink" title="4、malloc"></a>4、malloc</h2><blockquote><p>C&#x2F;C++中动态申请内存都是通过malloc去申请内存，malloc本质也是一个内存池，原理如下：</p></blockquote><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202301292206748.png" alt="image.png"></p>]]></content:encoded>
+      
+      
+      <category domain="http://example.com/categories/%E9%A1%B9%E7%9B%AE/">项目</category>
+      
+      <category domain="http://example.com/categories/%E9%A1%B9%E7%9B%AE/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/">高并发内存池</category>
+      
+      
+      
+      <comments>http://example.com/2023/01/29/%E9%A1%B9%E7%9B%AE/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0-%E5%BA%8F%E7%AB%A0/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>课程推荐-理财篇</title>
@@ -245,32 +272,6 @@
       
       
       <comments>http://example.com/2023/01/14/CPP/%E7%BB%A7%E6%89%BF/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>markdown语法</title>
-      <link>http://example.com/2023/01/14/%E5%B7%A5%E5%85%B7/markdown/markdown%E8%AF%AD%E6%B3%95/</link>
-      <guid>http://example.com/2023/01/14/%E5%B7%A5%E5%85%B7/markdown/markdown%E8%AF%AD%E6%B3%95/</guid>
-      <pubDate>Sat, 14 Jan 2023 06:15:28 GMT</pubDate>
-      
-        
-        
-      <description>&lt;h1 id=&quot;字体&quot;&gt;&lt;a href=&quot;#字体&quot; class=&quot;headerlink&quot; title=&quot;字体&quot;&gt;&lt;/a&gt;字体&lt;/h1&gt;&lt;h2 id=&quot;斜体&quot;&gt;&lt;a href=&quot;#斜体&quot; class=&quot;headerlink&quot; title=&quot;斜体&quot;&gt;&lt;/a&gt;斜体&lt;/h2&gt;&lt;block</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<h1 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h1><h2 id="斜体"><a href="#斜体" class="headerlink" title="斜体"></a>斜体</h2><blockquote><p>两个下划线，或者两个星号</p></blockquote><p><em>斜体</em><br><em>斜体</em></p><h2 id="粗体"><a href="#粗体" class="headerlink" title="粗体"></a>粗体</h2><blockquote><p>两个下划线或者两个星号</p></blockquote><p><strong>粗体</strong><br><strong>粗体</strong></p><h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><blockquote><p>三个星号，或者三个下划线，粗斜体</p></blockquote><p><em><strong>粗斜体</strong></em></p><h2 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h2><blockquote><p>前后两个~~</p></blockquote><p><del>删除线</del></p><h2 id="下划线"><a href="#下划线" class="headerlink" title="下划线"></a>下划线</h2><blockquote><p><u> </u></p></blockquote><p><u> 下划线</u></p><h1 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h1><blockquote><p>一个&gt;两个&gt;&gt;三个&gt;&gt;&gt;</p></blockquote><blockquote><p>1</p><blockquote><p>2</p><blockquote><p>3</p></blockquote></blockquote></blockquote><h1 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h1><blockquote><p>加 : 可以实现左对齐，右对齐，居中，不加默认左对齐 </p></blockquote><table><thead><tr><th align="left">表头</th><th align="left">表头</th><th align="left">表头</th></tr></thead><tbody><tr><td align="left">单元格</td><td align="left">单元格</td><td align="left">单元格</td></tr><tr><td align="left">单元格</td><td align="left">单元格</td><td align="left">单元格</td></tr></tbody></table><h1 id="mermaid"><a href="#mermaid" class="headerlink" title="mermaid"></a>mermaid</h1><h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">A[Hard] --&gt;|Text| B(Round)</span><br><span class="line">B --&gt; C&#123;Decision&#125;</span><br><span class="line">C --&gt;|One| D[Result 1]</span><br><span class="line">C --&gt;|Two| E[Result 2]</span><br></pre></td></tr></table></figure><table><thead><tr><th align="center">TD</th><th align="center">TB</th><th align="center">BT</th><th align="center">RL</th><th align="center">LR</th></tr></thead><tbody><tr><td align="center">上到下</td><td align="center">上到下</td><td align="center">下到上</td><td align="center">右到左</td><td align="center">左到右</td></tr></tbody></table><h2 id="饼图"><a href="#饼图" class="headerlink" title="饼图"></a>饼图</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pie</span><br><span class="line">    title 为什么总是宅在家里？</span><br><span class="line">    &quot;喜欢宅&quot; : 45</span><br><span class="line">    &quot;天气太热&quot; : 70</span><br><span class="line">    &quot;穷&quot; : 500</span><br><span class="line">&quot;关你屁事&quot; : 95</span><br></pre></td></tr></table></figure><h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">    Animal &lt;|-- Duck</span><br><span class="line">    Animal &lt;|-- Fish</span><br><span class="line">    Animal &lt;|-- Zebra</span><br><span class="line">    Animal : +int age</span><br><span class="line">    Animal : +String gender</span><br><span class="line">    Animal: +isMammal()</span><br><span class="line">    Animal: +mate()</span><br><span class="line">    class Duck&#123;</span><br><span class="line">      +String beakColor</span><br><span class="line">      +swim()</span><br><span class="line">      +quack()</span><br><span class="line">    &#125;</span><br><span class="line">    class Fish&#123;</span><br><span class="line">      -int sizeInFeet</span><br><span class="line">      -canEat()</span><br><span class="line">    &#125;</span><br><span class="line">    class Zebra&#123;</span><br><span class="line">      +bool is_wild</span><br><span class="line">      +run()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><p>测试ing</p>]]></content:encoded>
-      
-      
-      <category domain="http://example.com/categories/%E5%B7%A5%E5%85%B7/">工具</category>
-      
-      <category domain="http://example.com/categories/%E5%B7%A5%E5%85%B7/markdown/">markdown</category>
-      
-      
-      
-      <comments>http://example.com/2023/01/14/%E5%B7%A5%E5%85%B7/markdown/markdown%E8%AF%AD%E6%B3%95/#disqus_thread</comments>
       
     </item>
     
