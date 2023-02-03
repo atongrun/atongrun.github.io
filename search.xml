@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>高并发内存池-框架</title>
+      <link href="/2023/02/03/%E9%A1%B9%E7%9B%AE/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0-%E6%A1%86%E6%9E%B6/"/>
+      <url>/2023/02/03/%E9%A1%B9%E7%9B%AE/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0-%E6%A1%86%E6%9E%B6/</url>
+      
+        <content type="html"><![CDATA[<h1 id="问题考虑"><a href="#问题考虑" class="headerlink" title="问题考虑"></a>问题考虑</h1><blockquote><p>主要是在多线程高并发的场景下，性能更强，主要考虑下面几个问题</p></blockquote><ol><li>性能问题</li><li>多线程环境下，锁竞争问题</li><li>内存碎片问题</li></ol><h1 id="组成部分"><a href="#组成部分" class="headerlink" title="组成部分"></a>组成部分</h1><blockquote><p>concurrent memory pool 主要由三部分构成：thread cache、central cache、page cache，如下图所示</p></blockquote><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202302031859699.png" alt="sdsdasd.drawio.png"></p><ol><li><strong>thread cache</strong> : 线程缓存，是每个线程独有的，用于小于256kb内存的分配，线程从这里申请内存不需要加锁，每个线程独享一个cache，这也是内存池高效的原因</li><li><strong>central cache</strong> : 中心缓存，被所有线程共享，thread cache是按需从central cache 中获取的对象，central cache合适的时机回收thread cache的对象，避免一个线程占用过多的内存，而其他线程内存不足，使得内存分配在多个线程中更均衡的按需调度，cnetral cache是存在竞争的，从这里获取内存对象需要加锁，但是这里用的是<strong>桶锁</strong>，而且只有thread cache没有内存对象时，才会找central  cache，所以这里竞争不会很激烈。</li><li><strong>page cache</strong> : 页缓存，是在central cache缓存上面的一层缓存，存储的内存是以页为单位存储及分配的，central cache没有内存对象时，从page cache分配出一定数量的page，并且切割成定长大小的小块内存，分配给central cache，当一个span的几个跨度页的对象都回收以后，page cache会回收central cache满足条件的span对象，并且合并相邻的页，组成更大的页，缓解内存碎片的问题。</li></ol><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><blockquote><p>高并发内存池的这三部分都挺复杂，后面也会具体分为三个章节谈论这三个部分的原理以及实现。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 项目 </category>
+          
+          <category> 高并发内存池 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>高并发内存池-预备</title>
       <link href="/2023/02/02/%E9%A1%B9%E7%9B%AE/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0-%E9%A2%84%E5%A4%87/"/>
       <url>/2023/02/02/%E9%A1%B9%E7%9B%AE/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0-%E9%A2%84%E5%A4%87/</url>
