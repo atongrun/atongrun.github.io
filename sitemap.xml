@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://atong.run/music/index.html</loc>
+    
+    <lastmod>2023-02-05</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://atong.run/posts/3307342311/</loc>
     
     <lastmod>2023-02-05</lastmod>
@@ -353,6 +362,13 @@
 
   
   <url>
+    <loc>https://atong.run/tags/C11/</loc>
+    <lastmod>2023-02-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://atong.run/tags/C-11/</loc>
     <lastmod>2023-02-05</lastmod>
     <changefreq>weekly</changefreq>
@@ -361,13 +377,6 @@
   
   <url>
     <loc>https://atong.run/tags/STL/</loc>
-    <lastmod>2023-02-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://atong.run/tags/C11/</loc>
     <lastmod>2023-02-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -404,14 +413,14 @@
 
   
   <url>
-    <loc>https://atong.run/categories/CPP/</loc>
+    <loc>https://atong.run/categories/C/</loc>
     <lastmod>2023-02-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://atong.run/categories/C/</loc>
+    <loc>https://atong.run/categories/CPP/</loc>
     <lastmod>2023-02-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -439,14 +448,14 @@
   </url>
   
   <url>
-    <loc>https://atong.run/categories/%E5%B7%A5%E5%85%B7/</loc>
+    <loc>https://atong.run/categories/%E6%8E%A8%E8%8D%90/</loc>
     <lastmod>2023-02-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://atong.run/categories/%E6%8E%A8%E8%8D%90/</loc>
+    <loc>https://atong.run/categories/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2023-02-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -460,7 +469,7 @@
   </url>
   
   <url>
-    <loc>https://atong.run/categories/%E5%B7%A5%E5%85%B7/github/</loc>
+    <loc>https://atong.run/categories/%E6%8E%A8%E8%8D%90/%E4%B8%9A%E4%BD%99/</loc>
     <lastmod>2023-02-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -481,7 +490,7 @@
   </url>
   
   <url>
-    <loc>https://atong.run/categories/%E6%8E%A8%E8%8D%90/%E4%B8%9A%E4%BD%99/</loc>
+    <loc>https://atong.run/categories/%E5%B7%A5%E5%85%B7/github/</loc>
     <lastmod>2023-02-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
