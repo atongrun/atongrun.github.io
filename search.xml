@@ -5,8 +5,8 @@
     
     <entry>
       <title>hexo-butterfly主题-giscus评论</title>
-      <link href="/posts/3396067387/"/>
-      <url>/posts/3396067387/</url>
+      <link href="/posts/3307342311/"/>
+      <url>/posts/3307342311/</url>
       
         <content type="html"><![CDATA[<h2 id="1、创建新仓库">1、创建新仓库</h2><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202302051226551.png" alt="image.png"></p><h2 id="2、安装giscus">2、安装giscus</h2><p>点击这个链接安装：<a href="https://github.com/apps/giscus">GitHub Apps - giscus</a></p><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202302051226562.png" alt="image.png"></p><p>选择刚建立的仓库，点击install</p><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202302051228750.png" alt="image.png"></p><h2 id="3、配置仓库discuss部分">3、配置仓库discuss部分</h2><p>首先打开仓库的setting，将Discussions部分打上对号</p><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202302051535566.png" alt="image.png"></p><p>然后建立一个Announcements的分类</p><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202302051537858.png" alt="image.png"></p><h2 id="4、进入giscus配置">4、进入giscus配置</h2><p>链接在这：<a href="https://giscus.app/zh-CN">giscus</a></p><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202302051524708.png" alt="image.png"></p><p>配置完上述部分后，可以在启动giscus下边复制几个东西</p><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202302051530141.png" alt="image.png"></p><p>将上边复制的东西填到butterfly主题配置文件的这里就可以了</p><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202302051531097.png" alt="image.png"></p><h2 id="5、大功告成">5、大功告成</h2><p>博客文章部分就有了下边的评论区</p><p><img src="https://tong-1306822294.cos.ap-beijing.myqcloud.com/tong/picture/202302051538865.png" alt="image.png"></p>]]></content>
       
