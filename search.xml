@@ -4,6 +4,46 @@
   
     
     <entry>
+      <title></title>
+      <link href="/posts/0/"/>
+      <url>/posts/0/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Damus下载</title>
+      <link href="/posts/1935618777/"/>
+      <url>/posts/1935618777/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>Damus是一款建立在去中心化网络Nostr（支持加密的端到端私人消息传递等功能）上的应用软件，其中Nostr并不是基于服务器来运行网络，相反，它是利用去中心化中继器来分发消息。中继器（Relay）是托管的服务器，所有人都可以运行中继器。获得其他用户，比如你好友的更新，需要研究询问多个中继站是否了解其他人的情况；而中继站所做的，就是接受人们的帖子并将其转发给其他人。</p></blockquote><h2 id="下载地址">下载地址</h2><ul><li><p><a href="https://apps.apple.com/ca/app/damus/id1628663131">苹果下载链接Damus</a></p></li><li><p><a href="https://play.google.com/store/apps/details?id=com.vitorpamplona.amethyst&amp;hl=en%E2%80%A6">安卓下载链接Amethyst</a></p></li><li><p><a href="https://snort.social">网页版</a></p></li></ul><blockquote><p>注意不要把你的私钥当做公钥发出来。</p></blockquote><h2 id="换头像方式：">换头像方式：</h2><ul><li>需要图床图片链接</li><li>回到Damus，edit profile，头像的链接粘贴save即可</li></ul><h2 id="使用体验">使用体验</h2><p>已经使用了两天，登录注册体验很不错，不需要提供任何的个人信息，（手机号、邮箱、推特、Facebook…），直接注册给你公钥和私钥，但是使用起来体验十分的差劲，可能是没有监管的原因，各种各样的广告满天飞，没有监管的去中心化社交不大行感觉</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> web3.0 </category>
+          
+          <category> 社交 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> web3.0 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>高并发内存池-ThreadCache</title>
       <link href="/posts/1785806469/"/>
       <url>/posts/1785806469/</url>
