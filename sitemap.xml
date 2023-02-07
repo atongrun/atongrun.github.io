@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>https://atong.run/posts/3396067387/</loc>
+    <loc>https://atong.run/posts/4062989894/</loc>
     
     <lastmod>2023-02-05</lastmod>
     
@@ -56,7 +56,7 @@
   </url>
   
   <url>
-    <loc>https://atong.run/posts/4062989894/</loc>
+    <loc>https://atong.run/posts/3396067387/</loc>
     
     <lastmod>2023-02-05</lastmod>
     
@@ -462,7 +462,7 @@
   </url>
   
   <url>
-    <loc>https://atong.run/categories/%E9%A1%B9%E7%9B%AE/</loc>
+    <loc>https://atong.run/categories/%E5%B7%A5%E5%85%B7/%E5%85%B6%E4%BB%96/</loc>
     <lastmod>2023-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -476,7 +476,14 @@
   </url>
   
   <url>
-    <loc>https://atong.run/categories/%E5%B7%A5%E5%85%B7/%E5%85%B6%E4%BB%96/</loc>
+    <loc>https://atong.run/categories/%E5%B7%A5%E5%85%B7/%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2023-02-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://atong.run/categories/%E9%A1%B9%E7%9B%AE/</loc>
     <lastmod>2023-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -491,13 +498,6 @@
   
   <url>
     <loc>https://atong.run/categories/%E6%8E%A8%E8%8D%90/%E4%B8%9A%E4%BD%99/</loc>
-    <lastmod>2023-02-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://atong.run/categories/%E5%B7%A5%E5%85%B7/%E5%8D%9A%E5%AE%A2/</loc>
     <lastmod>2023-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
