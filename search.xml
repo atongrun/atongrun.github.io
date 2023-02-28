@@ -4,6 +4,48 @@
   
     
     <entry>
+      <title>纯电动汽车simulink教程</title>
+      <link href="/posts/1513554255/"/>
+      <url>/posts/1513554255/</url>
+      
+        <content type="html"><![CDATA[<h1>纯电动汽车simulink模型</h1><h2 id="课程简介">课程简介</h2><p><img src="https://img.shields.io/github/stars/suntong-1221/EV_Model.svg" alt="Github stars"><br><a href="https://ci.appveyor.com/project/suntong-1221/EV_Model"><img src="https://ci.appveyor.com/api/projects/status/sb279kxuv1be391g?svg=true" alt="Build status"></a></p><p>​该模型为纯电动汽车单电机整车模型🚗，整车模型可正常仿真运行，但是其中可能存在较大问题，同学们在学习的时候一定要辩证的看待，然后里面缺少几个表数据，这个并没有公开，因为是课题组的资源。</p><ul><li>已经添加了2018a版本的模型文件</li><li>B站链接：<a href="https://www.bilibili.com/video/BV1cm4y1S7Rs?spm_id_from=333.999.0.0">https://www.bilibili.com/video/BV1cm4y1S7Rs?spm_id_from=333.999.0.0</a></li></ul><hr><h2 id="新增内容">新增内容</h2><p>​因为最初上传模型EV_v0.1版本缺少部分课题组内部数据，应同学要求，新增EM_v0.2版本，下载可正常运行，电机是随便找的硕士论文电机额定功率为34kw，最大转矩130Nm，然后我随便按照特性编的数据，电机效率固定为0.95，电池部分，直接给了固定内阻和固定单体电池电压。</p><p><font color=Red>注意事项</font>:underage:</p><ul><li>模型大致符合电动汽车特性，但是数据及其不可信</li><li>简单学习使用，辩证看待</li></ul><hr><h2 id="课程分节">课程分节</h2><ol><li><a href="https://www.bilibili.com/video/BV1cm4y1S7Rs/?spm_id_from=333.788&amp;vd_source=df2f7337299806c5a1ed5a5f5b4ffd1d">纯电动汽车simulink建模仿真-框架逻辑</a></li><li><a href="https://www.bilibili.com/video/BV1a3411Y7dg/?spm_id_from=333.788&amp;vd_source=df2f7337299806c5a1ed5a5f5b4ffd1d">纯电动汽车simulink建模仿真-驾驶员模型</a></li><li><a href="https://www.bilibili.com/video/BV1GT4y1y7TU/?spm_id_from=333.788&amp;vd_source=df2f7337299806c5a1ed5a5f5b4ffd1d">纯电动汽车simulink建模仿真-电池模型</a></li><li><a href="https://www.bilibili.com/video/BV18L4y1s7W2/?spm_id_from=333.788&amp;vd_source=df2f7337299806c5a1ed5a5f5b4ffd1d">纯电动汽车simulink建模仿真-控制模型</a></li><li><a href="https://www.bilibili.com/video/BV1Yq4y1b7PB/?spm_id_from=333.788&amp;vd_source=df2f7337299806c5a1ed5a5f5b4ffd1d">纯电动汽车simulink建模仿真-电机模型</a></li><li><a href="https://www.bilibili.com/video/BV1kb4y177MD/?spm_id_from=333.788&amp;vd_source=df2f7337299806c5a1ed5a5f5b4ffd1d">纯电动汽车simulink建模仿真-车身模型</a></li><li><a href="https://www.bilibili.com/video/BV1r5411o7Rg/?spm_id_from=333.788&amp;vd_source=df2f7337299806c5a1ed5a5f5b4ffd1d">纯电动汽车simulink建模仿真-仿真与欧拉算法</a></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 开源课程 </category>
+          
+          <category> simulink </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>python菜鸡教程</title>
+      <link href="/posts/2838110349/"/>
+      <url>/posts/2838110349/</url>
+      
+        <content type="html"><![CDATA[<h1>python菜鸡教程</h1><h2 id="课程简介">课程简介</h2><blockquote><p>费曼学习法是比较有名的一种学习方式，核心要义是通过复述概念并反馈结果来加强记忆，它是符合大脑的认知规律，从混乱走向有序的过程，从被动记忆走向主动理解并阐述。这么棒的学习方式当然要尝试尝试，通过这种方式我也尝试学学python</p></blockquote><p>课程依托于大佬文字版教程<a href="https://www.liaoxuefeng.com/wiki/1016959663602400">廖雪峰python教程</a>进行理解与讲述</p><h2 id="课程链接">课程链接</h2><p><a href="https://www.ixigua.com/7173635950831108620?logTag=51f64d219c69d66c8201">第一节、输入和输出</a></p><p><a href="https://www.ixigua.com/7174049005603979791?logTag=622639136a3e74362eb4">第二节、数据类型和变量</a></p><p><a href="https://www.ixigua.com/7178820918473392655?logTag=ac50f7d3ba276998ee50">第三节、字符串和编码</a></p><p><a href="https://www.ixigua.com/7181108669298410024?logTag=9135f17cb2c13d20b8e2">第四节、使用list和tuple</a></p><p><a href="https://www.ixigua.com/7181418828872876547?logTag=9889661aec1751e1989c">第五节、条件判断和循环</a></p><p><a href="https://www.ixigua.com/7190390094074184203?logTag=66a3f6d9d08eddd09840">第六节、使用dict和set</a></p><p><a href="https://www.ixigua.com/7194312039769211396?logTag=9217a796a89d2de0e0f3">第七节、调用函数</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 开源课程 </category>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>9、高并发内存池-性能测试及优化</title>
       <link href="/posts/1573212312/"/>
       <url>/posts/1573212312/</url>
@@ -317,6 +359,8 @@
       
       <categories>
           
+          <category> 编程语言 </category>
+          
           <category> C </category>
           
       </categories>
@@ -495,6 +539,8 @@
       
       <categories>
           
+          <category> 编程语言 </category>
+          
           <category> CPP </category>
           
       </categories>
@@ -514,6 +560,8 @@
       
       <categories>
           
+          <category> 编程语言 </category>
+          
           <category> CPP </category>
           
       </categories>
@@ -532,6 +580,8 @@
       
       
       <categories>
+          
+          <category> 编程语言 </category>
           
           <category> CPP </category>
           
@@ -573,6 +623,8 @@
       
       <categories>
           
+          <category> 编程语言 </category>
+          
           <category> CPP </category>
           
       </categories>
@@ -591,6 +643,8 @@
       
       
       <categories>
+          
+          <category> 编程语言 </category>
           
           <category> CPP </category>
           
@@ -611,6 +665,8 @@
       
       <categories>
           
+          <category> 编程语言 </category>
+          
           <category> CPP </category>
           
       </categories>
@@ -629,6 +685,8 @@
       
       
       <categories>
+          
+          <category> 编程语言 </category>
           
           <category> CPP </category>
           
@@ -655,6 +713,8 @@
       
       <categories>
           
+          <category> 编程语言 </category>
+          
           <category> CPP </category>
           
       </categories>
@@ -679,6 +739,8 @@
       
       
       <categories>
+          
+          <category> 编程语言 </category>
           
           <category> CPP </category>
           
@@ -755,6 +817,8 @@
       
       <categories>
           
+          <category> 编程语言 </category>
+          
           <category> CPP </category>
           
       </categories>
@@ -779,6 +843,8 @@
       
       
       <categories>
+          
+          <category> 编程语言 </category>
           
           <category> CPP </category>
           
