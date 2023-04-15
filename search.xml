@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>ChatGPT学术优化-VsCode+Anaconda配置</title>
+      <link href="/posts/1863947790/"/>
+      <url>/posts/1863947790/</url>
+      
+        <content type="html"><![CDATA[<h1>项目简介</h1><blockquote><p>科研工作专用ChatGPT拓展，特别优化学术Paper润色体验，支持自定义快捷按钮，支持自定义函数插件，支持markdown代码块表格显示，Tex公式双显示，新增Python/C++项目剖析/自译解功能，PDF/LaTex论文翻译/总结功能，兼容ChatGLM等本地模型</p></blockquote><p><a href="https://github.com/binary-husky/chatgpt_academic">项目地址</a></p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202304122140207.png" alt="image.png"></p><h1>项目功能</h1><table><thead><tr><th>功能</th><th>描述</th></tr></thead><tbody><tr><td>一键润色</td><td>支持一键润色、一键查找论文语法错误</td></tr><tr><td>一键中英互译</td><td>一键中英互译</td></tr><tr><td>一键代码解释</td><td>可以正确显示代码、解释代码</td></tr><tr><td><a href="https://www.bilibili.com/video/BV14s4y1E7jN">自定义快捷键</a></td><td>支持自定义快捷键</td></tr><tr><td><a href="https://www.bilibili.com/video/BV1rc411W7Dr">配置代理服务器</a></td><td>支持配置代理服务器</td></tr><tr><td>模块化设计</td><td>支持自定义高阶的实验性功能与[函数插件]，插件支持<a href="https://github.com/binary-husky/chatgpt_academic/wiki/%E5%87%BD%E6%95%B0%E6%8F%92%E4%BB%B6%E6%8C%87%E5%8D%97">热更新</a></td></tr><tr><td><a href="https://www.bilibili.com/video/BV1cj411A7VW">自我程序剖析</a></td><td>[函数插件] 一键读懂本项目的源代码</td></tr><tr><td><a href="https://www.bilibili.com/video/BV1cj411A7VW">程序剖析</a></td><td>[函数插件] 一键可以剖析其他Python/C/C++/Java项目树</td></tr><tr><td>读论文</td><td>[函数插件] 一键解读latex论文全文并生成摘要</td></tr><tr><td>批量注释生成</td><td>[函数插件] 一键批量生成函数注释</td></tr><tr><td>chat分析报告生成</td><td>[函数插件] 运行后自动生成总结汇报</td></tr><tr><td><a href="https://www.bilibili.com/video/BV1LM4y1279X">arxiv小助手</a></td><td>[函数插件] 输入arxiv文章url即可一键翻译摘要+下载PDF</td></tr><tr><td><a href="https://www.bilibili.com/video/BV1KT411x7Wn">PDF论文全文翻译功能</a></td><td>[函数插件] PDF论文提取题目&amp;摘要+翻译全文（多线程）</td></tr><tr><td><a href="https://www.bilibili.com/video/BV19L411U7ia">谷歌学术统合小助手</a> (Version&gt;=2.45)</td><td>[函数插件] 给定任意谷歌学术搜索页面URL，让gpt帮你选择有趣的文章</td></tr><tr><td>公式显示</td><td>可以同时显示公式的tex形式和渲染形式</td></tr><tr><td>图片显示</td><td>可以在markdown中显示图片</td></tr><tr><td>多线程函数插件支持</td><td>支持多线调用chatgpt，一键处理海量文本或程序</td></tr><tr><td>支持GPT输出的markdown表格</td><td>可以输出支持GPT的markdown表格</td></tr><tr><td>启动暗色gradio<a href="https://github.com/binary-husky/chatgpt_academic/issues/173">主题</a></td><td>在浏览器url后面添加<code>/?__dark-theme=true</code>可以切换dark主题</td></tr><tr><td>huggingface免科学上网<a href="https://huggingface.co/spaces/qingxu98/gpt-academic">在线体验</a></td><td>登陆huggingface后复制<a href="https://huggingface.co/spaces/qingxu98/gpt-academic">此空间</a></td></tr><tr><td>……</td><td>……</td></tr></tbody></table><h1>VSCode+Anaconda配置</h1><h2 id="一、git-clone项目到本地">一、git clone项目到本地</h2><h3 id="1、使用Git">1、使用Git</h3><p>本地新建一个文件夹，然后打开git工具直接clone下来就OK</p><h2 id="2、直接下载">2、直接下载</h2><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202304122151887.png" alt="image.png"></p><h2 id="二、配置一下APIKEY和代理">二、配置一下APIKEY和代理</h2><blockquote><p>这里需要openai 的 apikey以及科学上网的方式，原文档讲述的非常全面</p></blockquote><p>教程：<a href="https://github.com/binary-husky/chatgpt_academic/wiki/%E4%BB%A3%E7%90%86%E8%BD%AF%E4%BB%B6%E9%97%AE%E9%A2%98%E7%9A%84%E6%96%B0%E6%89%8B%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%88%E6%96%B9%E6%B3%95%E5%8F%AA%E9%80%82%E7%94%A8%E4%BA%8E%E6%96%B0%E6%89%8B%EF%BC%89">项目中纯新手教程</a></p><h2 id="三、Vscode配置环境">三、Vscode配置环境</h2><h3 id="1、打开anaconda-prompt">1、打开anaconda prompt</h3><blockquote><p>执行下述命令</p></blockquote><p>1）conda create -n gptac_venv python=3.11<br>2）conda activate gptac_venv<br>3）python -m pip install -r requirements.txt</p><p>备注：使用官方pip源或者阿里pip源，其他pip源（如一些大学的pip）有可能出问题，临时换源方法：</p><p>python -m pip install -r requirements.txt -i <a href="https://mirrors.aliyun.com/pypi/simple/">https://mirrors.aliyun.com/pypi/simple/</a></p><h3 id="2、打开vscode">2、打开vscode</h3><p>1、ctrl + shift +p 打开设置</p><p>2、搜索python编译</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202304122159220.png" alt="image.png"></p><p>3、选择建好的conda环境</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202304122200398.png" alt="image.png"></p><p>4、ctrl + ~ 调出来终端，输入 python <a href="http://main.py">main.py</a></p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202304152238378.png" alt="image.png"></p><h2 id="四、大功告成">四、大功告成</h2><blockquote><p>现在就可以愉快的使用了</p></blockquote><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202304152240864.png" alt="image.png"></p><p>这里面的几个功能都挺不错的，英文学术润色、中文学术润色、中英互译、查找语法错误，都挺好</p><p>PS： 以前的ChatGPT账号调用API是送18刀的免费额度的，但是这个免费的额度在4月1号就过期了，所以如果你的账号是以前注册的，有可能会显示额度不够的情况，这时候有两种解决方法。</p><ul><li>向原账户充钱，这个也挺麻烦的</li><li>创建个新的账号（推荐），这个成本最低，新创建的账号，送5刀的额度，其实就很多了，可以让我们用很久了。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 科研相关 </category>
+          
+          <category> 科研工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ChatGPT </tag>
+            
+            <tag> 工具 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>人工智能资源大放送：好用ChatGPT工具推荐、ChatGPT镜像站分享</title>
       <link href="/posts/1442069326/"/>
       <url>/posts/1442069326/</url>
