@@ -6,7 +6,7 @@
   <link href="https://atong.run/atom.xml" rel="self"/>
   
   <link href="https://atong.run/"/>
-  <updated>2023-05-01T14:23:59.805Z</updated>
+  <updated>2023-05-03T04:15:19.748Z</updated>
   <id>https://atong.run/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>分享几个可以免费体验GPT4的网站，感受GPT4的强大！！！</title>
+    <link href="https://atong.run/posts/9168540/"/>
+    <id>https://atong.run/posts/9168540/</id>
+    <published>2023-05-03T04:08:31.667Z</published>
+    <updated>2023-05-03T04:15:19.748Z</updated>
+    
+    <content type="html"><![CDATA[<p>GPT3.5的强大大家已经尝试过了吧，今天分享几个可以免费使用GPT4的网站，好东西得学会分享，也让大家体验一下高科技！</p><blockquote><p>GPT-4（Generative Pre-trained Transformer 4）是OpenAI推出的一款具有革命性影响的大型语言模型。基于Transformer架构，GPT-4的设计使其在理解和生成自然语言文本方面表现出色，让机器与人类的沟通变得更为流畅。该模型通过在大量文本数据上进行预训练，学会了诸多领域的知识，包括科技、文学、历史等。此外，GPT-4具备强大的迁移学习能力，可以在微调阶段适应各种具体任务，如问答、摘要、翻译等。</p></blockquote><h2 id="1、Poe">1、Poe</h2><blockquote><p>Poe每天免费一次试用GPT4，并且可以访问 ChatGPT、Claude instant、Claude+、等，强烈推荐！</p></blockquote><p>网址：<a href="https://poe.com/GPT-4">https://poe.com/GPT-4</a></p><p>体验：✨✨✨✨✨</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305022101501.png" alt="image.png"></p><h2 id="2、Ora">2、Ora</h2><blockquote><p>每天5条GPT4信息，并且可以创建并训练不同的机器人</p></blockquote><p>网址：<a href="https://ora.sh/openai/gpt4">https://ora.sh/openai/gpt4</a></p><p>体验：✨✨✨✨</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305022118558.png" alt="image.png"></p><h2 id="3、Forefront-Chat">3、Forefront Chat</h2><blockquote><p>看下图，有好多角色可以自定义，比较推荐</p></blockquote><p>网址：<a href="https://chat.forefront.ai">https://chat.forefront.ai</a></p><p>体验：✨✨✨✨</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305022110999.png" alt="image.png"></p><h2 id="4、ChatMind-AI">4、ChatMind AI</h2><blockquote><p>每天免费1次</p></blockquote><p>网址：<a href="https://chatmindai.cn">https://chatmindai.cn</a></p><p>体验：✨✨</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305022102070.png" alt="image.png"></p><p>GPT-4的强大不仅体现在它可以处理多种任务，还表现在它能够理解和生成各种语言和方言。这使得GPT-4具有极高的普适性，GPT-4在多个任务中展示了惊人的性能，有时甚至超越了人类专家。</p><p>大家快用起来！！！！</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;GPT3.5的强大大家已经尝试过了吧，今天分享几个可以免费使用GPT4的网站，好东西得学会分享，也让大家体验一下高科技！&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;GPT-4（Generative Pre-trained Transformer 4）是OpenAI推出的一款具</summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://atong.run/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    <category term="使用AI" scheme="https://atong.run/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BD%BF%E7%94%A8AI/"/>
+    
+    
+    <category term="ChatGPT" scheme="https://atong.run/tags/ChatGPT/"/>
+    
+  </entry>
   
   <entry>
     <title>一切的基础-卦</title>
@@ -523,35 +551,6 @@
     
     
     <category term="项目" scheme="https://atong.run/tags/%E9%A1%B9%E7%9B%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>obsidian纯粹版插件推荐</title>
-    <link href="https://atong.run/posts/3017994336/"/>
-    <id>https://atong.run/posts/3017994336/</id>
-    <published>2023-02-12T14:24:55.538Z</published>
-    <updated>2023-04-11T04:19:31.532Z</updated>
-    
-    <content type="html"><![CDATA[<p>只是单纯的记笔记而不是想要all in one，建议别看太多教程，否则你折腾这个软件的功夫很有可能大于你记笔记的功夫（无聊玩随意），如果想要单纯的获得纯粹点的markdown记笔记往下看。</p><hr><h2 id="一、主题篇">一、主题篇</h2><blockquote><p>适当折腾</p></blockquote><p>建议直接默认即可，默认风格和github README、各种博客平台，无太多美化的个人博客风格差不多，分享时不会差太大。</p><h2 id="二、插件篇">二、插件篇</h2><blockquote><p>少折腾，这里推荐5个，能够带来最单纯简单的使用markdown的体验，大家谨记折腾软件的功夫一定不要大于记笔记的功夫</p></blockquote><h3 id="插件1、Recent-Files">插件1、Recent Files</h3><blockquote><p>这个插件很实用，能看最近打开的文章</p></blockquote><p><img src="https://picx.zhimg.com/80/v2-2a43b3c2f87a0b4e2a0218a404be60e7_1440w.png" alt=""></p><h3 id="插件2、File-Explorer-Note-Count">插件2、File Explorer Note Count</h3><blockquote><p>能显示文件夹下边有几个文件</p></blockquote><p><img src="https://picx.zhimg.com/80/v2-c1070e27a0147824c27ff31952d04a79_1440w.png" alt=""></p><p>​</p><h3 id="插件3、Editing-Toolbar">插件3、Editing Toolbar</h3><blockquote><p>非常实用，将常见的markdown功能，集成为一个小工具条，类似word的上边工具栏</p></blockquote><p><img src="https://picx.zhimg.com/80/v2-6e1c7066841550a84593ef45432964f3_1440w.png" alt=""></p><p>​</p><h3 id="插件4、Advanced-Tables">插件4、Advanced Tables</h3><blockquote><p>obsidian的markdown表格比较难打，这个是增强输入表格功能的插件，只要输入一个 | 加内容然后配合回车和tab键，就可以很方便的搞出来表格，当然它也带了工具栏</p></blockquote><p><img src="https://pic1.zhimg.com/80/v2-46d5ca49fae211260e450719d7bf198f_1440w.png" alt=""></p><p>​</p><h3 id="插件5、Image-Auto-Upload-Plugin">插件5、Image Auto Upload Plugin</h3><blockquote><p>使用markdown图床肯定很重要，我们肯定期望复制图片到笔记软件，图片就能自动上传到图床，然后笔记软件里面有链接，很幸运的是obsidian里面有这个插件，和PicGo配合就可以做到啦，非常方便</p></blockquote><p><img src="https://picx.zhimg.com/80/v2-b6b604e116dc13364e87b1164c0ef1b0_1440w.png" alt=""></p><p>​</p><p><a href="https://post.smzdm.com/p/az6mokvo/">Obsidian和picgo图片自动上传图床教程</a></p><h2 id="三、总结">三、总结</h2><p>切记，记笔记才是正道，别入了折腾软件的坑，然后如果嫌弃obsidian下载插件的网络问题，可以关注我的公众号【孙菜菜】回复 【obsidian】可以获得上边的五个插件。</p><p><img src="https://pica.zhimg.com/80/v2-46fe8b8c98beb6661c01f6443788299b_1440w.png" alt=""></p><p>这几个文件直接拷贝到 你的仓库路径下 \ .obsidian \ plugins里面即可。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;只是单纯的记笔记而不是想要all in one，建议别看太多教程，否则你折腾这个软件的功夫很有可能大于你记笔记的功夫（无聊玩随意），如果想要单纯的获得纯粹点的markdown记笔记往下看。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&quot;一、主题篇&quot;&gt;一、主题篇&lt;/h2&gt;
-&lt;blockq</summary>
-      
-    
-    
-    
-    <category term="工具" scheme="https://atong.run/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    <category term="obsidian" scheme="https://atong.run/categories/%E5%B7%A5%E5%85%B7/obsidian/"/>
-    
-    
-    <category term="笔记" scheme="https://atong.run/tags/%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
