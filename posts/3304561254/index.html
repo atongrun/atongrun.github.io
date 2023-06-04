@@ -1,0 +1,371 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>3、负载均衡式在线OJ-运行模块 | 芝士就是菜</title><meta name="author" content="atong"><meta name="copyright" content="atong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="运行模块  运行模块作用是：执行编译模块编译好的可执行程序，我们希望，输出、输出、错误等信息能写入到文件中。Run模块只关心运行，不关注结果的正确与否，结果正确与否靠测试用例判断  运行逻辑 这里需要重定向工作  标准输入 标准输出 标准错误  运行服务大致过程类似编译：  创建子进程 子进程通过execl执行编译好的可执行程序  那么这里会有两个问题  编译的代码可能是死循环或者恶意代码 运行出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3、负载均衡式在线OJ-运行模块">
+<meta property="og:url" content="https://atong.run/posts/3304561254/index.html">
+<meta property="og:site_name" content="芝士就是菜">
+<meta property="og:description" content="运行模块  运行模块作用是：执行编译模块编译好的可执行程序，我们希望，输出、输出、错误等信息能写入到文件中。Run模块只关心运行，不关注结果的正确与否，结果正确与否靠测试用例判断  运行逻辑 这里需要重定向工作  标准输入 标准输出 标准错误  运行服务大致过程类似编译：  创建子进程 子进程通过execl执行编译好的可执行程序  那么这里会有两个问题  编译的代码可能是死循环或者恶意代码 运行出">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png">
+<meta property="article:published_time" content="2023-06-04T07:53:21.735Z">
+<meta property="article:modified_time" content="2023-06-04T07:53:54.814Z">
+<meta property="article:author" content="atong">
+<meta property="article:tag" content="项目">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://atong.run/posts/3304561254/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="YX40p2bxT5o8lA8dEzbFWn-KCRHa_qLfQ3mt7SPwsHs"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: atong","link":"链接: ","source":"来源: 芝士就是菜","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '3、负载均衡式在线OJ-运行模块',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-06-04 15:53:54'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="芝士就是菜" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212061540847.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">61</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">31</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博客</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">芝士就是菜</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博客</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">3、负载均衡式在线OJ-运行模块</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-06-04T07:53:21.735Z" title="发表于 2023-06-04 15:53:21">2023-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-04T07:53:54.814Z" title="更新于 2023-06-04 15:53:54">2023-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%A1%B9%E7%9B%AE/">项目</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%A1%B9%E7%9B%AE/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%BC%8F%E5%9C%A8%E7%BA%BFOJ/">负载均衡式在线OJ</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="3、负载均衡式在线OJ-运行模块"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="运行模块">运行模块</h2>
+<blockquote>
+<p>运行模块作用是：执行编译模块编译好的可执行程序，我们希望，输出、输出、错误等信息能写入到文件中。Run模块只关心运行，不关注结果的正确与否，结果正确与否靠测试用例判断</p>
+</blockquote>
+<h3 id="运行逻辑">运行逻辑</h3>
+<p>这里需要重定向工作</p>
+<ul>
+<li>标准输入</li>
+<li>标准输出</li>
+<li>标准错误</li>
+</ul>
+<p>运行服务大致过程类似编译：</p>
+<ul>
+<li>创建子进程</li>
+<li>子进程通过execl执行编译好的可执行程序</li>
+</ul>
+<p>那么这里会有两个问题</p>
+<ol>
+<li>编译的代码可能是死循环或者恶意代码</li>
+<li>运行出错如何知道是哪种错误</li>
+</ol>
+<p>问题1可以通过<a href="#%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6">资源限制</a>来解决，通过限制运行时间，和申请内存上限等方式可以解决</p>
+<p>问题2解决方式：<br>
+首先设计运行类，类中提供静态方法Run，该函数通过文件名可以自动拼接路径，然后再执行对应逻辑，返回值可以代表程序运行时的各种错误，比如我们规定：</p>
+<ul>
+<li>返回值 &gt; 0: 程序异常了，退出时收到了信号，返回值就是对应的信号编号</li>
+<li>返回值 == 0: 正常运行完毕的，结果保存到了对应的临时文件中</li>
+<li>返回值 &lt; 0: 内部错误</li>
+</ul>
+<h3 id="具体代码">具体代码</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;../common/util.hpp&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;../common/log.hpp&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> ns_runner</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">namespace</span> ns_util;</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">namespace</span> ns_log;</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Runner</span></span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">Runner</span>()&#123;&#125;</span><br><span class="line">        ~<span class="built_in">Runner</span>()&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">static</span> <span class="type">int</span> <span class="title">Run</span><span class="params">(<span class="type">const</span> std::string&amp; file_name)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            std::string _execute = PathUtil::<span class="built_in">Exe</span>(file_name);</span><br><span class="line">            std::string _stdin  = PathUtil::<span class="built_in">Stdin</span>(file_name);</span><br><span class="line">            std::string _stdout = PathUtil::<span class="built_in">Stdout</span>(file_name);</span><br><span class="line">            std::string _stderr = PathUtil::<span class="built_in">Stderr</span>(file_name);</span><br><span class="line">            <span class="built_in">umask</span>(<span class="number">0</span>);</span><br><span class="line">            <span class="type">int</span> _stdin_fd = <span class="built_in">open</span>(_stdin.<span class="built_in">c_str</span>(), O_CREAT|O_RDONLY, <span class="number">0644</span>);</span><br><span class="line">            <span class="type">int</span> _stdout_fd = <span class="built_in">open</span>(_stdout.<span class="built_in">c_str</span>(), O_CREAT|O_WRONLY, <span class="number">0644</span>);</span><br><span class="line">            <span class="type">int</span> _stderr_fd = <span class="built_in">open</span>(_stderr.<span class="built_in">c_str</span>(), O_CREAT|O_WRONLY, <span class="number">0644</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(_stdin_fd &lt;<span class="number">0</span> || _stdout_fd&lt;<span class="number">0</span> || _stderr_fd&lt;<span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">LOG</span>(ERROR)&lt;&lt;<span class="string">&quot;运行时打开文件失败&quot;</span>&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span>; <span class="comment">//-1 代表打开文件失败</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="type">pid_t</span> pid = fork();</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(pid&lt;<span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">               <span class="built_in">LOG</span>(ERROR)&lt;&lt;<span class="string">&quot;运行时创建子进程失败&quot;</span>&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">               <span class="built_in">close</span>(_stdin_fd);</span><br><span class="line">               <span class="built_in">close</span>(_stdout_fd);</span><br><span class="line">               <span class="built_in">close</span>(_stderr_fd);</span><br><span class="line"></span><br><span class="line">               <span class="keyword">return</span> <span class="number">-2</span>; <span class="comment">//-2 代表创建子进程失败</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(pid==<span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 子进程，先进行重定向，再程序替换</span></span><br><span class="line">                <span class="built_in">dup2</span>(_stdin_fd, <span class="number">0</span>);</span><br><span class="line">                <span class="built_in">dup2</span>(_stdout_fd,<span class="number">1</span>);</span><br><span class="line">                <span class="built_in">dup2</span>(_stderr_fd, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">                <span class="built_in">execl</span>(_execute.<span class="built_in">c_str</span>(), _execute.<span class="built_in">c_str</span>(), <span class="literal">nullptr</span>);</span><br><span class="line">                <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 父进程</span></span><br><span class="line">                <span class="comment">// 先关闭文件描述符</span></span><br><span class="line">                </span><br><span class="line">                <span class="built_in">close</span>(_stdin_fd);</span><br><span class="line">                <span class="built_in">close</span>(_stdout_fd);</span><br><span class="line">                <span class="built_in">close</span>(_stderr_fd);</span><br><span class="line">                </span><br><span class="line">                <span class="type">int</span> status=<span class="number">0</span>;</span><br><span class="line">                <span class="built_in">waitpid</span>(pid, &amp;status, <span class="number">0</span>);</span><br><span class="line">                <span class="built_in">LOG</span>(INFO)&lt;&lt;<span class="string">&quot;运行完毕 Info: &quot;</span>&lt;&lt;(status &amp; <span class="number">0x7F</span>)&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">                <span class="keyword">return</span> status &amp; <span class="number">0x7F</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="资源限制">资源限制</h2>
+<blockquote>
+<p>具体资源限制，我们使用linux系统的系统调用setrlimit函数</p>
+</blockquote>
+<h3 id="setrlimit">setrlimit</h3>
+<p>setrlimit是一个用于设置进程资源限制的函数，它的原型如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/resource.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">setrlimit</span><span class="params">(<span class="type">int</span> resource, <span class="type">const</span> <span class="keyword">struct</span> rlimit *rlim)</span>;</span><br></pre></td></tr></table></figure>
+<p>其中，第一个参数resource指定了要设置的资源类型，它可以取以下值之一：</p>
+<ul>
+<li>RLIMIT_CORE：设置core文件的最大大小（以字节为单位）；</li>
+<li>RLIMIT_CPU：设置CPU时间的最大值（以秒为单位）；</li>
+<li>RLIMIT_DATA：设置数据段的最大大小（以字节为单位）；</li>
+<li>RLIMIT_FSIZE：设置可创建文件的最大大小（以字节为单位）；</li>
+<li>RLIMIT_NOFILE：设置进程可以打开的最大文件数；</li>
+<li>RLIMIT_STACK：设置进程堆栈的最大大小（以字节为单位）；</li>
+<li>RLIMIT_AS：设置进程地址空间的最大大小（以字节为单位）；</li>
+<li>RLIMIT_NPROC：设置用户可以拥有的最大进程数；</li>
+<li>RLIMIT_RSS：设置进程驻留集大小的最大值（以字节为单位）；</li>
+<li>RLIMIT_MEMLOCK：设置进程能够锁定在内存中的最大字节数；</li>
+<li>RLIMIT_NICE：设置进程的nice值的最大值。</li>
+</ul>
+<p>第二个参数rlim是一个指向rlimit结构体的指针，该结构体定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rlimit</span> &#123;</span></span><br><span class="line">    <span class="type">rlim_t</span> rlim_cur; <span class="comment">// 资源限制的当前值</span></span><br><span class="line">    <span class="type">rlim_t</span> rlim_max; <span class="comment">// 资源限制的最大值</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>rlim_t类型的rlim_max成员可以被赋值为以下宏：</p>
+<ul>
+<li>RLIM_INFINITY：表示无限制，将rlim_max设置为此宏将取消对资源的任何限制；</li>
+<li>RLIM_SAVED_MAX：表示使用之前保存的最大值，最初由系统管理员设置；</li>
+<li>RLIM_SAVED_CUR：表示使用之前保存的当前值，最初由系统管理员设置；</li>
+<li>其他正整数：表示将rlim_max设置为指定的正整数值，表示资源的最大限制。需要注意的是，此值必须小于或等于系统的最大限制值，并且通常应该小于或等于当前进程的软限制值。</li>
+</ul>
+<p>需要注意的是，不同的资源类型可能会有不同的最大限制值。例如，对于RLIMIT_NOFILE（最大打开文件数），通常的最大限制值是系统的最大文件描述符数。对于RLIMIT_CPU（CPU时间限制），通常的最大限制值是LONG_MAX（通常为2147483647）。</p>
+<p>使用setrlimit函数可以为进程设置指定资源的限制，比如限制进程可以打开的最大文件数、限制进程的CPU时间等。调用该函数前，需要先定义并初始化一个rlimit结构体，然后将其作为参数传递给setrlimit函数。</p>
+<p>例如，以下代码将限制进程可以打开的最大文件数为1000：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/resource.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">rlimit</span> <span class="title">limit</span>;</span></span><br><span class="line"></span><br><span class="line">    limit.rlim_cur = <span class="number">1000</span>;</span><br><span class="line">    limit.rlim_max = <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (setrlimit(RLIMIT_NOFILE, &amp;limit) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;setrlimit&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;限制进程可以打开的最大文件数为：%lld\n&quot;</span>, (<span class="type">long</span> <span class="type">long</span>) limit.rlim_cur);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>setrlimit函数只能将资源限制设置为小于或等于系统默认值或进程当前限制值的值。如果试图将资源限制设置为大于这些值的值，setrlimit函数将失败并返回-1。在这种情况下，可以考虑使用sysctl函数调整系统级别的资源限制。同时，需要注意，setrlimit函数只能影响当前进程以及其子进程的资源限制，无法影响其他进程。</p>
+<h3 id="资源限制测试">资源限制测试</h3>
+<blockquote>
+<p>整体测试代码</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/resource.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">handler</span><span class="params">(<span class="type">int</span> signo)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout&lt;&lt;<span class="string">&quot;signo: &quot;</span>&lt;&lt;signo&lt;&lt;std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>; i&lt;=<span class="number">31</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">signal</span>(i, handler);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//测试死循环时间超时</span></span><br><span class="line">    <span class="comment">//struct rlimit r;</span></span><br><span class="line">    <span class="comment">//r.rlim_cur = 1; //设置1秒限制</span></span><br><span class="line">    <span class="comment">//r.rlim_max = RLIM_INFINITY;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//setrlimit(RLIMIT_CPU, &amp;r);</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//while(1)&#123;&#125;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//测试申请内存</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">rlimit</span> r;</span><br><span class="line">    r.rlim_cur = <span class="number">1024</span>*<span class="number">1024</span>*<span class="number">40</span>;</span><br><span class="line">    r.rlim_max = RLIM_INFINITY;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">setrlimit</span>(RLIMIT_AS, &amp;r);</span><br><span class="line">    <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> *p = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">1024</span>*<span class="number">1024</span>];</span><br><span class="line">        count++;</span><br><span class="line">        std::cout&lt;&lt;<span class="string">&quot;count: &quot;</span>&lt;&lt;count&lt;&lt;std::endl;</span><br><span class="line">        <span class="built_in">sleep</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>1、死循环时间限制测试</p>
+<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305301610493.png" alt="image.png"></p>
+<p>收到24号信号 SIGXCPU</p>
+<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305301615275.png" alt="image.png"></p>
+<p>2、申请虚拟空间大小限制</p>
+<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305302121869.png" alt="image.png"></p>
+<h2 id="运行模块加入资源限制">运行模块加入资源限制</h2>
+<ul>
+<li>cpu_limit: 该程序运行的时候，可以使用的最大cpu资源上限</li>
+<li>mem_limit: 改程序运行的时候，可以使用的最大的内存大小(KB)</li>
+</ul>
+<h3 id="setProcLimit函数">setProcLimit函数</h3>
+<blockquote>
+<p>对资源做时间、空间限制</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在运行之间需要对资源做一些限制</span></span><br><span class="line">        <span class="comment">// 包括 时间、空间</span></span><br><span class="line">        <span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">setProcLimit</span><span class="params">(<span class="type">int</span> _cpu_limit, <span class="type">int</span> _mem_limit)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="comment">// 设置CPU的时长</span></span><br><span class="line">            <span class="keyword">struct</span> <span class="title class_">rlimit</span> cpu_rlimit;</span><br><span class="line">            cpu_rlimit.rlim_cur = _cpu_limit;</span><br><span class="line">            cpu_rlimit.rlim_max = RLIM_INFINITY;</span><br><span class="line"></span><br><span class="line">            <span class="built_in">setrlimit</span>(RLIMIT_CPU, &amp;cpu_rlimit);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 设置限制内存</span></span><br><span class="line">            <span class="keyword">struct</span> <span class="title class_">rlimit</span> mem_rlimit;</span><br><span class="line">            <span class="comment">//转成kb</span></span><br><span class="line">            mem_rlimit.rlim_cur = _mem_limit*<span class="number">1024</span>;</span><br><span class="line">            mem_rlimit.rlim_max = RLIM_INFINITY;</span><br><span class="line">            <span class="built_in">setrlimit</span>(RLIMIT_AS, &amp;mem_rlimit);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Run方法">Run方法</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">static</span> <span class="type">int</span> <span class="title">Run</span><span class="params">(<span class="type">const</span> std::string&amp; file_name, <span class="type">int</span> cpu_rlimit, <span class="type">int</span> mem_rlimit)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            std::string _execute = PathUtil::<span class="built_in">Exe</span>(file_name);</span><br><span class="line">            std::string _stdin  = PathUtil::<span class="built_in">Stdin</span>(file_name);</span><br><span class="line">            std::string _stdout = PathUtil::<span class="built_in">Stdout</span>(file_name);</span><br><span class="line">            std::string _stderr = PathUtil::<span class="built_in">Stderr</span>(file_name);</span><br><span class="line">            <span class="built_in">umask</span>(<span class="number">0</span>);</span><br><span class="line">            <span class="type">int</span> _stdin_fd = <span class="built_in">open</span>(_stdin.<span class="built_in">c_str</span>(), O_CREAT|O_RDONLY, <span class="number">0644</span>);</span><br><span class="line">            <span class="type">int</span> _stdout_fd = <span class="built_in">open</span>(_stdout.<span class="built_in">c_str</span>(), O_CREAT|O_WRONLY, <span class="number">0644</span>);</span><br><span class="line">            <span class="type">int</span> _stderr_fd = <span class="built_in">open</span>(_stderr.<span class="built_in">c_str</span>(), O_CREAT|O_WRONLY, <span class="number">0644</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(_stdin_fd &lt;<span class="number">0</span> || _stdout_fd&lt;<span class="number">0</span> || _stderr_fd&lt;<span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">LOG</span>(ERROR)&lt;&lt;<span class="string">&quot;运行时打开文件失败&quot;</span>&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span>; <span class="comment">//-1 代表打开文件失败</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="type">pid_t</span> pid = fork();</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(pid&lt;<span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">               <span class="built_in">LOG</span>(ERROR)&lt;&lt;<span class="string">&quot;运行时创建子进程失败&quot;</span>&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">               <span class="built_in">close</span>(_stdin_fd);</span><br><span class="line">               <span class="built_in">close</span>(_stdout_fd);</span><br><span class="line">               <span class="built_in">close</span>(_stderr_fd);</span><br><span class="line"></span><br><span class="line">               <span class="keyword">return</span> <span class="number">-2</span>; <span class="comment">//-2 代表创建子进程失败</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(pid==<span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 子进程，先进行重定向，再程序替换</span></span><br><span class="line">                <span class="built_in">dup2</span>(_stdin_fd, <span class="number">0</span>);</span><br><span class="line">                <span class="built_in">dup2</span>(_stdout_fd,<span class="number">1</span>);</span><br><span class="line">                <span class="built_in">dup2</span>(_stderr_fd, <span class="number">2</span>);</span><br><span class="line">                </span><br><span class="line">                <span class="built_in">setProcLimit</span>(cpu_rlimit, mem_rlimit);</span><br><span class="line">                <span class="built_in">execl</span>(_execute.<span class="built_in">c_str</span>(), _execute.<span class="built_in">c_str</span>(), <span class="literal">nullptr</span>);</span><br><span class="line">                <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 父进程</span></span><br><span class="line">                <span class="comment">// 先关闭文件描述符</span></span><br><span class="line">                </span><br><span class="line">                <span class="built_in">close</span>(_stdin_fd);</span><br><span class="line">                <span class="built_in">close</span>(_stdout_fd);</span><br><span class="line">                <span class="built_in">close</span>(_stderr_fd);</span><br><span class="line">                </span><br><span class="line">                <span class="type">int</span> status=<span class="number">0</span>;</span><br><span class="line">                <span class="built_in">waitpid</span>(pid, &amp;status, <span class="number">0</span>);</span><br><span class="line">                <span class="built_in">LOG</span>(INFO)&lt;&lt;<span class="string">&quot;运行完毕 Info: &quot;</span>&lt;&lt;(status &amp; <span class="number">0x7F</span>)&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">                <span class="keyword">return</span> status &amp; <span class="number">0x7F</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="问题以及记录">问题以及记录</h2>
+<h3 id="遇到问题">遇到问题</h3>
+<p>提问：centos，我一个c++程序，先创建子进程，然后在子进程用setrlimit函数限制程序运行时间，再用execl执行另一个a.out程序，但是父进程waitpid收到11号信号，如果不加setrlimit限制，就正常运行，这是怎么回事呢？</p>
+<h3 id="具体原因">具体原因</h3>
+<p>AI回复：从描述来看，你遇到的问题可能与 <code>setrlimit</code> 函数设置的资源限制有关。11号信号是 <code>SIGSEGV</code>，即段错误。这个信号通常由于进程试图访问其虚拟地址空间中无法访问的内存区域而引发，例如非法指针解引用、栈溢出等。</p>
+<p>在这种情况下，可能的原因是你<strong>使用 <code>setrlimit</code> 设置了过于严格的资源限制。这可能导致子进程在运行时无法分配足够的资源（例如内存），从而触发 <code>SIGSEGV</code> 信号。</strong></p>
+<p>要解决这个问题，你可以尝试以下步骤：</p>
+<ol>
+<li>
+<p>仔细检查 <code>setrlimit</code> 函数设置的资源限制，确保它们不会导致子进程无法正常运行。例如，如果你设置的是 <code>RLIMIT_CPU</code>，确保所设置的时间限制允许子进程有足够的时间运行。</p>
+</li>
+<li>
+<p>在子进程中添加错误处理和调试信息，以便在出现问题时更容易识别问题所在。你可以使用 <code>try</code> 和 <code>catch</code> 语句捕获异常，并在控制台上输出有关错误的详细信息。</p>
+</li>
+<li>
+<p>如果仍然无法解决问题，可以考虑在父进程中使用 <code>ptrace</code> 函数来监控子进程的系统调用和信号。这样可以帮助你更详细地了解子进程中发生了什么。</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://atong.run">atong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://atong.run/posts/3304561254/">https://atong.run/posts/3304561254/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://atong.run" target="_blank">芝士就是菜</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%A1%B9%E7%9B%AE/">项目</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/1188400450/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">2、负载均衡式在线OJ-编译服务设计</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/1188400450/" title="2、负载均衡式在线OJ-编译服务设计"><img class="cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-21</div><div class="title">2、负载均衡式在线OJ-编译服务设计</div></div></a></div><div><a href="/posts/2085396799/" title="1、负载均衡式在线OJ-项目介绍"><img class="cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-21</div><div class="title">1、负载均衡式在线OJ-项目介绍</div></div></a></div><div><a href="/posts/1573212312/" title="9、高并发内存池-性能测试及优化"><img class="cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202301292232715.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-17</div><div class="title">9、高并发内存池-性能测试及优化</div></div></a></div><div><a href="/posts/2734729201/" title="8、高并发内存池-细节完善"><img class="cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202301292232715.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-17</div><div class="title">8、高并发内存池-细节完善</div></div></a></div><div><a href="/posts/3511365265/" title="7、高并发内存池-释放内存"><img class="cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202301292232715.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-14</div><div class="title">7、高并发内存池-释放内存</div></div></a></div><div><a href="/posts/2890609329/" title="6、高并发内存池-PageCache"><img class="cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202301292232715.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-10</div><div class="title">6、高并发内存池-PageCache</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Giscus</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212061540847.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">atong</div><div class="author-info__description">我站在清醒和麻木的边缘，不能堕落也得不到解脱</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">61</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">31</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/atongrun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://twitter.com/atongrun" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a><a class="social-icon" href="https://www.zhihu.com/people/qian-lan-wa" target="_blank" title=""><i class="fa-brands fa-zhihu"></i></a><a class="social-icon" href="https://space.bilibili.com/385227660?spm_id_from=333.1007.0.0" target="_blank" title=""><i class="fa-brands fa-bilibili"></i></a><a class="social-icon" href="https://www.youtube.com/channel/UCRF1RkVr906u7wUQzVxU-lA" target="_blank" title=""><i class="fa-brands fa-youtube"></i></a><a class="social-icon" href="https://atong.run/atom.xml" target="_blank" title=""><i class="fa-solid fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎关注我的公众号：【芝士就是菜】，专注：前沿科技、周易、计算机~ <img src = "https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202302081936066.jpg"width="250" height="250"></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%9D%97"><span class="toc-number">1.</span> <span class="toc-text">运行模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91"><span class="toc-number">1.1.</span> <span class="toc-text">运行逻辑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E4%BB%A3%E7%A0%81"><span class="toc-number">1.2.</span> <span class="toc-text">具体代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">资源限制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#setrlimit"><span class="toc-number">2.1.</span> <span class="toc-text">setrlimit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%E6%B5%8B%E8%AF%95"><span class="toc-number">2.2.</span> <span class="toc-text">资源限制测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%9D%97%E5%8A%A0%E5%85%A5%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">运行模块加入资源限制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#setProcLimit%E5%87%BD%E6%95%B0"><span class="toc-number">3.1.</span> <span class="toc-text">setProcLimit函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run%E6%96%B9%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text">Run方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E8%AE%B0%E5%BD%95"><span class="toc-number">4.</span> <span class="toc-text">问题以及记录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98"><span class="toc-number">4.1.</span> <span class="toc-text">遇到问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E5%8E%9F%E5%9B%A0"><span class="toc-number">4.2.</span> <span class="toc-text">具体原因</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/3304561254/" title="3、负载均衡式在线OJ-运行模块"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="3、负载均衡式在线OJ-运行模块"/></a><div class="content"><a class="title" href="/posts/3304561254/" title="3、负载均衡式在线OJ-运行模块">3、负载均衡式在线OJ-运行模块</a><time datetime="2023-06-04T07:53:21.735Z" title="发表于 2023-06-04 15:53:21">2023-06-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1188400450/" title="2、负载均衡式在线OJ-编译服务设计"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2、负载均衡式在线OJ-编译服务设计"/></a><div class="content"><a class="title" href="/posts/1188400450/" title="2、负载均衡式在线OJ-编译服务设计">2、负载均衡式在线OJ-编译服务设计</a><time datetime="2023-05-21T12:08:11.665Z" title="发表于 2023-05-21 20:08:11">2023-05-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2085396799/" title="1、负载均衡式在线OJ-项目介绍"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="1、负载均衡式在线OJ-项目介绍"/></a><div class="content"><a class="title" href="/posts/2085396799/" title="1、负载均衡式在线OJ-项目介绍">1、负载均衡式在线OJ-项目介绍</a><time datetime="2023-05-21T09:10:54.979Z" title="发表于 2023-05-21 17:10:54">2023-05-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/9168540/" title="分享几个可以免费体验GPT4的网站，感受GPT4的强大！！！"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305031211142.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分享几个可以免费体验GPT4的网站，感受GPT4的强大！！！"/></a><div class="content"><a class="title" href="/posts/9168540/" title="分享几个可以免费体验GPT4的网站，感受GPT4的强大！！！">分享几个可以免费体验GPT4的网站，感受GPT4的强大！！！</a><time datetime="2023-05-03T04:08:31.667Z" title="发表于 2023-05-03 12:08:31">2023-05-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/844635680/" title="一切的基础-卦"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202304270951198.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一切的基础-卦"/></a><div class="content"><a class="title" href="/posts/844635680/" title="一切的基础-卦">一切的基础-卦</a><time datetime="2023-04-28T08:15:04.122Z" title="发表于 2023-04-28 16:15:04">2023-04-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By atong</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadGiscus () {
+  let nowTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
+
+  const config = Object.assign({
+    src: 'https://giscus.app/client.js',
+    'data-repo': 'atongrun/giscus',
+    'data-repo-id': 'R_kgDOI57fqA',
+    'data-category-id': 'DIC_kwDOI57fqM4CUAZT',
+    'data-mapping': 'pathname',
+    'data-theme': nowTheme,
+    'data-reactions-enabled': '1',
+    crossorigin: 'anonymous',
+    async: true
+  },null)
+
+  let ele = document.createElement('script')
+  for (let key in config) {
+    ele.setAttribute(key, config[key])
+  }
+  document.getElementById('giscus-wrap').insertAdjacentElement('afterbegin',ele)
+}
+
+function changeGiscusTheme () {
+  const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
+
+  function sendMessage(message) {
+    const iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+  }
+
+  sendMessage({
+    setConfig: {
+      theme: theme
+    }
+  });
+}
+
+if ('Giscus' === 'Giscus' || !true) {
+  if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+  else loadGiscus()
+} else {
+  function loadOtherComment () {
+    loadGiscus()
+  }
+}</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'waline-blog-ex76z78qt-atongrun.vercel.app',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Giscus' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script src="//code.tidio.co/null.js" async="async"></script><script>function chatBtnHide () {
+  if (window.tidioChatApi) {
+    //- window.tidioChatApi.hide();
+    document.getElementById('tidio-chat').style.display= 'none'
+  }
+}
+
+function chatBtnShow () {
+  if (window.tidioChatApi) {
+    //- window.tidioChatApi.show();
+    document.getElementById('tidio-chat').style.display= 'block'
+  } 
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
