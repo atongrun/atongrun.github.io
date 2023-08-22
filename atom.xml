@@ -6,7 +6,7 @@
   <link href="https://atong.run/atom.xml" rel="self"/>
   
   <link href="https://atong.run/"/>
-  <updated>2023-08-17T07:37:17.897Z</updated>
+  <updated>2023-08-17T07:38:46.598Z</updated>
   <id>https://atong.run/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://atong.run/posts/1767113451/"/>
     <id>https://atong.run/posts/1767113451/</id>
     <published>2023-08-17T07:35:56.329Z</published>
-    <updated>2023-08-17T07:37:17.897Z</updated>
+    <updated>2023-08-17T07:38:46.598Z</updated>
     
     <content type="html"><![CDATA[<blockquote><p>今天打开阿里云盘突然提示钉钉个人内测版本推送，打开一看，好家伙，钉钉什么时候搞的这么酷了！大体一看类似于notion的页面，结合AI功能，直接有点牛波一了，如果你是笔记+AI重度用户，绝对值的一试。</p></blockquote><p>我个人是有记笔记的习惯的，也尝试过很多不同的笔记软件，从最开始的typora到语雀，再到现在的obsidian，也算一个重度的markdown笔记用户了。</p><p>为什么突然会说这个钉钉个人版本呢，钉钉个人版本除了基础的各种笔记功能之外，主要还集成了AI创作服务，关键是现在是免费的（包括文生文、文生图、角色对话、以及AI创作服务）</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202308171416026.png" alt="image.png"></p><p>我个人是AI的重度用户（ChatGPT、Cloude）基本天天用，目前钉钉的AI是阿里的大模型：通义千问、通义万相，分别负责文本生成和图片生成。</p><p>下面是普通文档，按空格建就能调出AI写作。下边图片的文字部分就是由钉钉AI完成。</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202308171427213.png" alt="image.png"></p><p>当然钉钉这种写程序也是OK的，最左侧这一栏，第二个就是AI创作的选项，贾维斯基于通义千问，可以写文档，写代码，并且钉钉个人版本提供了很多预设的指令。</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202308171433667.png" alt="image.png"></p><p>缪斯基于通义万象，就类似于midjourney，通过文本描述，它能生成对应的图片。</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202308171438456.png" alt="image.png"></p><p>整体来说，AI创作功能还是挺好使的，这个钉钉呢，还有几个优点，一个是可以直接访问阿里云盘，这样在某些场景下可以说是非常方便了。另一个和notion一样，钉钉个人版呢，很贴心的准备了很多常用的模板。</p><p>比如：四象限工作中心</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202308171443190.png" alt="image.png"></p><p>比如：旅游 checklist</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202308171443213.png" alt="image.png"></p><p>当然呢，还有很多其他的模板，大家有兴趣可以自己尝试尝试。</p><p>还有一个网盘功能，这个就是阿里云的网盘，这个整个生态还是挺不错的，直接网盘文件+笔记</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202308171449674.png" alt="image.png"></p><p>下边是内测链接，现在申请5分钟之内就能通过，感兴趣的小伙伴们可以试试，还有不少其他的功能呢。</p><p><a href="https://workspace.dingtalk.com/welcome">https://workspace.dingtalk.com/welcome</a></p>]]></content>
     
