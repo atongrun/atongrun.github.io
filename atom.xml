@@ -6,7 +6,7 @@
   <link href="https://atong.run/atom.xml" rel="self"/>
   
   <link href="https://atong.run/"/>
-  <updated>2023-08-25T15:32:39.653Z</updated>
+  <updated>2023-08-25T15:47:32.088Z</updated>
   <id>https://atong.run/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://atong.run/posts/4088855701/"/>
     <id>https://atong.run/posts/4088855701/</id>
     <published>2023-08-25T15:31:39.008Z</published>
-    <updated>2023-08-25T15:32:39.653Z</updated>
+    <updated>2023-08-25T15:47:32.088Z</updated>
     
-    <content type="html"><![CDATA[<p><a name="NHy6H"></a></p><h2 id="常见指令">常见指令</h2><p><strong>目录</strong></p><ol><li>ls/cd/pwd</li><li>对文件操作</li><li>查看文件内容</li><li>查找</li><li>打包压缩</li></ol><p><img src="https://cdn.nlark.com/yuque/0/2022/jpeg/29247941/1664609273815-88fa2311-a0b3-4cd9-8351-f3116eee0919.jpeg" alt=""></p><p><a name="uWWyr"></a></p><h2 id="其他一些命令">其他一些命令</h2><p>:::info<br>whoami/clear/rmdir/date/cal/alias/bc/uname<br>:::<br><img src="https://cdn.nlark.com/yuque/0/2022/jpeg/29247941/1664614185712-5ee18bb3-2a41-40e9-8f7c-28f103df093c.jpeg" alt=""></p><p><a name="w4LOW"></a></p><h2 id="基础知识">基础知识</h2><p><strong>目录</strong></p><ol><li>linux用户相关</li><li>路径认识</li><li>热键</li><li>重定向</li><li>shell运行原理</li><li>权限</li></ol><p><img src="https://cdn.nlark.com/yuque/0/2022/jpeg/29247941/1664613979039-e99218c0-df76-4858-aa03-d87590af5a02.jpeg" alt=""></p><p><a name="GIKiU"></a></p><h2 id="ACM时间">ACM时间</h2><p>ACM时间：stat + 文件名 查看文件状态<br /><img src="https://cdn.nlark.com/yuque/0/2022/png/29247941/1657684182790-81d8a17d-1739-41dd-90ce-61489b5dfb73.png#averageHue=%230c0a08&amp;clientId=u218417b2-f620-4&amp;from=paste&amp;height=99&amp;id=IrMkd&amp;originHeight=197&amp;originWidth=891&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=24817&amp;status=done&amp;style=none&amp;taskId=u8126d440-166d-4bf4-88aa-cd4232145ae&amp;title=&amp;width=445.5" alt="image.png"></p><ul><li>Access：文件最后访问时间</li><li>Modify：文件最后修改时间</li><li>Change：对文件最后的Inode信息最后修改时间</li></ul>]]></content>
+    <content type="html"><![CDATA[<p><a name="NHy6H"></a></p><h2 id="常见指令">常见指令</h2><p><strong>目录</strong></p><ol><li>ls/cd/pwd</li><li>对文件操作</li><li>查看文件内容</li><li>查找</li><li>打包压缩</li></ol><p><img src="https://cdn.nlark.com/yuque/0/2022/jpeg/29247941/1664609273815-88fa2311-a0b3-4cd9-8351-f3116eee0919.jpeg" alt=""></p><p><a name="uWWyr"></a></p><h2 id="其他一些命令">其他一些命令</h2><p><code>whoami/clear/rmdir/date/cal/alias/bc/uname</code></p><p><img src="https://cdn.nlark.com/yuque/0/2022/jpeg/29247941/1664614185712-5ee18bb3-2a41-40e9-8f7c-28f103df093c.jpeg" alt=""></p><p><a name="w4LOW"></a></p><h2 id="基础知识">基础知识</h2><p><strong>目录</strong></p><ol><li>linux用户相关</li><li>路径认识</li><li>热键</li><li>重定向</li><li>shell运行原理</li><li>权限</li></ol><p><img src="https://cdn.nlark.com/yuque/0/2022/jpeg/29247941/1664613979039-e99218c0-df76-4858-aa03-d87590af5a02.jpeg" alt=""></p><p><a name="GIKiU"></a></p><h2 id="ACM时间">ACM时间</h2><p>ACM时间：stat + 文件名 查看文件状态<br /><img src="https://cdn.nlark.com/yuque/0/2022/png/29247941/1657684182790-81d8a17d-1739-41dd-90ce-61489b5dfb73.png#averageHue=%230c0a08&amp;clientId=u218417b2-f620-4&amp;from=paste&amp;height=99&amp;id=IrMkd&amp;originHeight=197&amp;originWidth=891&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=24817&amp;status=done&amp;style=none&amp;taskId=u8126d440-166d-4bf4-88aa-cd4232145ae&amp;title=&amp;width=445.5" alt="image.png"></p><ul><li>Access：文件最后访问时间</li><li>Modify：文件最后修改时间</li><li>Change：对文件最后的Inode信息最后修改时间</li></ul>]]></content>
     
     
       
