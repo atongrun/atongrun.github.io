@@ -226,19 +226,18 @@
     <link href="https://atong.run/posts/2085396799/"/>
     <id>https://atong.run/posts/2085396799/</id>
     <published>2023-05-21T09:10:54.979Z</published>
-    <updated>2023-05-21T12:09:01.587Z</updated>
+    <updated>2023-09-02T02:24:01.461Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="1、所用技术与开发环境">1、所用技术与开发环境</h2><p><strong>所用技术:</strong></p><ul><li>C++ STL 标准库</li><li>Boost 准标准库(字符串切割)</li><li>cpp-httplib 第三方开源网络库</li><li>ctemplate 第三方开源前端网页渲染库</li><li>jsoncpp 第三方开源序列化、反序列化库</li><li>负载均衡设计</li><li>多进程、多线程</li><li>MySQL C connect</li><li>Ace前端在线编辑器</li><li>html/css/js/jquery/ajax</li></ul><p><strong>开发环境：</strong></p><ul><li>centos7</li><li>vim</li><li>mysql workbench</li></ul><h2 id="2、项目宏观结构">2、项目宏观结构</h2><blockquote><p>项目由3个核心模块组成</p></blockquote><ol><li><code>common</code>: 公众模块</li><li><code>compile_server:</code>编译运行模块</li><li><code>oj_server</code>: 获取题目列表，查看编写题目界面，负载均衡，其他功能</li></ol><h3 id="leetcode结构">leetcode结构</h3><blockquote><p>只实现类似leetcode的题目列表+在线编程功能</p></blockquote><h3 id="项目宏观结构">项目宏观结构</h3><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211705704.png" alt="image.png"></p><h3 id="编写思路">编写思路</h3><ol><li>先编写 compile_server</li><li>oj_server</li><li>version1 基于文件版的在线OJ</li><li>前端的页面设计</li><li>version2 基于 MySQL 版的在线OJ</li></ol>]]></content>
+    <content type="html"><![CDATA[<h2 id="1、所用技术与开发环境">1、所用技术与开发环境</h2><p><strong>所用技术:</strong></p><blockquote><p>除了ctemplate可能会稍微写点之外，其余所有关于前端渲染相关内容不做说明~~~</p></blockquote><ul><li>C++ STL 标准库</li><li>Boost 准标准库(字符串切割)</li><li>cpp-httplib 第三方开源网络库</li><li>ctemplate 第三方开源前端网页渲染库</li><li>jsoncpp 第三方开源序列化、反序列化库</li><li>负载均衡设计</li><li>多进程、多线程</li><li>MySQL C connect</li><li>Ace前端在线编辑器（使用现成…）</li><li>html/css/js/jquery/ajax （使用现成…）</li></ul><p><strong>开发环境：</strong></p><ul><li>centos7</li><li>vim</li><li>mysql workbench</li></ul><h2 id="2、项目宏观结构">2、项目宏观结构</h2><blockquote><p>项目由3个核心模块组成</p></blockquote><ol><li><code>common</code>: 公众模块</li><li><code>compile_server:</code>编译运行模块</li><li><code>oj_server</code>: 获取题目列表，查看编写题目界面，负载均衡，其他功能</li></ol><h3 id="leetcode结构">leetcode结构</h3><blockquote><p>只实现类似leetcode的题目列表+在线编程功能</p></blockquote><h3 id="项目宏观结构">项目宏观结构</h3><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211705704.png" alt="image.png"></p><h3 id="编写思路">编写思路</h3><ol><li>先编写 compile_server</li><li>oj_server</li><li>version1 基于文件版的在线OJ</li><li>前端的页面设计</li><li>version2 基于 MySQL 版的在线OJ</li></ol>]]></content>
     
     
       
       
     <summary type="html">&lt;h2 id=&quot;1、所用技术与开发环境&quot;&gt;1、所用技术与开发环境&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;所用技术:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;C++ STL 标准库&lt;/li&gt;
-&lt;li&gt;Boost 准标准库(字符串切割)&lt;/li&gt;
-&lt;li&gt;cpp-httplib 第三方</summary>
+&lt;blockquote&gt;
+&lt;p&gt;除了ctemplate可能会稍微写点之外，其余所有关于前端渲染相关内容不做说明~~~&lt;/p&gt;
+&lt;/blockqu</summary>
       
     
     
