@@ -6,7 +6,7 @@
   <link href="https://atong.run/atom.xml" rel="self"/>
   
   <link href="https://atong.run/"/>
-  <updated>2023-12-26T13:03:49.414Z</updated>
+  <updated>2023-12-26T13:04:16.867Z</updated>
   <id>https://atong.run/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://atong.run/posts/611591199/"/>
     <id>https://atong.run/posts/611591199/</id>
     <published>2023-12-26T12:59:06.553Z</published>
-    <updated>2023-12-26T13:03:49.414Z</updated>
+    <updated>2023-12-26T13:04:16.867Z</updated>
     
     <content type="html"><![CDATA[<p>今天打开obsidian发现版本更新，现在是v1.5.3，看了一下官网更新日志，发现<strong>表格编辑</strong>功能终于更新！！！</p><p>以前 obsidian最让人诟病的就是表格功能，对于一个可以 all in one 的笔记软件来说，表格编辑功能还是基本纯原生的 markdown 表格的写法，基本是让人难以忍受就的。</p><p>当然 obsidian 社区插件生态很丰富，很多大神也开发了一些对应的表格增强的插件，我开始也尝试过：</p><ul><li>插件1：advanced table</li><li>插件2：markdown table editor</li></ul><p>对于插件1来说，只是对于原生 markdown 表格的轻微增强版，并没有真正的方便普通人编辑，我用的时候，超过3行3列的表会直接放弃用obsidian。并且obidian的表格展示效果并不友好。</p><p>在逛 obsidian 社区的时候，偶尔发现了插件2，装上之后有点惊叹，表格功能竟然能用了，如下图所示，在编写文章有插入表格需求时点击左侧边栏图标，会自动将页面分为两列，表格可以自定义几行几列，增删查改功能几乎可以方便轻度的使用</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202312262034119.png" alt="image.png"></p><p>但是呢，在大表格编辑以及展示，还有部分微调，也不是很灵活，只能说可以使用，没有太好的体验，不过再这次更新之后，obsidian 的表格使用下来竟然有了 notion 表格的体验，并且编辑的表格在保存时仍按照纯文本形式的markdown保存</p><p>具体使用起来也是非常简单，在写作时，右键点击插入，再点击 Table 即可，具体如下图所示：</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202312262039675.png" alt="image.png"></p><p>obsidian 的表格更新后，显示效果大大增强，编辑体验上已经类似 notion了，并且，鼠标放在表格上下左右侧，会显示出一个加号，点击即可插入行或者列。<br><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202312262041460.png" alt="image.png"><br><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202312262042362.png" alt="image.png"></p><p>并且另外一大改变是 obsidian 表格变成了块的形式，可以很轻易的选取整个表格，或者某行或者某列，进行拖动或者编辑，实际体验非常丝滑！<br><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202312262042593.png" alt="image.png"></p><p>这次的 obsidian 的更新可以说完全解决了表格不好用这个最大的痛点，advanced table插件完全可以卸载，包括markdown table editor，期待obsidian越来越好！</p>]]></content>
     
