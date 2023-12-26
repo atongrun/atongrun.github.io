@@ -6,7 +6,7 @@
   <link href="https://atong.run/atom.xml" rel="self"/>
   
   <link href="https://atong.run/"/>
-  <updated>2023-09-17T13:03:00.519Z</updated>
+  <updated>2023-12-26T13:03:49.414Z</updated>
   <id>https://atong.run/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>期待这么久，Obsidian表格功能终于更新，类似notion的编辑体验！</title>
+    <link href="https://atong.run/posts/611591199/"/>
+    <id>https://atong.run/posts/611591199/</id>
+    <published>2023-12-26T12:59:06.553Z</published>
+    <updated>2023-12-26T13:03:49.414Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天打开obsidian发现版本更新，现在是v1.5.3，看了一下官网更新日志，发现<strong>表格编辑</strong>功能终于更新！！！</p><p>以前 obsidian最让人诟病的就是表格功能，对于一个可以 all in one 的笔记软件来说，表格编辑功能还是基本纯原生的 markdown 表格的写法，基本是让人难以忍受就的。</p><p>当然 obsidian 社区插件生态很丰富，很多大神也开发了一些对应的表格增强的插件，我开始也尝试过：</p><ul><li>插件1：advanced table</li><li>插件2：markdown table editor</li></ul><p>对于插件1来说，只是对于原生 markdown 表格的轻微增强版，并没有真正的方便普通人编辑，我用的时候，超过3行3列的表会直接放弃用obsidian。并且obidian的表格展示效果并不友好。</p><p>在逛 obsidian 社区的时候，偶尔发现了插件2，装上之后有点惊叹，表格功能竟然能用了，如下图所示，在编写文章有插入表格需求时点击左侧边栏图标，会自动将页面分为两列，表格可以自定义几行几列，增删查改功能几乎可以方便轻度的使用</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202312262034119.png" alt="image.png"></p><p>但是呢，在大表格编辑以及展示，还有部分微调，也不是很灵活，只能说可以使用，没有太好的体验，不过再这次更新之后，obsidian 的表格使用下来竟然有了 notion 表格的体验，并且编辑的表格在保存时仍按照纯文本形式的markdown保存</p><p>具体使用起来也是非常简单，在写作时，右键点击插入，再点击 Table 即可，具体如下图所示：</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202312262039675.png" alt="image.png"></p><p>obsidian 的表格更新后，显示效果大大增强，编辑体验上已经类似 notion了，并且，鼠标放在表格上下左右侧，会显示出一个加号，点击即可插入行或者列。<br><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202312262041460.png" alt="image.png"><br><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202312262042362.png" alt="image.png"></p><p>并且另外一大改变是 obsidian 表格变成了块的形式，可以很轻易的选取整个表格，或者某行或者某列，进行拖动或者编辑，实际体验非常丝滑！<br><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202312262042593.png" alt="image.png"></p><p>这次的 obsidian 的更新可以说完全解决了表格不好用这个最大的痛点，advanced table插件完全可以卸载，包括markdown table editor，期待obsidian越来越好！</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;今天打开obsidian发现版本更新，现在是v1.5.3，看了一下官网更新日志，发现&lt;strong&gt;表格编辑&lt;/strong&gt;功能终于更新！！！&lt;/p&gt;
+&lt;p&gt;以前 obsidian最让人诟病的就是表格功能，对于一个可以 all in one 的笔记软件来说，表格编辑功能还</summary>
+      
+    
+    
+    
+    <category term="工具" scheme="https://atong.run/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    <category term="obsidian" scheme="https://atong.run/categories/%E5%B7%A5%E5%85%B7/obsidian/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>2023-9-17-第35周 周记</title>
@@ -543,34 +568,6 @@
     
     
     <category term="ChatGPT" scheme="https://atong.run/tags/ChatGPT/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>都2023年了谁还在抛硬币？来学学中国传统文化小六壬（测吉凶篇）</title>
-    <link href="https://atong.run/posts/2043869359/"/>
-    <id>https://atong.run/posts/2043869359/</id>
-    <published>2023-03-19T14:08:27.931Z</published>
-    <updated>2023-04-11T04:19:31.532Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>2023年了就别在抛硬币了，来学点有意思的，学习我们的传统文化小六壬来测吉凶，非常简单，2分钟就能学会。</p></blockquote><h1>简介</h1><p>小六壬是一种中国传统的预测方法，据说是由三国时期的诸葛孔明简化自奇门遁甲而成。小六壬以大安、留连、速喜、赤口、小吉、空亡六位分列于食指、中指及无名指上，时间按月、日、时顺序计算，最后得到大安、速喜和小吉的为吉，其余为凶。手掌对应图如下：</p><table><thead><tr><th style="text-align:center">食指</th><th style="text-align:center">中指</th><th style="text-align:center">无名指</th></tr></thead><tbody><tr><td style="text-align:center">留连</td><td style="text-align:center">速喜</td><td style="text-align:center">赤口</td></tr><tr><td style="text-align:center">大安</td><td style="text-align:center">空亡</td><td style="text-align:center">小吉</td></tr></tbody></table><p>具体对应图如下：</p><blockquote><p><font color="#ff0000">只需要记住：红色就是好，绿色就是不好，这是重点，还有就是手掌是左手哦</font>。</p></blockquote><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202303192121621.png" alt="image.png"></p><h1>实操</h1><blockquote><p>记住好坏之后就可以进行实操了，只要你会数数就可以了。</p></blockquote><ol><li>首先知道现在是阴历的几月几号，现在是什么时辰。比如今天是阴历2月5日，早上8点多，也就是辰时。</li><li>然后看上边的手掌图，从1的位置开始数，月数是2，顺时针数两下，到了绿色的2位置</li><li>然后从2位置数，这里是重点啊，新的位置是2开始，数5下，到了绿色的6位置</li><li>最后数时辰，辰时是第五个，从6的位置顺时针数5下，就到了绿色的位置，术语叫做赤口，说明你现在在这个时辰的运势不大好</li></ol><hr><p>时间对照图</p><table><thead><tr><th>时辰</th><th>时间</th></tr></thead><tbody><tr><td>子时</td><td>23:00-01:00</td></tr><tr><td>丑时</td><td>01:00-03:00</td></tr><tr><td>寅时</td><td>03:00-05:00</td></tr><tr><td>卯时</td><td>05:00-07:00</td></tr><tr><td>辰时</td><td>07:00-09:00</td></tr><tr><td>巳时</td><td>09:00-11:00</td></tr><tr><td>午时</td><td>11:00-13:00</td></tr><tr><td>未时</td><td>13:00-15:00</td></tr><tr><td>申时</td><td>15:00-17:00</td></tr><tr><td>酉时</td><td>17:00-19:00</td></tr><tr><td>戌时</td><td>19:00-21:00</td></tr><tr><td>亥时</td><td>21:00-23:00</td></tr></tbody></table>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;2023年了就别在抛硬币了，来学点有意思的，学习我们的传统文化小六壬来测吉凶，非常简单，2分钟就能学会。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1&gt;简介&lt;/h1&gt;
-&lt;p&gt;小六壬是一种中国传统的预测方法，据说是由三国时期的诸葛孔明简化自奇门遁甲而成</summary>
-      
-    
-    
-    
-    <category term="周易" scheme="https://atong.run/categories/%E5%91%A8%E6%98%93/"/>
-    
-    
-    <category term="吉凶" scheme="https://atong.run/tags/%E5%90%89%E5%87%B6/"/>
     
   </entry>
   
