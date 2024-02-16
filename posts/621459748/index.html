@@ -1,0 +1,368 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>lobechat聊天机器人介绍与docker部署（有坑需注意） | 芝士就是菜</title><meta name="author" content="atong"><meta name="copyright" content="atong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1 lobechat介绍  官方介绍：LobeChat 是一个开源、高性能的聊天机器人框架。支持语音合成、多模态和可扩展插件系统。支持一键式免费部署私人ChatGPT&#x2F;LLM 网络应用程序。  lobechat的github-lobe-chat🤖上有详细的文档介绍（中英文都有）并且有着discord社区，这个东西呢，就相当于部署自己的一个私人的chatgpt服务，那么重点是我为什么不直接用cha">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lobechat聊天机器人介绍与docker部署（有坑需注意）">
+<meta property="og:url" content="https://atong.run/posts/621459748/index.html">
+<meta property="og:site_name" content="芝士就是菜">
+<meta property="og:description" content="1 lobechat介绍  官方介绍：LobeChat 是一个开源、高性能的聊天机器人框架。支持语音合成、多模态和可扩展插件系统。支持一键式免费部署私人ChatGPT&#x2F;LLM 网络应用程序。  lobechat的github-lobe-chat🤖上有详细的文档介绍（中英文都有）并且有着discord社区，这个东西呢，就相当于部署自己的一个私人的chatgpt服务，那么重点是我为什么不直接用cha">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202402162122606.png">
+<meta property="article:published_time" content="2024-02-16T15:09:12.352Z">
+<meta property="article:modified_time" content="2024-02-16T15:10:23.082Z">
+<meta property="article:author" content="atong">
+<meta property="article:tag" content="工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202402162122606.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://atong.run/posts/621459748/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="YX40p2bxT5o8lA8dEzbFWn-KCRHa_qLfQ3mt7SPwsHs"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: atong","link":"链接: ","source":"来源: 芝士就是菜","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'lobechat聊天机器人介绍与docker部署（有坑需注意）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-02-16 23:10:23'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/equipment.css"><meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="芝士就是菜" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202308222330847.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">37</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-graduation-cap"></i><span> 博客</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/equipment/"><i class="fa-fw fa-solid fa-cart-shopping"></i><span> 好物</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202402162122606.png')"><nav id="nav"><span id="blog-info"><a href="/" title="芝士就是菜"><span class="site-name">芝士就是菜</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-graduation-cap"></i><span> 博客</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/equipment/"><i class="fa-fw fa-solid fa-cart-shopping"></i><span> 好物</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">lobechat聊天机器人介绍与docker部署（有坑需注意）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-02-16T15:09:12.352Z" title="发表于 2024-02-16 23:09:12">2024-02-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-16T15:10:23.082Z" title="更新于 2024-02-16 23:10:23">2024-02-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BD%BF%E7%94%A8AI/">使用AI</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">934</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="lobechat聊天机器人介绍与docker部署（有坑需注意）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>1 lobechat介绍</h1>
+<blockquote>
+<p>官方介绍：LobeChat 是一个开源、高性能的聊天机器人框架。支持语音合成、多模态和可扩展插件系统。支持一键式免费部署私人ChatGPT/LLM 网络应用程序。</p>
+</blockquote>
+<p>lobechat的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/lobehub/lobe-chat/tree/main">github-lobe-chat🤖</a>上有详细的文档介绍（中英文都有）并且有着discord社区，这个东西呢，就相当于部署自己的一个私人的chatgpt服务，那么重点是我为什么不直接用chatgpt而去选择部署使用lobechat呢，文档给出了下面的几个优点：</p>
+<ol>
+<li>GPT 视觉认知</li>
+<li>TTS &amp; STT 语音会话</li>
+<li>Text to Image 文生图</li>
+<li>Function Calling 插件系统</li>
+<li>助手市场</li>
+<li>PWA 渐进式 Web 应用</li>
+<li>移动设备适配</li>
+<li>自定义主题</li>
+</ol>
+<p>对我而言，有两个地方比较吸引我，第一个是它的插件系统，有着非常丰富的插件市场，对我来说，我装了一些学术与搜索相关的插件，日常使用还是挺方便的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202402162202322.png" alt="image.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202402162155844.png" alt="image.png"></p>
+<p>当然吸引我的第二个点就是有超级多的预设助手，有各个方面的，能够大大减少我们想提示词等相关的难度</p>
+<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202402162144992.png" alt="image.png"></p>
+<p>我装了下边的几个助手，这个地方的塔罗占卜师的助手还挺有意思的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202402162144589.png" alt="image.png"></p>
+<p>当然，选择这个框架还有一个原因，就是部署特别简单，用docker几行命令就OK，官方的文档非常详细（但是用三方的api服务的话还需要有注意的地方，下边细说）</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/lobehub/lobe-chat/blob/main/README.zh-CN.md">lobe-chat中文文档</a></p>
+<h1>2 lobechat使用docker部署</h1>
+<p>LobeChat 提供了 Vercel 的 自托管版本 和 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://hub.docker.com/r/lobehub/lobe-chat">Docker 镜像</a>，不需要任何的编程知识，就可以在几分钟部署自己的聊天机器人，这里主要说如何使用docker部署</p>
+<h2 id="2-1-使用官方api">2.1 使用官方api</h2>
+<p>使用openai的官方api的话最，只需要填写一个key值就可以，也就是将sk-xxxx替换成自己的key。<a target="_blank" rel="noopener external nofollow noreferrer" href="https://platform.openai.com/docs/overview">OpenAI API官网</a>中找到API keys，然后创建复制即可，然后在终端中运行如下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3210:3210 \\</span><br><span class="line">  -e OPENAI_API_KEY=sk-xxxx \\</span><br><span class="line">  -e ACCESS_CODE=lobe66 \\</span><br><span class="line">  --name lobe-chat \\</span><br><span class="line">  lobehub/lobe-chat</span><br></pre></td></tr></table></figure>
+<p>注意上边的命令中，ACESS_CODE和name选项都可以自定义，第一个是使用密码（使用的时候首先要输入密码），第二个是服务的名字。</p>
+<h2 id="2-2-使用第三方api">2.2 使用第三方api</h2>
+<p>使用三方的API是有点坑的，有没弄好的地方就可能部署失败，我是用的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://aigcapi.io/register?aff=baMV">AIGC-API</a>的三方API，兼容各种主流AI，支持GPT-4 Turbo、DALL·E等OpenAI全模型和大量AI应用及框架，价格还是比较便宜的，重点是可以支付宝啥的付费，openai官方的api充值贵，而且我们充值的难度太大~</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3210:3210 \\</span><br><span class="line"> -e OPENAI_API_KEY=sk-xxxx \\</span><br><span class="line"> -e OPENAI_PROXY_URL=https://api-proxy.com/v1 \\</span><br><span class="line"> -e ACCESS_CODE=lobe66 \\</span><br><span class="line"> --name lobe-chat \\</span><br><span class="line"> lobehub/lobe-chat</span><br></pre></td></tr></table></figure>
+<p>将 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://api-proxy.com">https://api-proxy.com</a> 替换成第三方的url，如果你要是用AIGC的API，需要将这个替换成：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://api.aigcapi.io">https://api.aigcapi.io</a>，注意不要将后边的v1选项漏掉了，OPENAI_API_KEY选项就填写AIGC令牌的key值即可，然后终端运行上边的命令</p>
+<p>如果没有替换OPENAI_PROXY_URL，会部署失败，如果漏掉v1，会出现回复异常，回复的都是空白，如下图所示</p>
+<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202402162122441.png" alt="image.png"></p>
+<h1>3 lobechat升级</h1>
+<p>lobechat项目还是比较火的，更新也比较多，更新的流程也是非常的简单</p>
+<ol>
+<li>停止并删除当前正在运行的 LobeChat 容器</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker stop lobe-chat</span><br><span class="line">docker rm lobe-chat</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>拉取 LobeChat 的最新 Docker 镜像：</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull lobehub/lobe-chat</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>使用刚拉取的docker镜像重新部署：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3210:3210 \</span><br><span class="line">  -e OPENAI_API_KEY=sk-xxxx \</span><br><span class="line">  -e OPENAI_PROXY_URL=https://api-proxy.com/v1 \</span><br><span class="line">  -e ACCESS_CODE=lobe66 \</span><br><span class="line">  --name lobe-chat \</span><br><span class="line">  lobehub/lobe-chat</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://atong.run">atong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://atong.run/posts/621459748/">https://atong.run/posts/621459748/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://atong.run" target="_blank">芝士就是菜</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%B7%A5%E5%85%B7/">工具</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202402162122606.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/4092410180/" title="小米14购买使用体验"><img class="cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202402161222878.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">小米14购买使用体验</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/1863947790/" title="ChatGPT学术优化-VsCode+Anaconda配置"><img class="cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202304152254003.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-15</div><div class="title">ChatGPT学术优化-VsCode+Anaconda配置</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Giscus</span><span id="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202308222330847.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">atong</div><div class="author-info__description">尊嘟假嘟o.O</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">37</div></a></div><a id="card-info-btn" href="https://atong.run/categories/%E8%87%AA%E7%94%A8%E5%A5%BD%E7%89%A9/"><i class="fa-solid fa-cart-shopping"></i><span>自用好物</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://twitter.com/atongrun" rel="external nofollow noreferrer" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a><a class="social-icon" href="https://www.zhihu.com/people/qian-lan-wa" rel="external nofollow noreferrer" target="_blank" title=""><i class="fa-brands fa-zhihu"></i></a><a class="social-icon" href="https://space.bilibili.com/385227660?spm_id_from=333.1007.0.0" rel="external nofollow noreferrer" target="_blank" title=""><i class="fa-brands fa-bilibili"></i></a><a class="social-icon" href="https://www.youtube.com/channel/UCRF1RkVr906u7wUQzVxU-lA" rel="external nofollow noreferrer" target="_blank" title=""><i class="fa-brands fa-youtube"></i></a><a class="social-icon" href="https://atong.run/atom.xml" target="_blank" title=""><i class="fa-solid fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎关注我的公众号：【芝士就是菜】~ <img src = "https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202302081936066.jpg"width="250" height="250"></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">1 lobechat介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">2 lobechat使用docker部署</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E4%BD%BF%E7%94%A8%E5%AE%98%E6%96%B9api"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 使用官方api</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E4%BD%BF%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9api"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 使用第三方api</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">3 lobechat升级</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/621459748/" title="lobechat聊天机器人介绍与docker部署（有坑需注意）"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202402162122606.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lobechat聊天机器人介绍与docker部署（有坑需注意）"/></a><div class="content"><a class="title" href="/posts/621459748/" title="lobechat聊天机器人介绍与docker部署（有坑需注意）">lobechat聊天机器人介绍与docker部署（有坑需注意）</a><time datetime="2024-02-16T15:09:12.352Z" title="发表于 2024-02-16 23:09:12">2024-02-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4092410180/" title="小米14购买使用体验"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202402161222878.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="小米14购买使用体验"/></a><div class="content"><a class="title" href="/posts/4092410180/" title="小米14购买使用体验">小米14购买使用体验</a><time datetime="2024-02-16T04:04:55.581Z" title="发表于 2024-02-16 12:04:55">2024-02-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/611591199/" title="期待这么久，Obsidian表格功能终于更新，类似notion的编辑体验！"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202312262101565.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="期待这么久，Obsidian表格功能终于更新，类似notion的编辑体验！"/></a><div class="content"><a class="title" href="/posts/611591199/" title="期待这么久，Obsidian表格功能终于更新，类似notion的编辑体验！">期待这么久，Obsidian表格功能终于更新，类似notion的编辑体验！</a><time datetime="2023-12-26T12:59:06.553Z" title="发表于 2023-12-26 20:59:06">2023-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3068727690/" title="2023-9-17-第35周 周记"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202309171436775.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2023-9-17-第35周 周记"/></a><div class="content"><a class="title" href="/posts/3068727690/" title="2023-9-17-第35周 周记">2023-9-17-第35周 周记</a><time datetime="2023-09-17T06:10:07.180Z" title="发表于 2023-09-17 14:10:07">2023-09-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4088855701/" title="Linux常见指令和权限理解"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202401102139248.jfif" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux常见指令和权限理解"/></a><div class="content"><a class="title" href="/posts/4088855701/" title="Linux常见指令和权限理解">Linux常见指令和权限理解</a><time datetime="2023-08-25T15:31:39.008Z" title="发表于 2023-08-25 23:31:39">2023-08-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By atong</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(()=>{
+  const getGiscusTheme = theme => {
+    return theme === 'dark' ? 'dark' : 'light'
+  }
+
+  const loadGiscus = () => {
+    const config = Object.assign({
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'atongrun/giscus',
+      'data-repo-id': 'R_kgDOI57fqA',
+      'data-category-id': 'DIC_kwDOI57fqM4CUAZT',
+      'data-mapping': 'pathname',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true
+    },null)
+
+    const ele = document.createElement('script')
+    for (let key in config) {
+      ele.setAttribute(key, config[key])
+    }
+    document.getElementById('giscus-wrap').appendChild(ele)
+  }
+
+  const changeGiscusTheme = theme => {
+    const sendMessage = message => {
+      const iframe = document.querySelector('iframe.giscus-frame')
+      if (!iframe) return
+      iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app')
+    }
+
+    sendMessage({
+      setConfig: {
+        theme: getGiscusTheme(theme)
+      }
+    });
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment= loadGiscus
+  }
+})()</script><script>(() => {
+  const initWaline = () => {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'waline-blog-ex76z78qt-atongrun.vercel.app',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+
+    const destroyWaline = () => {
+      waline.destroy()
+    }
+
+    btf.addGlobalFn('pjax', destroyWaline, 'destroyWaline')
+
+  }
+
+  const loadWaline = async () => {
+    if (typeof Waline === 'object') initWaline()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js')
+      initWaline()
+    }
+  }
+
+  if ('Giscus' === 'Waline' || !true) {
+    if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="//code.tidio.co/null.js" async="async"></script><script>(() => {
+  const isChatBtn = false
+  const isChatHideShow = true
+
+  if (isChatBtn) {
+    let isShow = false
+    const close = () => {
+      window.tidioChatApi.hide()
+      isShow = false
+    }
+    
+    const open = () => {
+      window.tidioChatApi.open()
+      window.tidioChatApi.show()
+      isShow = true
+    }
+
+    const onTidioChatApiReady = () => {
+      window.tidioChatApi.hide()
+      window.tidioChatApi.on("close", close)
+    }
+    if (window.tidioChatApi) {
+      window.tidioChatApi.on("ready", onTidioChatApiReady)
+    } else {
+      document.addEventListener("tidioChat-ready", onTidioChatApiReady)
+    }
+
+    window.chatBtnFn = () => {
+      if (!window.tidioChatApi) return
+      isShow ? close() : open()
+    }
+  } else if (isChatHideShow) {
+    window.chatBtn = {
+      hide: () => {
+        window.tidioChatApi && window.tidioChatApi.hide()
+      },
+      show: () => {
+        window.tidioChatApi && window.tidioChatApi.show()
+      }
+    }
+  }
+})()</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
