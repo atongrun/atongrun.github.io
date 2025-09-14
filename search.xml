@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>终端Terminal-AI编码助手 Crush</title>
+      <link href="/posts/2858725456/"/>
+      <url>/posts/2858725456/</url>
+      
+        <content type="html"><![CDATA[<p>前几天看到了一个挺好玩的Github项目-<a href="https://github.com/charmbracelet/crush">Crush</a>，这个项目是一款Terminal运行的AI工具，Go开发，可以在终端运行~</p><p>Crush是支持MacOS，Linux和Windows，不过感觉MacOS和Windows应该没啥必要用这个东西，当然 WSL除外</p><p>核心的功能如下：</p><ol><li>多模型支持，常见的API提供商都可以用</li><li>支持会话管理，能保存、切换不同项目/话题的对话上下文</li><li>LSP，可以配置，能让AI更准确的理解项目中代码</li><li>MCP，支持stdio、http、see方式接入MCP服务</li></ol><h3 id="Debian-Ubuntu-安装">Debian/Ubuntu 安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/apt/keyrings</span><br><span class="line">curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg</span><br><span class="line">echo &quot;deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *&quot; | sudo tee /etc/apt/sources.list.d/charm.list</span><br><span class="line">sudo apt update &amp;&amp; sudo apt install crush</span><br></pre></td></tr></table></figure><p>装上在Terminal直接运行crush即可</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509062347923.png" alt="image.png"></p><h3 id="Crush使用">Crush使用</h3><p>界面挺简洁好看，我个人挺喜欢这个风格</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509070001039.png" alt="image.png"></p><p>底部状态栏，有命令提示非常贴心，第一次进需要配置模型和填写API，配置完成后也可以通过ctrl+p命令调出命令窗口并切换模型<br><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509070005772.png" alt="image.png"></p><p>也可以直接去下面路径的配置文件填写模型以及Key</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">HOME/.local/share/crush/crush.json</span></span><br></pre></td></tr></table></figure><p>打开文件，如下图所示<br><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509070123017.png" alt="image.png"></p><p>当配置好模型以及对应的API Key后，就可以直接尝试了，比如我直接说帮我创建一个c的项目，crush创建好文件夹后会列出步骤（crush会操作你的文件已经调用shell命令）</p><ol><li>创建main.c</li><li>写代码</li><li>gcc编译</li></ol><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509070130205.png" alt="image.png"></p><p>当然，创建文件或者删除文件毕竟是敏感操作，crush会弹出窗口让确认，这个建议是保留，虽然可以通过配置将这个提醒取消~<br><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509070131945.png" alt="image.png"></p><p>创建成功后，crush会继续执行编译，如果出错，它会分析bash打印的错误信息并进行纠正继续任务，直到完成<br><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509070133524.png" alt="image.png"><br>当实际编译成功后，crush界面也会打印程序运行的结果，并且看本地目录，实际创建了一个c_project的文件夹，里面写了mian.c的程序并编译出来可以正确运行的可执行程序，当然这个crush可以做更多的东西，以上只是一个简单的例子，大家觉的好玩的话可以自行尝试<br><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509070135051.png" alt="image.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 人工智能 </category>
+          
+          <category> 使用AI </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ai </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>git常用命令</title>
       <link href="/posts/3396067388/"/>
       <url>/posts/3396067388/</url>

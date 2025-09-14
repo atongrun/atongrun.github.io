@@ -6,7 +6,7 @@
   <link href="https://atong.run/atom.xml" rel="self"/>
   
   <link href="https://atong.run/"/>
-  <updated>2024-07-13T17:38:20.413Z</updated>
+  <updated>2025-09-14T13:14:51.494Z</updated>
   <id>https://atong.run/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>终端Terminal-AI编码助手 Crush</title>
+    <link href="https://atong.run/posts/2858725456/"/>
+    <id>https://atong.run/posts/2858725456/</id>
+    <published>2025-09-14T13:12:43.476Z</published>
+    <updated>2025-09-14T13:14:51.494Z</updated>
+    
+    <content type="html"><![CDATA[<p>前几天看到了一个挺好玩的Github项目-<a href="https://github.com/charmbracelet/crush">Crush</a>，这个项目是一款Terminal运行的AI工具，Go开发，可以在终端运行~</p><p>Crush是支持MacOS，Linux和Windows，不过感觉MacOS和Windows应该没啥必要用这个东西，当然 WSL除外</p><p>核心的功能如下：</p><ol><li>多模型支持，常见的API提供商都可以用</li><li>支持会话管理，能保存、切换不同项目/话题的对话上下文</li><li>LSP，可以配置，能让AI更准确的理解项目中代码</li><li>MCP，支持stdio、http、see方式接入MCP服务</li></ol><h3 id="Debian-Ubuntu-安装">Debian/Ubuntu 安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/apt/keyrings</span><br><span class="line">curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg</span><br><span class="line">echo &quot;deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *&quot; | sudo tee /etc/apt/sources.list.d/charm.list</span><br><span class="line">sudo apt update &amp;&amp; sudo apt install crush</span><br></pre></td></tr></table></figure><p>装上在Terminal直接运行crush即可</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509062347923.png" alt="image.png"></p><h3 id="Crush使用">Crush使用</h3><p>界面挺简洁好看，我个人挺喜欢这个风格</p><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509070001039.png" alt="image.png"></p><p>底部状态栏，有命令提示非常贴心，第一次进需要配置模型和填写API，配置完成后也可以通过ctrl+p命令调出命令窗口并切换模型<br><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509070005772.png" alt="image.png"></p><p>也可以直接去下面路径的配置文件填写模型以及Key</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">HOME/.local/share/crush/crush.json</span></span><br></pre></td></tr></table></figure><p>打开文件，如下图所示<br><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509070123017.png" alt="image.png"></p><p>当配置好模型以及对应的API Key后，就可以直接尝试了，比如我直接说帮我创建一个c的项目，crush创建好文件夹后会列出步骤（crush会操作你的文件已经调用shell命令）</p><ol><li>创建main.c</li><li>写代码</li><li>gcc编译</li></ol><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509070130205.png" alt="image.png"></p><p>当然，创建文件或者删除文件毕竟是敏感操作，crush会弹出窗口让确认，这个建议是保留，虽然可以通过配置将这个提醒取消~<br><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509070131945.png" alt="image.png"></p><p>创建成功后，crush会继续执行编译，如果出错，它会分析bash打印的错误信息并进行纠正继续任务，直到完成<br><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509070133524.png" alt="image.png"><br>当实际编译成功后，crush界面也会打印程序运行的结果，并且看本地目录，实际创建了一个c_project的文件夹，里面写了mian.c的程序并编译出来可以正确运行的可执行程序，当然这个crush可以做更多的东西，以上只是一个简单的例子，大家觉的好玩的话可以自行尝试<br><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509070135051.png" alt="image.png"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;前几天看到了一个挺好玩的Github项目-&lt;a href=&quot;https://github.com/charmbracelet/crush&quot;&gt;Crush&lt;/a&gt;，这个项目是一款Terminal运行的AI工具，Go开发，可以在终端运行~&lt;/p&gt;
+&lt;p&gt;Crush是支持MacOS</summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://atong.run/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    <category term="使用AI" scheme="https://atong.run/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BD%BF%E7%94%A8AI/"/>
+    
+    
+    <category term="ai" scheme="https://atong.run/tags/ai/"/>
+    
+  </entry>
   
   <entry>
     <title>git常用命令</title>
@@ -544,34 +571,6 @@
     
     
     <category term="ChatGPT" scheme="https://atong.run/tags/ChatGPT/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>小六壬寻物算法-简单图乐篇</title>
-    <link href="https://atong.run/posts/3361610917/"/>
-    <id>https://atong.run/posts/3361610917/</id>
-    <published>2023-03-31T13:57:51.296Z</published>
-    <updated>2023-04-11T04:19:31.534Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>今天教教大家用小六壬找丢的东西，两分钟学会，都2023年了，我不允许任何一个人还丢校园卡，并且还找不着！！😡😡😡。</p></blockquote><p><strong>注意：要相信科学，杜绝迷信！！！</strong></p><h1>简介</h1><p>小六壬是一种中国传统的预测方法，据说是由三国时期的诸葛孔明简化自奇门遁甲而成。小六壬以大安、留连、速喜、赤口、小吉、空亡六位分列于食指、中指及无名指上，时间按月、日、时顺序计算，最后得到大安、速喜和小吉的为吉，其余为凶。手掌对应图如下：</p><table><thead><tr><th style="text-align:center">食指</th><th style="text-align:center">中指</th><th style="text-align:center">无名指</th></tr></thead><tbody><tr><td style="text-align:center">留连</td><td style="text-align:center">速喜</td><td style="text-align:center">赤口</td></tr><tr><td style="text-align:center">大安</td><td style="text-align:center">空亡</td><td style="text-align:center">小吉</td></tr></tbody></table><p>具体对应图如下：</p><blockquote><p><font color="#ff0000">要记住：手用左手、以及6个数字的位置，顺时针1~6哦</font>。</p></blockquote><p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202303221204570.jpg" alt="hand.jpg"></p><h1>实操</h1><blockquote><p>记住位置就可以进行实操了，只要你会数数就可以了。</p></blockquote><ol><li>首先知道现在是农历的几号，什么时辰。比如今天是农历5日（不用看月份），早上8点多，也就是辰时。</li><li>然后看上边的手掌图，从1的位置开始数，日数是5，顺时针数5下，到了红色的5位置（无名指的下部），<font color="#ff0000">记住5这个数字</font>。</li><li>然后从5位置数，这里是重点啊，新的位置是5开始，辰时是第五个时辰，数5下，到了红色的3位置，<font color="#ff0000">记住3这个数字</font>。</li><li>最后结果就是5+3，也就是小吉+速喜</li></ol><blockquote><p>或者：上边的第二步的日可以换成心中想到的一个字的笔画，比如丢了卡，就是笔画数+时辰，如果不知道什么时辰丢的，就是当前突然心有所感，想找东西的这个时辰</p></blockquote><hr><blockquote><p>小六壬日加时断方法中，一共有六种不同的状态，分别为大安、留连、速喜、赤口、小吉和空亡，每种状态都有不同的意义和解释。在小六壬日加时断方法中，根据客体和主体的不同组合，可以得到以下36种组合，每种组合都有其对应的意义和解释。</p></blockquote><ol><li><p>（1+1）大安（客体）+大安（主体）：适宜寻找时间：整日；大致方位：室内</p><p>说明：适合在室内全天寻找失物，容易找到失物。</p></li><li><p>（1+2）大安（客体）+留连（主体）：适宜寻找时间：中午；大致方位：南方</p><p>说明：在中午时寻找，比较容易找到失物，失物可能在南方。</p></li><li><p>（1+3）大安（客体）+速喜（主体）：适宜寻找时间：早晨；大致方位：东南方</p><p>说明：在早晨时寻找，比较容易找到失物，失物可能在东南方。</p></li><li><p>（1+4）大安（客体）+赤口（主体）：适宜寻找时间：下午；大致方位：西南方</p><p>说明：在下午时寻找，比较容易找到失物，失物可能在西南方。</p></li><li><p>（1+5）大安（客体）+小吉（主体）：适宜寻找时间：晚上；大致方位：东方</p><p>说明：在晚上时寻找，比较容易找到失物，失物可能在东方。</p></li><li><p>（1+6）大安（客体）+空亡（主体）：适宜寻找时间：半夜；大致方位：无定位</p><p>说明：在半夜时寻找，难以找到失物，失物可能在一个不确定的方位。</p></li><li><p>（2+1）留连（客体）+大安（主体）：适宜寻找时间：上午；大致方位：北方</p><p>说明：在上午时寻找，比较容易找到失物，失物可能在北方。</p></li><li><p>（2+2）留连（客体）+留连（主体）：适宜寻找时间：傍晚；大致方位：西方</p><p>说明：在傍晚时寻找，比较容易找到失物，失物可能在西方。</p></li><li><p>（2+3）留连（客体）+速喜（主体）：适宜寻找时间：黄昏；大致方位：东南方</p><p>说明：在黄昏时寻找，比较容易找到失物，失物可能在东南方。</p></li><li><p>（2+4）留连（客体）+赤口（主体）：适宜寻找时间：深夜；大致方位：西南方</p><p>说明：在深夜时寻找，比较容易找到失物，失物可能在西南方。</p></li><li><p>（2+5）留连（客体）+小吉（主体）：适宜寻找时间：午夜；大致方位：东方</p><p>说明：在午夜时寻找，比较容易找到失物，失物可能在东方。</p></li><li><p>（2+6）留连（客体）+空亡（主体）：适宜寻找时间：日出之前；大致方位：无定位</p><p>说明：在日出之前时寻找，难以找到失物，失物可能在一个不确定的方位。</p></li><li><p>（3+1）速喜（客体）+大安（主体）：适宜寻找时间：早晨；大致方位：东方</p><p>说明：在早晨时寻找，比较容易找到失物，失物可能在东方。</p></li><li><p>（3+2）速喜（客体）+留连（主体）：适宜寻找时间：傍晚；大致方位：西方</p><p>说明：在傍晚时寻找，比较容易找到失物，失物可能在西方。</p></li><li><p>（3+3）速喜（客体）+速喜（主体）：适宜寻找时间：晚上；大致方位：南方</p><p>说明：在晚上时寻找，比较容易找到失物，失物可能在南方。</p></li><li><p>（3+4）速喜（客体）+赤口（主体）：适宜寻找时间：午夜；大致方位：西南方</p><p>说明：在午夜时寻找，比较容易找到失物，失物可能在西南方。</p></li><li><p>（3+5）速喜（客体）+小吉（主体）：适宜寻找时间：清晨；大致方位：东方</p><p>说明：在清晨时寻找，比较容易找到失物，失物可能在东方。</p></li><li><p>（3+6）速喜（客体）+空亡（主体）：适宜寻找时间：日中；大致方位：无定位</p><p>说明：在日中时寻找，难以找到失物，失物可能在一个不确定的方位。</p></li><li><p>（4+1）赤口（客体）+大安（主体）：适宜寻找时间：深夜；大致方位：南方</p><p>说明：在深夜时寻找，比较容易找到失物，失物可能在南方。</p></li><li><p>（4+2）赤口（客体）+留连（主体）：适宜寻找时间：日落之后；大致方位：西方</p><p>说明：在日落之后时寻找，比较容易找到失物，失物可能在西方。</p></li><li><p>（4+3）赤口（客体）+速喜（主体）：适宜寻找时间：凌晨；大致方位：东南方</p><p>说明：在凌晨时寻找，比较容易找到失物，失物可能在东南方。</p></li><li><p>（4+4）赤口（客体）+赤口（主体）：适宜寻找时间：子夜；大致方位：南方</p><p>说明：在子夜时寻找，比较容易找到失物，失物可能在南方。</p></li><li><p>（4+5）赤口（客体）+小吉（主体）：适宜寻找时间：黄昏；大致方位：东方</p><p>说明：在黄昏时寻找，比较容易找到失物，失物可能在东方。</p></li><li><p>（4+6）赤口（客体）+空亡（主体）：适宜寻找时间：日出之前；大致方位：无定位</p><p>说明：在日出之前时寻找，难以找到失物，失物可能在一个不确定的方位。</p></li><li><p>（5+1）小吉（客体）+大安（主体）：适宜寻找时间：早晨；大致方位：南方</p><p>说明：在早晨时寻找，比较容易找到失物，失物可能在南方。</p></li><li><p>（5+2）小吉（客体）+留连（主体）：适宜寻找时间：日出之后；大致方位：西方</p><p>说明：在日出之后时寻找，比较容易找到失物，失物可能在西方。</p></li><li><p>（5+3）小吉（客体）+速喜（主体）：适宜寻找时间：黄昏；大致方位：南方</p><p>说明：在黄昏时寻找，比较容易找到失物，失物可能在南方。</p></li><li><p>（5+4）小吉（客体）+赤口（主体）：适宜寻找时间：子夜；大致方位：东方</p><p>说明：在子夜时寻找，比较容易找到失物，失物可能在东方。</p></li><li><p>（5+5）小吉（客体）+小吉（主体）：适宜寻找时间：日间；大致方位：无定位</p><p>说明：在日间时寻找，比较容易找到失物，失物可能在一个不确定的方位。</p></li><li><p>（5+6）小吉（客体）+空亡（主体）：适宜寻找时间：日间；大致方位：无定位</p><p>说明：在日间时寻找，比较容易找到失物，失物可能在一个不确定的方位。</p></li><li><p>（6+1）空亡（客体）+大安（主体）：适宜寻找时间：日出之前；大致方位：无定位</p><p>说明：在日出之前时寻找，难以找到失物，失物可能在一个不确定的方位。</p></li><li><p>（6+2）空亡（客体）+留连（主体）：适宜寻找时间：日出之前；大致方位：无定位</p><p>说明：在日出之前时寻找，难以找到失物，失物可能在一个不确定的方位。</p></li><li><p>（6+3）空亡（客体）+速喜（主体）：适宜寻找时间：日出之前；大致方位：无定位</p><p>说明：在日出之前时寻找，难以找到失物，失物可能在一个不确定的方位。</p></li><li><p>（6+4）空亡（客体）+赤口（主体）：适宜寻找时间：日出之前；大致方位：无定位</p><p>说明：在日出之前时寻找，难以找到失物，失物可能在一个不确定的方位。</p></li><li><p>（6+5）空亡（客体）+小吉（主体）：适宜寻找时间：日间；大致方位：无定位</p><p>说明：在日间时寻找，比较容易找到失物，失物可能在一个不确定的方位。</p></li><li><p>（6+6）空亡（客体）+空亡（主体）：适宜寻找时间：不宜寻找；大致方位：无定位</p><p>说明：两个空亡组合，不适合寻找失物。</p></li></ol><hr><p>时间对照图</p><table><thead><tr><th>时辰</th><th>时间</th></tr></thead><tbody><tr><td>子时</td><td>23:00-01:00</td></tr><tr><td>丑时</td><td>01:00-03:00</td></tr><tr><td>寅时</td><td>03:00-05:00</td></tr><tr><td>卯时</td><td>05:00-07:00</td></tr><tr><td>辰时</td><td>07:00-09:00</td></tr><tr><td>巳时</td><td>09:00-11:00</td></tr><tr><td>午时</td><td>11:00-13:00</td></tr><tr><td>未时</td><td>13:00-15:00</td></tr><tr><td>申时</td><td>15:00-17:00</td></tr><tr><td>酉时</td><td>17:00-19:00</td></tr><tr><td>戌时</td><td>19:00-21:00</td></tr><tr><td>亥时</td><td>21:00-23:00</td></tr></tbody></table><hr>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;今天教教大家用小六壬找丢的东西，两分钟学会，都2023年了，我不允许任何一个人还丢校园卡，并且还找不着！！😡😡😡。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;strong&gt;注意：要相信科学，杜绝迷信！！！&lt;/strong&gt;&lt;/p&gt;
-&lt;h1&gt;</summary>
-      
-    
-    
-    
-    <category term="周易" scheme="https://atong.run/categories/%E5%91%A8%E6%98%93/"/>
-    
-    
-    <category term="小六壬" scheme="https://atong.run/tags/%E5%B0%8F%E5%85%AD%E5%A3%AC/"/>
     
   </entry>
   
