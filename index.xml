@@ -3739,4 +3739,4 @@ $O(log_2 n)$，搜索时间复杂度O($log_2 n$)&lt;/p>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#66d9ef">return&lt;/span> node;
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="赋值运算符重载">赋值运算符重载&lt;/h2>
-&lt;p>写完拷贝构造之后可以直接用现在写法就OK了&lt;/p></description></item><item><title>关于</title><link>https://atong.run/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://atong.run/about/</guid><description>&lt;p>待补充。&lt;/p></description></item></channel></rss>
+&lt;p>写完拷贝构造之后可以直接用现在写法就OK了&lt;/p></description></item><item><title>关于</title><link>https://atong.run/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://atong.run/about/</guid><description>&lt;p>这里是 atong.run，用来记录工程笔记、工具折腾和生活随笔。&lt;/p></description></item></channel></rss>
