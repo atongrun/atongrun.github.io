@@ -1,350 +1,472 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>AVL树 | 芝士就是菜</title><meta name="author" content="atong"><meta name="copyright" content="atong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="AVL概念  当向二叉搜索树中插入新结点后，如果能保证每个结点的左右子树高度之差的绝对值不超过1(需要对树中的结点进行调整)，即可降低树的高度，从而减少平均搜索长度。  一棵AVL树或者是空树，或者是具有以下性质的二叉搜索树：  它的左右子树都是AVL树 左右子树高度之差(简称平衡因子)的绝对值不超过1(-1&#x2F;0&#x2F;1)  如果一棵二叉搜索树是高度平衡的，它就是AVL树。如果它有n个结点，其高度可保">
-<meta property="og:type" content="article">
-<meta property="og:title" content="AVL树">
-<meta property="og:url" content="https://atong.run/posts/2536969901/index.html">
-<meta property="og:site_name" content="芝士就是菜">
-<meta property="og:description" content="AVL概念  当向二叉搜索树中插入新结点后，如果能保证每个结点的左右子树高度之差的绝对值不超过1(需要对树中的结点进行调整)，即可降低树的高度，从而减少平均搜索长度。  一棵AVL树或者是空树，或者是具有以下性质的二叉搜索树：  它的左右子树都是AVL树 左右子树高度之差(简称平衡因子)的绝对值不超过1(-1&#x2F;0&#x2F;1)  如果一棵二叉搜索树是高度平衡的，它就是AVL树。如果它有n个结点，其高度可保">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202308222330847.jpg">
-<meta property="article:published_time" content="2022-12-14T07:13:27.589Z">
-<meta property="article:modified_time" content="2023-04-11T04:19:31.419Z">
-<meta property="article:author" content="atong">
-<meta property="article:tag" content="搜索树">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202308222330847.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://atong.run/posts/2536969901/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="YX40p2bxT5o8lA8dEzbFWn-KCRHa_qLfQ3mt7SPwsHs"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
-  root: '/',
-  algolia: undefined,
-  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: true,
-    post: false
-  },
-  runtime: '天',
-  dateSuffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: {"limitCount":50,"languages":{"author":"作者: atong","link":"链接: ","source":"来源: 芝士就是菜","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  infinitegrid: {
-    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
-    buttonText: '加载更多'
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  },
-  autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'AVL树',
-  isPost: true,
-  isHome: false,
-  isHighlightShrink: false,
-  isToc: true,
-  postUpdate: '2023-04-11 12:19:31'
-}</script><script>(win=>{
-      win.saveToLocal = {
-        set: (key, value, ttl) => {
-          if (ttl === 0) return
-          const now = Date.now()
-          const expiry = now + ttl * 86400000
-          const item = {
-            value,
-            expiry
-          }
-          localStorage.setItem(key, JSON.stringify(item))
-        },
-      
-        get: key => {
-          const itemStr = localStorage.getItem(key)
-      
-          if (!itemStr) {
-            return undefined
-          }
-          const item = JSON.parse(itemStr)
-          const now = Date.now()
-      
-          if (now > item.expiry) {
-            localStorage.removeItem(key)
-            return undefined
-          }
-          return item.value
-        }
-      }
-    
-      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        script.onerror = reject
-        script.onload = script.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          script.onload = script.onreadystatechange = null
-          resolve()
-        }
+<!doctype html><html lang=zh-cn><head><meta http-equiv=X-Clacks-Overhead content="GNU Terry Pratchett"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" href=https://atong.run/favicon.ico><title>AVL树 | atong.run</title><meta name=title content="AVL树"><meta name=description content='AVL概念
 
-        Object.keys(attr).forEach(key => {
-          script.setAttribute(key, attr[key])
-        })
+当向二叉搜索树中插入新结点后，如果能保证每个结点的左右子树高度之差的绝对值不超过1(需要对树中的结点进行调整)，即可降低树的高度，从而减少平均搜索长度。
+一棵AVL树或者是空树，或者是具有以下性质的二叉搜索树：
 
-        document.head.appendChild(script)
-      })
-    
-      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onerror = reject
-        link.onload = link.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          link.onload = link.onreadystatechange = null
-          resolve()
-        }
-        document.head.appendChild(link)
-      })
-    
-      win.activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-        if (t === 'dark') activateDarkMode()
-        else if (t === 'light') activateLightMode()
-      
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-      const detectApple = () => {
-        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-          document.documentElement.classList.add('apple')
-        }
-      }
-      detectApple()
-    })(window)</script><link rel="stylesheet" href="/css/equipment.css"><meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="芝士就是菜" type="application/atom+xml">
-</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202308222330847.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">73</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">38</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-graduation-cap"></i><span> 博客</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa-solid fa-wand-magic-sparkles"></i><span> 推荐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="芝士就是菜"><span class="site-name">芝士就是菜</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-graduation-cap"></i><span> 博客</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa-solid fa-wand-magic-sparkles"></i><span> 推荐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">AVL树</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-12-14T07:13:27.589Z" title="发表于 2022-12-14 15:13:27">2022-12-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-11T04:19:31.419Z" title="更新于 2023-04-11 12:19:31">2023-04-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%AB%98%E9%98%B6%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">高阶数据结构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="AVL树"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="AVL概念">AVL概念</h2>
-<blockquote>
-<p>当向二叉搜索树中插入新结点后，如果能保证每个结点的左右子树高度之差的绝对值不超过1(需要对树中的结点进行调整)，即可降低树的高度，从而减少平均搜索长度。</p>
-</blockquote>
-<p>一棵AVL树或者是空树，或者是具有以下性质的二叉搜索树：</p>
-<ul>
-<li>它的左右子树都是AVL树</li>
-<li>左右子树高度之差(简称平衡因子)的绝对值不超过1(-1/0/1)</li>
-</ul>
-<p>如果一棵二叉搜索树是高度平衡的，它就是AVL树。如果它有n个结点，其高度可保持在<br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log_2 n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>，搜索时间复杂度O(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>n</mi></mrow><annotation encoding="application/x-tex">log_2 n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">n</span></span></span></span>)</p>
-<h2 id="AVL操作">AVL操作</h2>
-<h3 id="插入">插入</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">insert</span><span class="params">(<span class="type">const</span> pair&lt;K, V&gt; &amp;kv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (_root == <span class="literal">nullptr</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		_root = <span class="keyword">new</span> <span class="built_in">Node</span>(kv);</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	Node *parent = <span class="literal">nullptr</span>;</span><br><span class="line">	Node *cur = _root;</span><br><span class="line">	<span class="keyword">while</span> (cur)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// 插入先找位置</span></span><br><span class="line">		<span class="keyword">if</span> (cur-&gt;_kv.first &gt; kv.first)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">// 先记录parent</span></span><br><span class="line">			parent = cur;</span><br><span class="line">			<span class="comment">// 插入的比当前值小，往左边走</span></span><br><span class="line">			cur = cur-&gt;_left;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (cur-&gt;_kv.first &lt; kv.first)</span><br><span class="line">		&#123;</span><br><span class="line">			parent = cur;</span><br><span class="line">			<span class="comment">// 插入值比左边大，往右边走</span></span><br><span class="line">			cur = cur-&gt;_right;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">// 相等的位置</span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 走到这里cur为空，说明，找到了该插入的位置</span></span><br><span class="line">	cur = <span class="keyword">new</span> <span class="built_in">Node</span>(kv);</span><br><span class="line">	<span class="comment">// 链接</span></span><br><span class="line">	<span class="keyword">if</span> (parent-&gt;_kv.first &gt; kv.first)</span><br><span class="line">	&#123;</span><br><span class="line">		parent-&gt;_left = cur;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		parent-&gt;_right = cur;</span><br><span class="line">	&#125;</span><br><span class="line">	cur-&gt;_parent = parent;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 插入成功。现在需要控制平衡，更新平衡因子</span></span><br><span class="line">	<span class="comment">// 向上更新直到parent为空</span></span><br><span class="line">	<span class="keyword">while</span> (parent)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (parent-&gt;_left == cur)</span><br><span class="line">		&#123;</span><br><span class="line">			parent-&gt;_bf--;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			parent-&gt;_bf++;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (parent-&gt;_bf == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// else if(parent-&gt;_bf==1 || parent-&gt;_bf==-1)</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">abs</span>(parent-&gt;_bf) == <span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">// cur = parent;</span></span><br><span class="line">			<span class="comment">// parent = parent-&gt;_parent;</span></span><br><span class="line">			parent = parent-&gt;_parent;</span><br><span class="line">			cur = cur-&gt;_parent;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">abs</span>(parent-&gt;_bf) == <span class="number">2</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (parent-&gt;_bf == <span class="number">2</span> &amp;&amp; cur-&gt;_bf == <span class="number">1</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="comment">// 左单旋</span></span><br><span class="line">				<span class="built_in">RotateL</span>(parent);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (parent-&gt;_bf == <span class="number">-2</span> &amp;&amp; cur-&gt;_bf == <span class="number">-1</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="comment">// 右单旋</span></span><br><span class="line">				<span class="built_in">RotateR</span>(parent);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (parent-&gt;_bf == <span class="number">2</span> &amp;&amp; cur-&gt;_bf == <span class="number">-1</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="comment">// 右左旋</span></span><br><span class="line">				<span class="built_in">RotateRL</span>(parent);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (parent-&gt;_bf == <span class="number">-2</span> &amp;&amp; cur-&gt;_bf == <span class="number">1</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="comment">// 左右旋</span></span><br><span class="line">				<span class="built_in">RotateLR</span>(parent);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">assert</span>(<span class="literal">false</span>);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 调整完成之后break;</span></span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">assert</span>(<span class="literal">false</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="判断平衡">判断平衡</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">is_balance</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> _is_balance(_root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">get_height</span><span class="params">(Node *root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="literal">nullptr</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> left = <span class="built_in">get_height</span>(root-&gt;_left);</span><br><span class="line">	<span class="type">int</span> right = <span class="built_in">get_height</span>(root-&gt;_right);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">max</span>(left, right) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">bool</span> _is_balance(Node *root)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="literal">nullptr</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> left = <span class="built_in">get_height</span>(root-&gt;_left);</span><br><span class="line">	<span class="type">int</span> right = <span class="built_in">get_height</span>(root-&gt;_right);</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> diff = right-left;</span><br><span class="line">	<span class="keyword">if</span> (diff != root-&gt;_bf)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; root-&gt;_kv.first &lt;&lt; <span class="string">&quot; 平衡因子异常&quot;</span> &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">abs</span>(diff) &lt; <span class="number">2</span> &amp;&amp; _is_balance(root-&gt;_left) &amp;&amp; _is_balance(root-&gt;_right);</span><br><span class="line">	<span class="comment">// if(abs(left-right)&gt;=2)</span></span><br><span class="line">	<span class="comment">// &#123;</span></span><br><span class="line">	<span class="comment">//     return false;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="平衡因子更新">平衡因子更新</h2>
-<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131300912.png" alt=""></p>
-<p>更新平衡因子的规则</p>
-<ul>
-<li>新增在右，parent-&gt;bf++，新增在左，parent-&gt;bf–</li>
-<li>更新后，parent-&gt;bf  == 1 or -1, 说明parent插入前的平衡因子是0，说明左右子树高度相等，插入后有一边高，parent高度变了，需要继续往上更新</li>
-<li>更新后，parent-&gt;bf == 0，说明parent插入前的平衡因子是1 or -1， 说明左右子树一边高一边低，插入后两边一样高，插入填上了矮的那边，parent所在子树高度不变，不需要往上更新</li>
-<li>更新后，parent-&gt;bf == 2 or -2 ，说明parent插入前的平衡因子是1 or -1，已经平衡临界值，插入后变成2 or -2，打破平衡，parent所在子树需要旋转处理</li>
-<li>更新后，parent-&gt;bf &gt;2 or &lt; -2，不可能，如果存在，则说明插入前就不是AVL树，需要去检查之前操作的问题</li>
-</ul>
-<h2 id="旋转的场景">旋转的场景</h2>
-<p>旋转的价值和意义：</p>
-<ul>
-<li>平衡</li>
-<li>降低高度（高度恢复到插入之前的样子）</li>
-</ul>
-<h3 id="左单旋">左单旋</h3>
-<h4 id="情景分析">情景分析</h4>
-<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131542366.png" alt=""></p>
-<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131543737.png" alt=""></p>
-<p>具体进行左旋的时候也要分两种情况</p>
-<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131544284.png" alt=""></p>
-<p>调整完成之后，parent的平衡因子变为0，subR变为新的根，同时平衡因子也变为0</p>
-<h4 id="代码">代码</h4>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 左单旋</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">RotateL</span><span class="params">(Node* parent)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//右边高</span></span><br><span class="line">	Node *subR = parent-&gt;_right;</span><br><span class="line">	Node *subRL = subR-&gt;_left;</span><br><span class="line"></span><br><span class="line">	parent-&gt;_right = subRL;</span><br><span class="line">	<span class="keyword">if</span>(subRL)</span><br><span class="line">	&#123;</span><br><span class="line">		subRL-&gt;_parent = parent;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	Node *ppNode = parent-&gt;_parent;</span><br><span class="line">	subR-&gt;_left = parent;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(parent==_root)</span><br><span class="line">	&#123;</span><br><span class="line">		_root = subR;</span><br><span class="line">		subR-&gt;_parent = <span class="literal">nullptr</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(ppNode-&gt;_left=parent)</span><br><span class="line">		&#123;</span><br><span class="line">			ppNode-&gt;_left = subR;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			ppNode-&gt;_right = subR;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		subR-&gt;_parent = ppNode;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="右单旋">右单旋</h3>
-<h4 id="情景分析‘">情景分析‘</h4>
-<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131547708.png" alt=""></p>
-<h4 id="代码-2">代码</h4>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">//右单旋</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">RotateR</span><span class="params">(Node* parent)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//左边高</span></span><br><span class="line">	Node* subL = parent-&gt;_left;</span><br><span class="line">	Node *subLR = subL-&gt;_right;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//先记录一些parent的父亲</span></span><br><span class="line">	Node *ppNode = parent-&gt;_parent;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//让subL的右给parent的左，然后parent做subL的右，subL做新的根</span></span><br><span class="line">	parent-&gt;_left = subLR;</span><br><span class="line">	<span class="comment">// 注意 要判断subLR是不是空</span></span><br><span class="line">	<span class="keyword">if</span>(subLR)</span><br><span class="line">	&#123;</span><br><span class="line">		subLR-&gt;_parent = parent;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	subL-&gt;_right = parent;</span><br><span class="line">	parent-&gt;_parent = subL;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 这里也注意,</span></span><br><span class="line">	<span class="keyword">if</span>(_root==parent)</span><br><span class="line">	&#123;</span><br><span class="line">		_root = subL;</span><br><span class="line">		subL-&gt;_parent = <span class="literal">nullptr</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (ppNode-&gt;_left == parent)</span><br><span class="line">		&#123;</span><br><span class="line">			ppNode-&gt;_left = subL;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			ppNode-&gt;_right = subL;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//然后让suL的parent指向ppNode</span></span><br><span class="line">		subL-&gt;_parent = ppNode;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	subL-&gt;_bf = <span class="number">0</span>;</span><br><span class="line">	parent-&gt;_bf = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="左右旋">左右旋</h3>
-<h4 id="情景分析-2">情景分析</h4>
-<p>三种情况：</p>
-<p>1、在b新增，那么60节点的平衡因子是-1<br>
-2、在c新增，那么60节点的平衡因子是1</p>
-<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131548304.png" alt=""></p>
-<p>3、subLR就是新增</p>
-<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131609243.png" alt=""></p>
-<h4 id="代码-3">代码</h4>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 左右旋</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">RotateLR</span><span class="params">(Node *parent)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Node *subL = parent-&gt;_left;</span><br><span class="line">	Node *subLR = subL-&gt;_right;</span><br><span class="line">	<span class="type">int</span> bf = subLR-&gt;_bf;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">RotateL</span>(parent-&gt;_left);</span><br><span class="line">	<span class="built_in">RotateR</span>(parent);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 注意，subLR变成新的根</span></span><br><span class="line">	subLR-&gt;_bf = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (bf == <span class="number">-1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// 在b插入</span></span><br><span class="line">		parent-&gt;_bf = <span class="number">1</span>;</span><br><span class="line">		subL-&gt;_bf = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (bf == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// subLR就是新增</span></span><br><span class="line">		parent-&gt;_bf = <span class="number">0</span>;</span><br><span class="line">		subL-&gt;_bf = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (bf == <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// 在c插入</span></span><br><span class="line">		parent-&gt;_bf = <span class="number">0</span>;</span><br><span class="line">		subL-&gt;_bf = <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">assert</span>(<span class="literal">false</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="右左旋">右左旋</h3>
-<h4 id="情景分析-3">情景分析</h4>
-<p>1、新增在b，那么subRL平衡因子变成-1，先对subR进行右旋，然后再对parent进行左旋，调整完成之后，subRL也就是70节点变成了根，平衡因子为0，parent的平衡因子为0，subR就是90的平衡因子变成1.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212132009280.png" alt=""></p>
-<p>2、新增在c，那么subRL平衡因子变成1，先对subR进行右旋，然后再对parent进行左旋，调整完成之后，subRL也就是70节点变成了根，平衡因子为0，parent的平衡因子为-1，subR就是90的平衡因子变成0。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131937234.png" alt=""></p>
-<p>3、新增就是subRL，subRL平衡因子为0，调整完成后都是0</p>
-<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131937964.png" alt=""></p>
-<h4 id="代码-4">代码</h4>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 右左旋</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">RotateRL</span><span class="params">(Node *parent)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Node *subR = parent-&gt;_right;</span><br><span class="line">	Node *subRL = subR-&gt;_left;</span><br><span class="line">	<span class="type">int</span> bf = subRL-&gt;_bf;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">RotateR</span>(subR);</span><br><span class="line">	<span class="built_in">RotateL</span>(parent);</span><br><span class="line"></span><br><span class="line">	subRL-&gt;_bf = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 判断subRL的平衡因子是多少</span></span><br><span class="line">	<span class="keyword">if</span> (bf == <span class="number">-1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		subR-&gt;_bf = <span class="number">1</span>;</span><br><span class="line">		parent-&gt;_bf = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (bf == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		parent-&gt;_bf = <span class="number">0</span>;</span><br><span class="line">		subR-&gt;_bf = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (bf == <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		parent-&gt;_bf = <span class="number">-1</span>;</span><br><span class="line">		subR-&gt;_bf = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">assert</span>(<span class="literal">false</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://atong.run">atong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://atong.run/posts/2536969901/">https://atong.run/posts/2536969901/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://atong.run" target="_blank">芝士就是菜</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%90%9C%E7%B4%A2%E6%A0%91/">搜索树</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202308222330847.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/4171019779/" title="红黑树"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">红黑树</div></div></a></div><div class="next-post pull-right"><a href="/posts/1853189792/" title="606. 根据二叉树创建字符串"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">606. 根据二叉树创建字符串</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/2091589126/" title="二叉搜索树"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-08</div><div class="title">二叉搜索树</div></div></a></div><div><a href="/posts/4171019779/" title="红黑树"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-18</div><div class="title">红黑树</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202308222330847.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">atong</div><div class="author-info__description">编程学习、好用工具、新能源汽车，以及自用好物的评测，公众号：芝士就是菜</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">73</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">38</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://atongrun.notion.site/6851125a8c5746eaa95b730c4a0d7430"><i class="fa-solid fa-cart-shopping"></i><span>自用好物</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://twitter.com/atongrun" rel="external nofollow noreferrer" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a><a class="social-icon" href="https://www.zhihu.com/people/qian-lan-wa" rel="external nofollow noreferrer" target="_blank" title=""><i class="fa-brands fa-zhihu"></i></a><a class="social-icon" href="https://space.bilibili.com/385227660?spm_id_from=333.1007.0.0" rel="external nofollow noreferrer" target="_blank" title=""><i class="fa-brands fa-bilibili"></i></a><a class="social-icon" href="https://www.youtube.com/channel/UCRF1RkVr906u7wUQzVxU-lA" rel="external nofollow noreferrer" target="_blank" title=""><i class="fa-brands fa-youtube"></i></a><a class="social-icon" href="https://atong.run/atom.xml" target="_blank" title=""><i class="fa-solid fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎关注我的公众号：【芝士就是菜】 <img src = "https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202302081936066.jpg"width="250" height="250"></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AVL%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">AVL概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AVL%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">AVL操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5"><span class="toc-number">2.1.</span> <span class="toc-text">插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E5%B9%B3%E8%A1%A1"><span class="toc-number">2.2.</span> <span class="toc-text">判断平衡</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B3%E8%A1%A1%E5%9B%A0%E5%AD%90%E6%9B%B4%E6%96%B0"><span class="toc-number">3.</span> <span class="toc-text">平衡因子更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%8B%E8%BD%AC%E7%9A%84%E5%9C%BA%E6%99%AF"><span class="toc-number">4.</span> <span class="toc-text">旋转的场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A6%E5%8D%95%E6%97%8B"><span class="toc-number">4.1.</span> <span class="toc-text">左单旋</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%83%85%E6%99%AF%E5%88%86%E6%9E%90"><span class="toc-number">4.1.1.</span> <span class="toc-text">情景分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">4.1.2.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%B3%E5%8D%95%E6%97%8B"><span class="toc-number">4.2.</span> <span class="toc-text">右单旋</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%83%85%E6%99%AF%E5%88%86%E6%9E%90%E2%80%98"><span class="toc-number">4.2.1.</span> <span class="toc-text">情景分析‘</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-2"><span class="toc-number">4.2.2.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A6%E5%8F%B3%E6%97%8B"><span class="toc-number">4.3.</span> <span class="toc-text">左右旋</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%83%85%E6%99%AF%E5%88%86%E6%9E%90-2"><span class="toc-number">4.3.1.</span> <span class="toc-text">情景分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-3"><span class="toc-number">4.3.2.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%B3%E5%B7%A6%E6%97%8B"><span class="toc-number">4.4.</span> <span class="toc-text">右左旋</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%83%85%E6%99%AF%E5%88%86%E6%9E%90-3"><span class="toc-number">4.4.1.</span> <span class="toc-text">情景分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-4"><span class="toc-number">4.4.2.</span> <span class="toc-text">代码</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/2858725456/" title="终端Terminal-AI编码助手 Crush"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509142114485.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="终端Terminal-AI编码助手 Crush"/></a><div class="content"><a class="title" href="/posts/2858725456/" title="终端Terminal-AI编码助手 Crush">终端Terminal-AI编码助手 Crush</a><time datetime="2025-09-14T13:12:43.476Z" title="发表于 2025-09-14 21:12:43">2025-09-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3396067388/" title="git常用命令"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202407140135572.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git常用命令"/></a><div class="content"><a class="title" href="/posts/3396067388/" title="git常用命令">git常用命令</a><time datetime="2024-07-13T17:33:49.800Z" title="发表于 2024-07-14 01:33:49">2024-07-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3356543462/" title="导航页-工具"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202405022354395.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="导航页-工具"/></a><div class="content"><a class="title" href="/posts/3356543462/" title="导航页-工具">导航页-工具</a><time datetime="2024-05-02T15:40:56.140Z" title="发表于 2024-05-02 23:40:56">2024-05-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/621459748/" title="lobechat聊天机器人介绍与docker部署（有坑需注意）"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202402162122606.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lobechat聊天机器人介绍与docker部署（有坑需注意）"/></a><div class="content"><a class="title" href="/posts/621459748/" title="lobechat聊天机器人介绍与docker部署（有坑需注意）">lobechat聊天机器人介绍与docker部署（有坑需注意）</a><time datetime="2024-02-16T15:09:12.352Z" title="发表于 2024-02-16 23:09:12">2024-02-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4092410180/" title="小米14购买使用体验"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202402161222878.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="小米14购买使用体验"/></a><div class="content"><a class="title" href="/posts/4092410180/" title="小米14购买使用体验">小米14购买使用体验</a><time datetime="2024-02-16T04:04:55.581Z" title="发表于 2024-02-16 12:04:55">2024-02-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2025 By atong</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
-  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
-    btf.wrap(item, 'div', { class: 'katex-wrap'})
-  })
-})()</script><script>(() => {
-  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
-  if ($mermaid.length === 0) return
-  const runMermaid = () => {
-    window.loadMermaid = true
-    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+它的左右子树都是AVL树
+左右子树高度之差(简称平衡因子)的绝对值不超过1(-1/0/1)
 
-    Array.from($mermaid).forEach((item, index) => {
-      const mermaidSrc = item.firstElementChild
-      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
-      const mermaidID = 'mermaid-' + index
-      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+如果一棵二叉搜索树是高度平衡的，它就是AVL树。如果它有n个结点，其高度可保持在
+$O(log_2 n)$，搜索时间复杂度O($log_2 n$)
+AVL操作
+插入
+bool insert(const pair<K, V> &amp;kv)
+{
+	if (_root == nullptr)
+	{
+		_root = new Node(kv);
+		return true;
+	}
 
-      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+	Node *parent = nullptr;
+	Node *cur = _root;
+	while (cur)
+	{
+		// 插入先找位置
+		if (cur->_kv.first > kv.first)
+		{
+			// 先记录parent
+			parent = cur;
+			// 插入的比当前值小，往左边走
+			cur = cur->_left;
+		}
+		else if (cur->_kv.first < kv.first)
+		{
+			parent = cur;
+			// 插入值比左边大，往右边走
+			cur = cur->_right;
+		}
+		else
+		{
+			// 相等的位置
+			return false;
+		}
+	}
 
-      const renderV10 = () => {
-        renderFn.then(({svg}) => {
-          mermaidSrc.insertAdjacentHTML('afterend', svg)
-        })
-      }
+	// 走到这里cur为空，说明，找到了该插入的位置
+	cur = new Node(kv);
+	// 链接
+	if (parent->_kv.first > kv.first)
+	{
+		parent->_left = cur;
+	}
+	else
+	{
+		parent->_right = cur;
+	}
+	cur->_parent = parent;
 
-      const renderV9 = svg => {
-        mermaidSrc.insertAdjacentHTML('afterend', svg)
-      }
+	// 插入成功。现在需要控制平衡，更新平衡因子
+	// 向上更新直到parent为空
+	while (parent)
+	{
+		if (parent->_left == cur)
+		{
+			parent->_bf--;
+		}
+		else
+		{
+			parent->_bf++;
+		}
 
-      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
-    })
-  }
+		if (parent->_bf == 0)
+		{
+			break;
+		}
+		// else if(parent->_bf==1 || parent->_bf==-1)
+		else if (abs(parent->_bf) == 1)
+		{
+			// cur = parent;
+			// parent = parent->_parent;
+			parent = parent->_parent;
+			cur = cur->_parent;
+		}
+		else if (abs(parent->_bf) == 2)
+		{
+			if (parent->_bf == 2 && cur->_bf == 1)
+			{
+				// 左单旋
+				RotateL(parent);
+			}
+			else if (parent->_bf == -2 && cur->_bf == -1)
+			{
+				// 右单旋
+				RotateR(parent);
+			}
+			else if (parent->_bf == 2 && cur->_bf == -1)
+			{
+				// 右左旋
+				RotateRL(parent);
+			}
+			else if (parent->_bf == -2 && cur->_bf == 1)
+			{
+				// 左右旋
+				RotateLR(parent);
+			}
+			else
+			{
+				assert(false);
+			}
 
-  const loadMermaid = () => {
-    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
-  }
+			// 调整完成之后break;
+			break;
+		}
+		else
+		{
+			assert(false);
+		}
+	}
+	return true;
+}
+判断平衡
+bool is_balance()
+{
+	return _is_balance(_root);
+}
 
-  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
 
-  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
-})()</script><script>(()=>{
-  const getGiscusTheme = theme => {
-    return theme === 'dark' ? 'dark' : 'light'
-  }
+int get_height(Node *root)
+{
+	if (root == nullptr)
+		return 0;
 
-  const loadGiscus = () => {
-    const config = Object.assign({
-      src: 'https://giscus.app/client.js',
-      'data-repo': 'atongrun/giscus',
-      'data-repo-id': 'R_kgDOI57fqA',
-      'data-category-id': 'DIC_kwDOI57fqM4CUAZT',
-      'data-mapping': 'pathname',
-      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
-      'data-reactions-enabled': '1',
-      crossorigin: 'anonymous',
-      async: true
-    },null)
+	int left = get_height(root->_left);
+	int right = get_height(root->_right);
 
-    const ele = document.createElement('script')
-    for (let key in config) {
-      ele.setAttribute(key, config[key])
-    }
-    document.getElementById('giscus-wrap').appendChild(ele)
-  }
+	return max(left, right) + 1;
+}
 
-  const changeGiscusTheme = theme => {
-    const sendMessage = message => {
-      const iframe = document.querySelector('iframe.giscus-frame')
-      if (!iframe) return
-      iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app')
-    }
+bool _is_balance(Node *root)
+{
+	if (root == nullptr)
+	{
+		return true;
+	}
 
-    sendMessage({
-      setConfig: {
-        theme: getGiscusTheme(theme)
-      }
-    });
-  }
+	int left = get_height(root->_left);
+	int right = get_height(root->_right);
 
-  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
-
-  if ('Giscus' === 'Giscus' || !true) {
-    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
-    else loadGiscus()
-  } else {
-    window.loadOtherComment= loadGiscus
-  }
-})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="//code.tidio.co/null.js" async="async"></script><script>(() => {
-  const isChatBtn = false
-  const isChatHideShow = true
-
-  if (isChatBtn) {
-    let isShow = false
-    const close = () => {
-      window.tidioChatApi.hide()
-      isShow = false
-    }
-    
-    const open = () => {
-      window.tidioChatApi.open()
-      window.tidioChatApi.show()
-      isShow = true
-    }
-
-    const onTidioChatApiReady = () => {
-      window.tidioChatApi.hide()
-      window.tidioChatApi.on("close", close)
-    }
-    if (window.tidioChatApi) {
-      window.tidioChatApi.on("ready", onTidioChatApiReady)
-    } else {
-      document.addEventListener("tidioChat-ready", onTidioChatApiReady)
-    }
-
-    window.chatBtnFn = () => {
-      if (!window.tidioChatApi) return
-      isShow ? close() : open()
-    }
-  } else if (isChatHideShow) {
-    window.chatBtn = {
-      hide: () => {
-        window.tidioChatApi && window.tidioChatApi.hide()
-      },
-      show: () => {
-        window.tidioChatApi && window.tidioChatApi.show()
-      }
-    }
-  }
-})()</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
+	int diff = right-left;
+	if (diff != root->_bf)
+	{
+		cout << root->_kv.first << " 平衡因子异常" << endl;
+		return false;
+	}
+	return abs(diff) < 2 && _is_balance(root->_left) && _is_balance(root->_right);
+	// if(abs(left-right)>=2)
+	// {
+	//     return false;
+	// }
+}
+平衡因子更新
+'><meta name=keywords content><meta property="og:url" content="https://atong.run/posts/2536969901/"><meta property="og:site_name" content="atong.run"><meta property="og:title" content="AVL树"><meta property="og:description" content='AVL概念 当向二叉搜索树中插入新结点后，如果能保证每个结点的左右子树高度之差的绝对值不超过1(需要对树中的结点进行调整)，即可降低树的高度，从而减少平均搜索长度。
+一棵AVL树或者是空树，或者是具有以下性质的二叉搜索树：
+它的左右子树都是AVL树 左右子树高度之差(简称平衡因子)的绝对值不超过1(-1/0/1) 如果一棵二叉搜索树是高度平衡的，它就是AVL树。如果它有n个结点，其高度可保持在
+$O(log_2 n)$，搜索时间复杂度O($log_2 n$)
+AVL操作 插入 bool insert(const pair<K, V> &amp;kv) { if (_root == nullptr) { _root = new Node(kv); return true; } Node *parent = nullptr; Node *cur = _root; while (cur) { // 插入先找位置 if (cur->_kv.first > kv.first) { // 先记录parent parent = cur; // 插入的比当前值小，往左边走 cur = cur->_left; } else if (cur->_kv.first < kv.first) { parent = cur; // 插入值比左边大，往右边走 cur = cur->_right; } else { // 相等的位置 return false; } } // 走到这里cur为空，说明，找到了该插入的位置 cur = new Node(kv); // 链接 if (parent->_kv.first > kv.first) { parent->_left = cur; } else { parent->_right = cur; } cur->_parent = parent; // 插入成功。现在需要控制平衡，更新平衡因子 // 向上更新直到parent为空 while (parent) { if (parent->_left == cur) { parent->_bf--; } else { parent->_bf++; } if (parent->_bf == 0) { break; } // else if(parent->_bf==1 || parent->_bf==-1) else if (abs(parent->_bf) == 1) { // cur = parent; // parent = parent->_parent; parent = parent->_parent; cur = cur->_parent; } else if (abs(parent->_bf) == 2) { if (parent->_bf == 2 && cur->_bf == 1) { // 左单旋 RotateL(parent); } else if (parent->_bf == -2 && cur->_bf == -1) { // 右单旋 RotateR(parent); } else if (parent->_bf == 2 && cur->_bf == -1) { // 右左旋 RotateRL(parent); } else if (parent->_bf == -2 && cur->_bf == 1) { // 左右旋 RotateLR(parent); } else { assert(false); } // 调整完成之后break; break; } else { assert(false); } } return true; } 判断平衡 bool is_balance() { return _is_balance(_root); } int get_height(Node *root) { if (root == nullptr) return 0; int left = get_height(root->_left); int right = get_height(root->_right); return max(left, right) + 1; } bool _is_balance(Node *root) { if (root == nullptr) { return true; } int left = get_height(root->_left); int right = get_height(root->_right); int diff = right-left; if (diff != root->_bf) { cout << root->_kv.first << " 平衡因子异常" << endl; return false; } return abs(diff) < 2 && _is_balance(root->_left) && _is_balance(root->_right); // if(abs(left-right)>=2) // { // return false; // } } 平衡因子更新'><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="archive"><meta property="article:published_time" content="2022-12-14T15:13:27+08:00"><meta property="article:modified_time" content="2023-04-11T12:19:31+08:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="AVL树"><meta name=twitter:description content='AVL概念 当向二叉搜索树中插入新结点后，如果能保证每个结点的左右子树高度之差的绝对值不超过1(需要对树中的结点进行调整)，即可降低树的高度，从而减少平均搜索长度。
+一棵AVL树或者是空树，或者是具有以下性质的二叉搜索树：
+它的左右子树都是AVL树 左右子树高度之差(简称平衡因子)的绝对值不超过1(-1/0/1) 如果一棵二叉搜索树是高度平衡的，它就是AVL树。如果它有n个结点，其高度可保持在
+$O(log_2 n)$，搜索时间复杂度O($log_2 n$)
+AVL操作 插入 bool insert(const pair<K, V> &amp;kv) { if (_root == nullptr) { _root = new Node(kv); return true; } Node *parent = nullptr; Node *cur = _root; while (cur) { // 插入先找位置 if (cur->_kv.first > kv.first) { // 先记录parent parent = cur; // 插入的比当前值小，往左边走 cur = cur->_left; } else if (cur->_kv.first < kv.first) { parent = cur; // 插入值比左边大，往右边走 cur = cur->_right; } else { // 相等的位置 return false; } } // 走到这里cur为空，说明，找到了该插入的位置 cur = new Node(kv); // 链接 if (parent->_kv.first > kv.first) { parent->_left = cur; } else { parent->_right = cur; } cur->_parent = parent; // 插入成功。现在需要控制平衡，更新平衡因子 // 向上更新直到parent为空 while (parent) { if (parent->_left == cur) { parent->_bf--; } else { parent->_bf++; } if (parent->_bf == 0) { break; } // else if(parent->_bf==1 || parent->_bf==-1) else if (abs(parent->_bf) == 1) { // cur = parent; // parent = parent->_parent; parent = parent->_parent; cur = cur->_parent; } else if (abs(parent->_bf) == 2) { if (parent->_bf == 2 && cur->_bf == 1) { // 左单旋 RotateL(parent); } else if (parent->_bf == -2 && cur->_bf == -1) { // 右单旋 RotateR(parent); } else if (parent->_bf == 2 && cur->_bf == -1) { // 右左旋 RotateRL(parent); } else if (parent->_bf == -2 && cur->_bf == 1) { // 左右旋 RotateLR(parent); } else { assert(false); } // 调整完成之后break; break; } else { assert(false); } } return true; } 判断平衡 bool is_balance() { return _is_balance(_root); } int get_height(Node *root) { if (root == nullptr) return 0; int left = get_height(root->_left); int right = get_height(root->_right); return max(left, right) + 1; } bool _is_balance(Node *root) { if (root == nullptr) { return true; } int left = get_height(root->_left); int right = get_height(root->_right); int diff = right-left; if (diff != root->_bf) { cout << root->_kv.first << " 平衡因子异常" << endl; return false; } return abs(diff) < 2 && _is_balance(root->_left) && _is_balance(root->_right); // if(abs(left-right)>=2) // { // return false; // } } 平衡因子更新'><meta itemprop=name content="AVL树"><meta itemprop=description content='AVL概念 当向二叉搜索树中插入新结点后，如果能保证每个结点的左右子树高度之差的绝对值不超过1(需要对树中的结点进行调整)，即可降低树的高度，从而减少平均搜索长度。
+一棵AVL树或者是空树，或者是具有以下性质的二叉搜索树：
+它的左右子树都是AVL树 左右子树高度之差(简称平衡因子)的绝对值不超过1(-1/0/1) 如果一棵二叉搜索树是高度平衡的，它就是AVL树。如果它有n个结点，其高度可保持在
+$O(log_2 n)$，搜索时间复杂度O($log_2 n$)
+AVL操作 插入 bool insert(const pair<K, V> &amp;kv) { if (_root == nullptr) { _root = new Node(kv); return true; } Node *parent = nullptr; Node *cur = _root; while (cur) { // 插入先找位置 if (cur->_kv.first > kv.first) { // 先记录parent parent = cur; // 插入的比当前值小，往左边走 cur = cur->_left; } else if (cur->_kv.first < kv.first) { parent = cur; // 插入值比左边大，往右边走 cur = cur->_right; } else { // 相等的位置 return false; } } // 走到这里cur为空，说明，找到了该插入的位置 cur = new Node(kv); // 链接 if (parent->_kv.first > kv.first) { parent->_left = cur; } else { parent->_right = cur; } cur->_parent = parent; // 插入成功。现在需要控制平衡，更新平衡因子 // 向上更新直到parent为空 while (parent) { if (parent->_left == cur) { parent->_bf--; } else { parent->_bf++; } if (parent->_bf == 0) { break; } // else if(parent->_bf==1 || parent->_bf==-1) else if (abs(parent->_bf) == 1) { // cur = parent; // parent = parent->_parent; parent = parent->_parent; cur = cur->_parent; } else if (abs(parent->_bf) == 2) { if (parent->_bf == 2 && cur->_bf == 1) { // 左单旋 RotateL(parent); } else if (parent->_bf == -2 && cur->_bf == -1) { // 右单旋 RotateR(parent); } else if (parent->_bf == 2 && cur->_bf == -1) { // 右左旋 RotateRL(parent); } else if (parent->_bf == -2 && cur->_bf == 1) { // 左右旋 RotateLR(parent); } else { assert(false); } // 调整完成之后break; break; } else { assert(false); } } return true; } 判断平衡 bool is_balance() { return _is_balance(_root); } int get_height(Node *root) { if (root == nullptr) return 0; int left = get_height(root->_left); int right = get_height(root->_right); return max(left, right) + 1; } bool _is_balance(Node *root) { if (root == nullptr) { return true; } int left = get_height(root->_left); int right = get_height(root->_right); int diff = right-left; if (diff != root->_bf) { cout << root->_kv.first << " 平衡因子异常" << endl; return false; } return abs(diff) < 2 && _is_balance(root->_left) && _is_balance(root->_right); // if(abs(left-right)>=2) // { // return false; // } } 平衡因子更新'><meta itemprop=datePublished content="2022-12-14T15:13:27+08:00"><meta itemprop=dateModified content="2023-04-11T12:19:31+08:00"><meta itemprop=wordCount content="658"><meta name=referrer content="no-referrer-when-downgrade"><style>:root{--width:720px;--font-main:Verdana, sans-serif;--font-secondary:Verdana, sans-serif;--font-scale:1em;--background-color:#fff;--heading-color:#222;--text-color:#444;--link-color:#3273dc;--visited-color:#8b6fcb;--blockquote-color:#222}@media(prefers-color-scheme:dark){:root{--background-color:#01242e;--heading-color:#eee;--text-color:#ddd;--link-color:#8cc2dd;--visited-color:#8b6fcb;--blockquote-color:#ccc}}body{font-family:var(--font-secondary);font-size:var(--font-scale);margin:auto;padding:20px;max-width:var(--width);text-align:left;background-color:var(--background-color);word-wrap:break-word;overflow-wrap:break-word;line-height:1.5;color:var(--text-color)}h1,h2,h3,h4,h5,h6{font-family:var(--font-main);color:var(--heading-color)}a{color:var(--link-color);cursor:pointer;text-decoration:none}a:hover{text-decoration:underline}nav a{margin-right:8px}strong,b{color:var(--heading-color)}button{margin:0;cursor:pointer}time{font-family:monospace;font-style:normal;font-size:15px}main{line-height:1.6}table{width:100%}hr{border:0;border-top:1px dashed}img{max-width:100%}code{font-family:monospace;padding:2px;border-radius:3px}blockquote{border-left:1px solid #999;color:var(--blockquote-color);padding-left:20px;font-style:italic}footer{padding:25px 0;text-align:center}.title:hover{text-decoration:none}.title h1{font-size:1.5em}.inline{width:auto !important}.highlight,.code{border-radius:3px;margin-block-start:1em;margin-block-end:1em;overflow-x:auto}.highlight pre,.code pre{min-width:100%;width:max-content}ul.blog-posts{list-style-type:none;padding:unset}ul.blog-posts li{display:flex}ul.blog-posts li span{flex:0 0 130px}ul.blog-posts li a:visited{color:var(--visited-color)}</style></head><body><header><a href=/ class=title><h2>atong.run</h2></a><nav></nav></header><main><content><h2 id=avl概念>AVL概念</h2><blockquote><p>当向二叉搜索树中插入新结点后，如果能保证每个结点的左右子树高度之差的绝对值不超过1(需要对树中的结点进行调整)，即可降低树的高度，从而减少平均搜索长度。</p></blockquote><p>一棵AVL树或者是空树，或者是具有以下性质的二叉搜索树：</p><ul><li>它的左右子树都是AVL树</li><li>左右子树高度之差(简称平衡因子)的绝对值不超过1(-1/0/1)</li></ul><p>如果一棵二叉搜索树是高度平衡的，它就是AVL树。如果它有n个结点，其高度可保持在<br>$O(log_2 n)$，搜索时间复杂度O($log_2 n$)</p><h2 id=avl操作>AVL操作</h2><h3 id=插入>插入</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>bool</span> <span style=color:#a6e22e>insert</span>(<span style=color:#66d9ef>const</span> pair<span style=color:#f92672>&lt;</span>K, V<span style=color:#f92672>&gt;</span> <span style=color:#f92672>&amp;</span>kv)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (_root <span style=color:#f92672>==</span> <span style=color:#66d9ef>nullptr</span>)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		_root <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Node(kv);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>return</span> true;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	Node <span style=color:#f92672>*</span>parent <span style=color:#f92672>=</span> <span style=color:#66d9ef>nullptr</span>;
+</span></span><span style=display:flex><span>	Node <span style=color:#f92672>*</span>cur <span style=color:#f92672>=</span> _root;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>while</span> (cur)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		<span style=color:#75715e>// 插入先找位置
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		<span style=color:#66d9ef>if</span> (cur<span style=color:#f92672>-&gt;</span>_kv.first <span style=color:#f92672>&gt;</span> kv.first)
+</span></span><span style=display:flex><span>		{
+</span></span><span style=display:flex><span>			<span style=color:#75715e>// 先记录parent
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>			parent <span style=color:#f92672>=</span> cur;
+</span></span><span style=display:flex><span>			<span style=color:#75715e>// 插入的比当前值小，往左边走
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>			cur <span style=color:#f92672>=</span> cur<span style=color:#f92672>-&gt;</span>_left;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (cur<span style=color:#f92672>-&gt;</span>_kv.first <span style=color:#f92672>&lt;</span> kv.first)
+</span></span><span style=display:flex><span>		{
+</span></span><span style=display:flex><span>			parent <span style=color:#f92672>=</span> cur;
+</span></span><span style=display:flex><span>			<span style=color:#75715e>// 插入值比左边大，往右边走
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>			cur <span style=color:#f92672>=</span> cur<span style=color:#f92672>-&gt;</span>_right;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>		{
+</span></span><span style=display:flex><span>			<span style=color:#75715e>// 相等的位置
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>			<span style=color:#66d9ef>return</span> false;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 走到这里cur为空，说明，找到了该插入的位置
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	cur <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Node(kv);
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 链接
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#66d9ef>if</span> (parent<span style=color:#f92672>-&gt;</span>_kv.first <span style=color:#f92672>&gt;</span> kv.first)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		parent<span style=color:#f92672>-&gt;</span>_left <span style=color:#f92672>=</span> cur;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		parent<span style=color:#f92672>-&gt;</span>_right <span style=color:#f92672>=</span> cur;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	cur<span style=color:#f92672>-&gt;</span>_parent <span style=color:#f92672>=</span> parent;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 插入成功。现在需要控制平衡，更新平衡因子
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#75715e>// 向上更新直到parent为空
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#66d9ef>while</span> (parent)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (parent<span style=color:#f92672>-&gt;</span>_left <span style=color:#f92672>==</span> cur)
+</span></span><span style=display:flex><span>		{
+</span></span><span style=display:flex><span>			parent<span style=color:#f92672>-&gt;</span>_bf<span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>		{
+</span></span><span style=display:flex><span>			parent<span style=color:#f92672>-&gt;</span>_bf<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (parent<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>		{
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>		<span style=color:#75715e>// else if(parent-&gt;_bf==1 || parent-&gt;_bf==-1)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (abs(parent<span style=color:#f92672>-&gt;</span>_bf) <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>		{
+</span></span><span style=display:flex><span>			<span style=color:#75715e>// cur = parent;
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>			<span style=color:#75715e>// parent = parent-&gt;_parent;
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>			parent <span style=color:#f92672>=</span> parent<span style=color:#f92672>-&gt;</span>_parent;
+</span></span><span style=display:flex><span>			cur <span style=color:#f92672>=</span> cur<span style=color:#f92672>-&gt;</span>_parent;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (abs(parent<span style=color:#f92672>-&gt;</span>_bf) <span style=color:#f92672>==</span> <span style=color:#ae81ff>2</span>)
+</span></span><span style=display:flex><span>		{
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>if</span> (parent<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>==</span> <span style=color:#ae81ff>2</span> <span style=color:#f92672>&amp;&amp;</span> cur<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>			{
+</span></span><span style=display:flex><span>				<span style=color:#75715e>// 左单旋
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>				RotateL(parent);
+</span></span><span style=display:flex><span>			}
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (parent<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>2</span> <span style=color:#f92672>&amp;&amp;</span> cur<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>			{
+</span></span><span style=display:flex><span>				<span style=color:#75715e>// 右单旋
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>				RotateR(parent);
+</span></span><span style=display:flex><span>			}
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (parent<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>==</span> <span style=color:#ae81ff>2</span> <span style=color:#f92672>&amp;&amp;</span> cur<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>			{
+</span></span><span style=display:flex><span>				<span style=color:#75715e>// 右左旋
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>				RotateRL(parent);
+</span></span><span style=display:flex><span>			}
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (parent<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>2</span> <span style=color:#f92672>&amp;&amp;</span> cur<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>			{
+</span></span><span style=display:flex><span>				<span style=color:#75715e>// 左右旋
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>				RotateLR(parent);
+</span></span><span style=display:flex><span>			}
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>			{
+</span></span><span style=display:flex><span>				assert(false);
+</span></span><span style=display:flex><span>			}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>			<span style=color:#75715e>// 调整完成之后break;
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>			<span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>		{
+</span></span><span style=display:flex><span>			assert(false);
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> true;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=判断平衡>判断平衡</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>bool</span> <span style=color:#a6e22e>is_balance</span>()
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> _is_balance(_root);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>get_height</span>(Node <span style=color:#f92672>*</span>root)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (root <span style=color:#f92672>==</span> <span style=color:#66d9ef>nullptr</span>)
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> left <span style=color:#f92672>=</span> get_height(root<span style=color:#f92672>-&gt;</span>_left);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> right <span style=color:#f92672>=</span> get_height(root<span style=color:#f92672>-&gt;</span>_right);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> max(left, right) <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>bool</span> <span style=color:#a6e22e>_is_balance</span>(Node <span style=color:#f92672>*</span>root)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (root <span style=color:#f92672>==</span> <span style=color:#66d9ef>nullptr</span>)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>return</span> true;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> left <span style=color:#f92672>=</span> get_height(root<span style=color:#f92672>-&gt;</span>_left);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> right <span style=color:#f92672>=</span> get_height(root<span style=color:#f92672>-&gt;</span>_right);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> diff <span style=color:#f92672>=</span> right<span style=color:#f92672>-</span>left;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (diff <span style=color:#f92672>!=</span> root<span style=color:#f92672>-&gt;</span>_bf)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		cout <span style=color:#f92672>&lt;&lt;</span> root<span style=color:#f92672>-&gt;</span>_kv.first <span style=color:#f92672>&lt;&lt;</span> <span style=color:#e6db74>&#34; 平衡因子异常&#34;</span> <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>return</span> false;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> abs(diff) <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>2</span> <span style=color:#f92672>&amp;&amp;</span> _is_balance(root<span style=color:#f92672>-&gt;</span>_left) <span style=color:#f92672>&amp;&amp;</span> _is_balance(root<span style=color:#f92672>-&gt;</span>_right);
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// if(abs(left-right)&gt;=2)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#75715e>// {
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#75715e>//     return false;
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#75715e>// }
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}
+</span></span></code></pre></div><h2 id=平衡因子更新>平衡因子更新</h2><p><img src=https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131300912.png alt></p><p>更新平衡因子的规则</p><ul><li>新增在右，parent->bf++，新增在左，parent->bf&ndash;</li><li>更新后，parent->bf == 1 or -1, 说明parent插入前的平衡因子是0，说明左右子树高度相等，插入后有一边高，parent高度变了，需要继续往上更新</li><li>更新后，parent->bf == 0，说明parent插入前的平衡因子是1 or -1， 说明左右子树一边高一边低，插入后两边一样高，插入填上了矮的那边，parent所在子树高度不变，不需要往上更新</li><li>更新后，parent->bf == 2 or -2 ，说明parent插入前的平衡因子是1 or -1，已经平衡临界值，插入后变成2 or -2，打破平衡，parent所在子树需要旋转处理</li><li>更新后，parent->bf >2 or &lt; -2，不可能，如果存在，则说明插入前就不是AVL树，需要去检查之前操作的问题</li></ul><h2 id=旋转的场景>旋转的场景</h2><p>旋转的价值和意义：</p><ul><li>平衡</li><li>降低高度（高度恢复到插入之前的样子）</li></ul><h3 id=左单旋>左单旋</h3><h4 id=情景分析>情景分析</h4><p><img src=https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131542366.png alt></p><p><img src=https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131543737.png alt></p><p>具体进行左旋的时候也要分两种情况</p><p><img src=https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131544284.png alt></p><p>调整完成之后，parent的平衡因子变为0，subR变为新的根，同时平衡因子也变为0</p><h4 id=代码>代码</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>// 左单旋
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>RotateL</span>(Node<span style=color:#f92672>*</span> parent)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	<span style=color:#75715e>//右边高
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	Node <span style=color:#f92672>*</span>subR <span style=color:#f92672>=</span> parent<span style=color:#f92672>-&gt;</span>_right;
+</span></span><span style=display:flex><span>	Node <span style=color:#f92672>*</span>subRL <span style=color:#f92672>=</span> subR<span style=color:#f92672>-&gt;</span>_left;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	parent<span style=color:#f92672>-&gt;</span>_right <span style=color:#f92672>=</span> subRL;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span>(subRL)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		subRL<span style=color:#f92672>-&gt;</span>_parent <span style=color:#f92672>=</span> parent;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	Node <span style=color:#f92672>*</span>ppNode <span style=color:#f92672>=</span> parent<span style=color:#f92672>-&gt;</span>_parent;
+</span></span><span style=display:flex><span>	subR<span style=color:#f92672>-&gt;</span>_left <span style=color:#f92672>=</span> parent;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span>(parent<span style=color:#f92672>==</span>_root)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		_root <span style=color:#f92672>=</span> subR;
+</span></span><span style=display:flex><span>		subR<span style=color:#f92672>-&gt;</span>_parent <span style=color:#f92672>=</span> <span style=color:#66d9ef>nullptr</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span>(ppNode<span style=color:#f92672>-&gt;</span>_left<span style=color:#f92672>=</span>parent)
+</span></span><span style=display:flex><span>		{
+</span></span><span style=display:flex><span>			ppNode<span style=color:#f92672>-&gt;</span>_left <span style=color:#f92672>=</span> subR;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>		{
+</span></span><span style=display:flex><span>			ppNode<span style=color:#f92672>-&gt;</span>_right <span style=color:#f92672>=</span> subR;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>		subR<span style=color:#f92672>-&gt;</span>_parent <span style=color:#f92672>=</span> ppNode;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=右单旋>右单旋</h3><h4 id=情景分析-1>情景分析‘</h4><p><img src=https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131547708.png alt></p><h4 id=代码-1>代码</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span>  <span style=color:#75715e>//右单旋
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>RotateR</span>(Node<span style=color:#f92672>*</span> parent)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	<span style=color:#75715e>//左边高
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	Node<span style=color:#f92672>*</span> subL <span style=color:#f92672>=</span> parent<span style=color:#f92672>-&gt;</span>_left;
+</span></span><span style=display:flex><span>	Node <span style=color:#f92672>*</span>subLR <span style=color:#f92672>=</span> subL<span style=color:#f92672>-&gt;</span>_right;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>//先记录一些parent的父亲
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	Node <span style=color:#f92672>*</span>ppNode <span style=color:#f92672>=</span> parent<span style=color:#f92672>-&gt;</span>_parent;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>//让subL的右给parent的左，然后parent做subL的右，subL做新的根
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	parent<span style=color:#f92672>-&gt;</span>_left <span style=color:#f92672>=</span> subLR;
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 注意 要判断subLR是不是空
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#66d9ef>if</span>(subLR)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		subLR<span style=color:#f92672>-&gt;</span>_parent <span style=color:#f92672>=</span> parent;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	subL<span style=color:#f92672>-&gt;</span>_right <span style=color:#f92672>=</span> parent;
+</span></span><span style=display:flex><span>	parent<span style=color:#f92672>-&gt;</span>_parent <span style=color:#f92672>=</span> subL;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 这里也注意,
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#66d9ef>if</span>(_root<span style=color:#f92672>==</span>parent)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		_root <span style=color:#f92672>=</span> subL;
+</span></span><span style=display:flex><span>		subL<span style=color:#f92672>-&gt;</span>_parent <span style=color:#f92672>=</span> <span style=color:#66d9ef>nullptr</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (ppNode<span style=color:#f92672>-&gt;</span>_left <span style=color:#f92672>==</span> parent)
+</span></span><span style=display:flex><span>		{
+</span></span><span style=display:flex><span>			ppNode<span style=color:#f92672>-&gt;</span>_left <span style=color:#f92672>=</span> subL;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>		{
+</span></span><span style=display:flex><span>			ppNode<span style=color:#f92672>-&gt;</span>_right <span style=color:#f92672>=</span> subL;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>		<span style=color:#75715e>//然后让suL的parent指向ppNode
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		subL<span style=color:#f92672>-&gt;</span>_parent <span style=color:#f92672>=</span> ppNode;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	subL<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>	parent<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=左右旋>左右旋</h3><h4 id=情景分析-2>情景分析</h4><p>三种情况：</p><p>1、在b新增，那么60节点的平衡因子是-1
+2、在c新增，那么60节点的平衡因子是1</p><p><img src=https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131548304.png alt></p><p>3、subLR就是新增</p><p><img src=https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131609243.png alt></p><h4 id=代码-2>代码</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>// 左右旋
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>RotateLR</span>(Node <span style=color:#f92672>*</span>parent)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	Node <span style=color:#f92672>*</span>subL <span style=color:#f92672>=</span> parent<span style=color:#f92672>-&gt;</span>_left;
+</span></span><span style=display:flex><span>	Node <span style=color:#f92672>*</span>subLR <span style=color:#f92672>=</span> subL<span style=color:#f92672>-&gt;</span>_right;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> bf <span style=color:#f92672>=</span> subLR<span style=color:#f92672>-&gt;</span>_bf;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	RotateL(parent<span style=color:#f92672>-&gt;</span>_left);
+</span></span><span style=display:flex><span>	RotateR(parent);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 注意，subLR变成新的根
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	subLR<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (bf <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		<span style=color:#75715e>// 在b插入
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		parent<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>		subL<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (bf <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		<span style=color:#75715e>// subLR就是新增
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		parent<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>		subL<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (bf <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		<span style=color:#75715e>// 在c插入
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		parent<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>		subL<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		assert(false);
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=右左旋>右左旋</h3><h4 id=情景分析-3>情景分析</h4><p>1、新增在b，那么subRL平衡因子变成-1，先对subR进行右旋，然后再对parent进行左旋，调整完成之后，subRL也就是70节点变成了根，平衡因子为0，parent的平衡因子为0，subR就是90的平衡因子变成1.</p><p><img src=https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212132009280.png alt></p><p>2、新增在c，那么subRL平衡因子变成1，先对subR进行右旋，然后再对parent进行左旋，调整完成之后，subRL也就是70节点变成了根，平衡因子为0，parent的平衡因子为-1，subR就是90的平衡因子变成0。</p><p><img src=https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131937234.png alt></p><p>3、新增就是subRL，subRL平衡因子为0，调整完成后都是0</p><p><img src=https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202212131937964.png alt></p><h4 id=代码-3>代码</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>// 右左旋
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>RotateRL</span>(Node <span style=color:#f92672>*</span>parent)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	Node <span style=color:#f92672>*</span>subR <span style=color:#f92672>=</span> parent<span style=color:#f92672>-&gt;</span>_right;
+</span></span><span style=display:flex><span>	Node <span style=color:#f92672>*</span>subRL <span style=color:#f92672>=</span> subR<span style=color:#f92672>-&gt;</span>_left;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> bf <span style=color:#f92672>=</span> subRL<span style=color:#f92672>-&gt;</span>_bf;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	RotateR(subR);
+</span></span><span style=display:flex><span>	RotateL(parent);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	subRL<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 判断subRL的平衡因子是多少
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#66d9ef>if</span> (bf <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		subR<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>		parent<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (bf <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		parent<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>		subR<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (bf <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		parent<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>		subR<span style=color:#f92672>-&gt;</span>_bf <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>		assert(false);
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></content><p></p></main><footer>Made with <a href=https://github.com/janraasch/hugo-bearblog/>Hugo ʕ•ᴥ•ʔ Bear</a></footer></body></html>

@@ -1,340 +1,293 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>4、负载均衡式在线OJ-编译运行 | 芝士就是菜</title><meta name="author" content="atong"><meta name="copyright" content="atong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="该模块为编译运行功能，该模块需要使用json库，首先安装json，作用是将结构化的数据转化为字符串，做序列化和反序列化工作  命令：sudo yum install jsoncpp-devel 整体逻辑  Start函数 1static void Start(const std::string &amp;in_json, std::string *out_json)&#123;&#125; St">
-<meta property="og:type" content="article">
-<meta property="og:title" content="4、负载均衡式在线OJ-编译运行">
-<meta property="og:url" content="https://atong.run/posts/2587007324/index.html">
-<meta property="og:site_name" content="芝士就是菜">
-<meta property="og:description" content="该模块为编译运行功能，该模块需要使用json库，首先安装json，作用是将结构化的数据转化为字符串，做序列化和反序列化工作  命令：sudo yum install jsoncpp-devel 整体逻辑  Start函数 1static void Start(const std::string &amp;in_json, std::string *out_json)&#123;&#125; St">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png">
-<meta property="article:published_time" content="2023-06-22T13:24:14.902Z">
-<meta property="article:modified_time" content="2023-06-22T13:26:23.960Z">
-<meta property="article:author" content="atong">
-<meta property="article:tag" content="项目">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://atong.run/posts/2587007324/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="YX40p2bxT5o8lA8dEzbFWn-KCRHa_qLfQ3mt7SPwsHs"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
-  root: '/',
-  algolia: undefined,
-  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: true,
-    post: false
-  },
-  runtime: '天',
-  dateSuffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: {"limitCount":50,"languages":{"author":"作者: atong","link":"链接: ","source":"来源: 芝士就是菜","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  infinitegrid: {
-    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
-    buttonText: '加载更多'
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  },
-  autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: '4、负载均衡式在线OJ-编译运行',
-  isPost: true,
-  isHome: false,
-  isHighlightShrink: false,
-  isToc: true,
-  postUpdate: '2023-06-22 21:26:23'
-}</script><script>(win=>{
-      win.saveToLocal = {
-        set: (key, value, ttl) => {
-          if (ttl === 0) return
-          const now = Date.now()
-          const expiry = now + ttl * 86400000
-          const item = {
-            value,
-            expiry
-          }
-          localStorage.setItem(key, JSON.stringify(item))
-        },
-      
-        get: key => {
-          const itemStr = localStorage.getItem(key)
-      
-          if (!itemStr) {
-            return undefined
-          }
-          const item = JSON.parse(itemStr)
-          const now = Date.now()
-      
-          if (now > item.expiry) {
-            localStorage.removeItem(key)
-            return undefined
-          }
-          return item.value
-        }
-      }
-    
-      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        script.onerror = reject
-        script.onload = script.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          script.onload = script.onreadystatechange = null
-          resolve()
-        }
+<!doctype html><html lang=zh-cn><head><meta http-equiv=X-Clacks-Overhead content="GNU Terry Pratchett"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" href=https://atong.run/favicon.ico><title>4、负载均衡式在线OJ-编译运行 | atong.run</title><meta name=title content="4、负载均衡式在线OJ-编译运行"><meta name=description content='
+该模块为编译运行功能，该模块需要使用json库，首先安装json，作用是将结构化的数据转化为字符串，做序列化和反序列化工作
+命令：sudo yum install jsoncpp-devel
+整体逻辑
 
-        Object.keys(attr).forEach(key => {
-          script.setAttribute(key, attr[key])
-        })
+Start函数
+static void Start(const std::string &amp;in_json, std::string *out_json){}
+Start函数参数
 
-        document.head.appendChild(script)
-      })
-    
-      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onerror = reject
-        link.onload = link.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          link.onload = link.onreadystatechange = null
-          resolve()
-        }
-        document.head.appendChild(link)
-      })
-    
-      win.activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-        if (t === 'dark') activateDarkMode()
-        else if (t === 'light') activateLightMode()
-      
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-      const detectApple = () => {
-        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-          document.documentElement.classList.add('apple')
-        }
-      }
-      detectApple()
-    })(window)</script><link rel="stylesheet" href="/css/equipment.css"><meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="芝士就是菜" type="application/atom+xml">
-</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202308222330847.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">73</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">38</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-graduation-cap"></i><span> 博客</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa-solid fa-wand-magic-sparkles"></i><span> 推荐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png')"><nav id="nav"><span id="blog-info"><a href="/" title="芝士就是菜"><span class="site-name">芝士就是菜</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-graduation-cap"></i><span> 博客</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa-solid fa-wand-magic-sparkles"></i><span> 推荐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">4、负载均衡式在线OJ-编译运行</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-06-22T13:24:14.902Z" title="发表于 2023-06-22 21:24:14">2023-06-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-22T13:26:23.960Z" title="更新于 2023-06-22 21:26:23">2023-06-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%A1%B9%E7%9B%AE/">项目</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%A1%B9%E7%9B%AE/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%BC%8F%E5%9C%A8%E7%BA%BFOJ/">负载均衡式在线OJ</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">973</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="4、负载均衡式在线OJ-编译运行"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
-<p>该模块为编译运行功能，该模块需要使用json库，首先安装json，作用是将结构化的数据转化为字符串，做序列化和反序列化工作</p>
-</blockquote>
-<p>命令：<code>sudo yum install jsoncpp-devel</code></p>
-<h2 id="整体逻辑">整体逻辑</h2>
-<p><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202306132110496.png" alt="image.png"></p>
-<h2 id="Start函数">Start函数</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">Start</span><span class="params">(<span class="type">const</span> std::string &amp;in_json, std::string *out_json)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Start函数参数">Start函数参数</h3>
-<blockquote>
-<p>start函数的两个参数</p>
-</blockquote>
-<ul>
-<li><code>in_json</code>: {“code”: “#include …”, “input”: “”, “cpu_limit”: 1, “mem_limit”:10240}</li>
-<li><code>out_json</code>: {“status”:0, “reason”:“”, “stdout”:“”, “stderr”:“”}</li>
-</ul>
-<blockquote>
-<p>in_json字符串中的内容</p>
-</blockquote>
-<ul>
-<li><code>code</code>: 用户提交的代码</li>
-<li><code>input</code>: 用户给自己提交的代码对应的输入，暂不做处理</li>
-<li><code>cpu_limit</code>: 时间要求</li>
-<li><code>mem_limit</code>: 空间要求</li>
-</ul>
-<blockquote>
-<p>out_json字符串中的内容</p>
-</blockquote>
-<ul>
-<li><code>status</code>: 状态码 （必填）</li>
-<li><code>reason</code>: 请求结果 （必填）</li>
-<li><code>stdout</code>: 程序运行完结果 （选填）</li>
-<li><code>stderr</code>: 运行完的错误结果</li>
-</ul>
-<h3 id="Start函数逻辑">Start函数逻辑</h3>
-<ol>
-<li>反序列化解析<code>in_json</code>字符串内容</li>
-<li>根据<code>in_json</code>中的内容（代码、输入、限制条件）编译运行</li>
-<li>将编译运行期间的状态、结果、错误等信息序列化，通过输出型参数<code>out_json</code>输出</li>
-</ol>
-<h3 id="具体细节代码">具体细节代码</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">Start</span><span class="params">(<span class="type">const</span> std::string &amp;in_json, std::string *out_json)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="comment">// 解析 in_json得到 代码 输入 限制条件</span></span><br><span class="line">   Json::Value in_value;</span><br><span class="line">   Json::Reader reader;</span><br><span class="line">   reader.<span class="built_in">parse</span>(in_json, in_value);</span><br><span class="line"></span><br><span class="line">   std::string code = in_value[<span class="string">&quot;code&quot;</span>].<span class="built_in">asString</span>();</span><br><span class="line">   std::string input = in_value[<span class="string">&quot;input&quot;</span>].<span class="built_in">asString</span>();</span><br><span class="line">   <span class="type">int</span> cpu_limit = in_value[<span class="string">&quot;cpu_limit&quot;</span>].<span class="built_in">asInt</span>();</span><br><span class="line">   <span class="type">int</span> mem_limit = in_value[<span class="string">&quot;mem_limit&quot;</span>].<span class="built_in">asInt</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 根据code 生成一份文件，该文件名必须要有唯一性</span></span><br><span class="line">	</span><br><span class="line">   <span class="type">int</span> status_code=<span class="number">0</span>;</span><br><span class="line">   Json::Value out_value; </span><br><span class="line">   <span class="type">int</span> run_result = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">   std::string file_name; <span class="comment">// code文件名</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span>(code.<span class="built_in">size</span>()==<span class="number">0</span>)</span><br><span class="line">   &#123;</span><br><span class="line">	   status_code = <span class="number">-1</span>; <span class="comment">//代表代码为空</span></span><br><span class="line">	   <span class="keyword">goto</span> END;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">   <span class="comment">// 形成的文件名要具有唯一性，只是文件名，没有前缀路径和后缀</span></span><br><span class="line">   file_name = FileUtil::<span class="built_in">UniqFileName</span>();</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 文件名有了，接下来是根据文件名，形成src源文件，并将code的内容写入到源文件中</span></span><br><span class="line">   <span class="keyword">if</span>(!FileUtil::<span class="built_in">WriteFile</span>(PathUtil::<span class="built_in">Src</span>(file_name), code))</span><br><span class="line">   &#123;</span><br><span class="line">	   status_code=<span class="number">-2</span>; <span class="comment">//未知错误</span></span><br><span class="line">	   <span class="keyword">goto</span> END;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line">   <span class="comment">//形成源文件之后开始编译</span></span><br><span class="line">   <span class="keyword">if</span>(!Compiler::<span class="built_in">Compile</span>(file_name))</span><br><span class="line">   &#123;</span><br><span class="line">	   status_code=<span class="number">-3</span>; <span class="comment">//代码编译发生错误</span></span><br><span class="line">	   <span class="keyword">goto</span> END;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//编译完成之后运行</span></span><br><span class="line">   run_result=Runner::<span class="built_in">Run</span>(file_name, cpu_limit, mem_limit);</span><br><span class="line">   <span class="keyword">if</span>(run_result&lt;<span class="number">0</span>)</span><br><span class="line">   &#123;</span><br><span class="line">	   status_code=<span class="number">-2</span>;<span class="comment">//未知错误</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span> <span class="keyword">if</span>(run_result&gt;<span class="number">0</span>)</span><br><span class="line">   &#123;</span><br><span class="line">	   <span class="comment">//程序运行崩溃</span></span><br><span class="line">	   status_code=run_result;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span></span><br><span class="line">   &#123;</span><br><span class="line">	   status_code=<span class="number">0</span>; <span class="comment">//程序运行成功</span></span><br><span class="line">   &#125;</span><br><span class="line">END:</span><br><span class="line">   out_value[<span class="string">&quot;status&quot;</span>]=status_code;</span><br><span class="line">   out_value[<span class="string">&quot;reason&quot;</span>]=<span class="built_in">CodeToDesc</span>(status_code, file_name);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span>(status_code==<span class="number">0</span>)</span><br><span class="line">   &#123;</span><br><span class="line">	   <span class="comment">//整个过程全部成功</span></span><br><span class="line">	   std::string _stdout;</span><br><span class="line">	   FileUtil::<span class="built_in">ReadFile</span>(PathUtil::<span class="built_in">Stdout</span>(file_name), &amp;_stdout, <span class="literal">true</span>);</span><br><span class="line">	   out_value[<span class="string">&quot;stdout&quot;</span>]=_stdout;</span><br><span class="line"></span><br><span class="line">	   std::string _stderr;</span><br><span class="line">	   FileUtil::<span class="built_in">ReadFile</span>(PathUtil::<span class="built_in">Stderr</span>(file_name), &amp;_stderr, <span class="literal">true</span>);</span><br><span class="line">	   out_value[<span class="string">&quot;stderr&quot;</span>]=_stderr;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   Json::StyledWriter writer;</span><br><span class="line">   *out_json=writer.<span class="built_in">write</span>(out_value);</span><br><span class="line"></span><br><span class="line">   <span class="built_in">RemoveTempFile</span>(file_name);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="补充工具类函数">补充工具类函数</h2>
-<h3 id="状态码解析CodeToDesc">状态码解析CodeToDesc</h3>
-<blockquote>
-<p>作用：将状态码解析为对应字符串</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">static</span> std::string <span class="title">CodeToDesc</span><span class="params">(<span class="type">int</span> code, <span class="type">const</span> std::string&amp; file_name)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::string desc;</span><br><span class="line">	<span class="keyword">switch</span>(code)</span><br><span class="line">	&#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">		desc=<span class="string">&quot;编译运行成功&quot;</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">-1</span>:</span><br><span class="line">		desc=<span class="string">&quot;提交的代码为空&quot;</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">-2</span>:</span><br><span class="line">		desc=<span class="string">&quot;未知错误&quot;</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">-3</span>:</span><br><span class="line">		<span class="comment">//代码编译时出错</span></span><br><span class="line">		FileUtil::<span class="built_in">ReadFile</span>(PathUtil::<span class="built_in">CompilerError</span>(file_name), &amp;desc, <span class="literal">true</span>);</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> SIGABRT: <span class="comment">//6</span></span><br><span class="line">		desc=<span class="string">&quot;内存超过范围&quot;</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> SIGXCPU: <span class="comment">//24</span></span><br><span class="line">		desc=<span class="string">&quot;CPU使用超时&quot;</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> SIGFPE: <span class="comment">//8</span></span><br><span class="line">		desc=<span class="string">&quot;浮点数溢出&quot;</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		desc=<span class="string">&quot;未知&quot;</span>+std::<span class="built_in">to_string</span>(code);</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> desc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="形成唯一文件名UniqFileName">形成唯一文件名UniqFileName</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//形成唯一的文件名 </span></span><br><span class="line"><span class="comment">//通过毫秒级时间戳+原子性递增唯一值来保证唯一性</span></span><br><span class="line"><span class="function"><span class="type">static</span> std::string <span class="title">UniqFileName</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function"><span class="type">static</span> std::atomic_uint <span class="title">id</span><span class="params">(<span class="number">0</span>)</span></span>;</span><br><span class="line">	id++;</span><br><span class="line"></span><br><span class="line">	std::string ms = TimeUtil::<span class="built_in">GetTimeMs</span>();</span><br><span class="line">	std::string uniq_id = std::<span class="built_in">to_string</span>(id);</span><br><span class="line">	<span class="keyword">return</span> ms+<span class="string">&quot;_&quot;</span>+uniq_id;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="删除临时文件RemoveTempFile">删除临时文件RemoveTempFile</h3>
-<ol>
-<li>判断文件是否存在</li>
-<li>若存在使用unlink函数进行删除</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">RemoveTempFile</span><span class="params">(<span class="type">const</span> std::string &amp;file_name)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//清理源文件</span></span><br><span class="line">    std::string _src = PathUtil::<span class="built_in">Src</span>(file_name);</span><br><span class="line">    <span class="keyword">if</span>(FileUtil::<span class="built_in">IsFileExists</span>(_src))</span><br><span class="line">        <span class="built_in">unlink</span>(_src.<span class="built_in">c_str</span>());</span><br><span class="line">    <span class="comment">//清理编译错误文件</span></span><br><span class="line">    std::string _compiler_error=PathUtil::<span class="built_in">CompilerError</span>(file_name);</span><br><span class="line">    <span class="keyword">if</span>(FileUtil::<span class="built_in">IsFileExists</span>(_compiler_error))</span><br><span class="line">        <span class="built_in">unlink</span>(_compiler_error.<span class="built_in">c_str</span>());</span><br><span class="line">    <span class="comment">//清理可执行程序</span></span><br><span class="line">    std::string _execute=PathUtil::<span class="built_in">Exe</span>(file_name);</span><br><span class="line">    <span class="keyword">if</span>(FileUtil::<span class="built_in">IsFileExists</span>(_execute))</span><br><span class="line">        <span class="built_in">unlink</span>(_execute.<span class="built_in">c_str</span>());</span><br><span class="line">    <span class="comment">//清理输入</span></span><br><span class="line">    std::string _stdin=PathUtil::<span class="built_in">Stdin</span>(file_name);</span><br><span class="line">    <span class="keyword">if</span>(FileUtil::<span class="built_in">IsFileExists</span>(_stdin))</span><br><span class="line">        <span class="built_in">unlink</span>(_stdin.<span class="built_in">c_str</span>());</span><br><span class="line">    <span class="comment">//清理输出</span></span><br><span class="line">    std::string _stdout=PathUtil::<span class="built_in">Stdout</span>(file_name);</span><br><span class="line">    <span class="keyword">if</span>(FileUtil::<span class="built_in">IsFileExists</span>(_stdout))</span><br><span class="line">        <span class="built_in">unlink</span>(_stdout.<span class="built_in">c_str</span>());</span><br><span class="line">    <span class="comment">//清理错误</span></span><br><span class="line">    std::string _stderr=PathUtil::<span class="built_in">Stderr</span>(file_name);</span><br><span class="line">    <span class="keyword">if</span>(FileUtil::<span class="built_in">IsFileExists</span>(_stderr))</span><br><span class="line">        <span class="built_in">unlink</span>(_stderr.<span class="built_in">c_str</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://atong.run">atong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://atong.run/posts/2587007324/">https://atong.run/posts/2587007324/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://atong.run" target="_blank">芝士就是菜</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%A1%B9%E7%9B%AE/">项目</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/1958496611/" title="4、负载均衡式在线OJ-编译运行(网络)"><img class="cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">4、负载均衡式在线OJ-编译运行(网络)</div></div></a></div><div class="next-post pull-right"><a href="/posts/3304561254/" title="3、负载均衡式在线OJ-运行模块"><img class="cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">3、负载均衡式在线OJ-运行模块</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/2085396799/" title="1、负载均衡式在线OJ-项目介绍"><img class="cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-21</div><div class="title">1、负载均衡式在线OJ-项目介绍</div></div></a></div><div><a href="/posts/1188400450/" title="2、负载均衡式在线OJ-编译服务设计"><img class="cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-21</div><div class="title">2、负载均衡式在线OJ-编译服务设计</div></div></a></div><div><a href="/posts/3304561254/" title="3、负载均衡式在线OJ-运行模块"><img class="cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-04</div><div class="title">3、负载均衡式在线OJ-运行模块</div></div></a></div><div><a href="/posts/1958496611/" title="4、负载均衡式在线OJ-编译运行(网络)"><img class="cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202305211713692.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-15</div><div class="title">4、负载均衡式在线OJ-编译运行(网络)</div></div></a></div><div><a href="/posts/4062989894/" title="1、高并发内存池-序章"><img class="cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202301292232715.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-29</div><div class="title">1、高并发内存池-序章</div></div></a></div><div><a href="/posts/594127029/" title="2、高并发内存池-预备"><img class="cover" src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202301292232715.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-02</div><div class="title">2、高并发内存池-预备</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202308222330847.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">atong</div><div class="author-info__description">编程学习、好用工具、新能源汽车，以及自用好物的评测，公众号：芝士就是菜</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">73</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">38</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://atongrun.notion.site/6851125a8c5746eaa95b730c4a0d7430"><i class="fa-solid fa-cart-shopping"></i><span>自用好物</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://twitter.com/atongrun" rel="external nofollow noreferrer" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a><a class="social-icon" href="https://www.zhihu.com/people/qian-lan-wa" rel="external nofollow noreferrer" target="_blank" title=""><i class="fa-brands fa-zhihu"></i></a><a class="social-icon" href="https://space.bilibili.com/385227660?spm_id_from=333.1007.0.0" rel="external nofollow noreferrer" target="_blank" title=""><i class="fa-brands fa-bilibili"></i></a><a class="social-icon" href="https://www.youtube.com/channel/UCRF1RkVr906u7wUQzVxU-lA" rel="external nofollow noreferrer" target="_blank" title=""><i class="fa-brands fa-youtube"></i></a><a class="social-icon" href="https://atong.run/atom.xml" target="_blank" title=""><i class="fa-solid fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎关注我的公众号：【芝士就是菜】 <img src = "https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202302081936066.jpg"width="250" height="250"></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E9%80%BB%E8%BE%91"><span class="toc-number">1.</span> <span class="toc-text">整体逻辑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Start%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">Start函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Start%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0"><span class="toc-number">2.1.</span> <span class="toc-text">Start函数参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Start%E5%87%BD%E6%95%B0%E9%80%BB%E8%BE%91"><span class="toc-number">2.2.</span> <span class="toc-text">Start函数逻辑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E7%BB%86%E8%8A%82%E4%BB%A3%E7%A0%81"><span class="toc-number">2.3.</span> <span class="toc-text">具体细节代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">补充工具类函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E7%A0%81%E8%A7%A3%E6%9E%90CodeToDesc"><span class="toc-number">3.1.</span> <span class="toc-text">状态码解析CodeToDesc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%A2%E6%88%90%E5%94%AF%E4%B8%80%E6%96%87%E4%BB%B6%E5%90%8DUniqFileName"><span class="toc-number">3.2.</span> <span class="toc-text">形成唯一文件名UniqFileName</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6RemoveTempFile"><span class="toc-number">3.3.</span> <span class="toc-text">删除临时文件RemoveTempFile</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/2858725456/" title="终端Terminal-AI编码助手 Crush"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202509142114485.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="终端Terminal-AI编码助手 Crush"/></a><div class="content"><a class="title" href="/posts/2858725456/" title="终端Terminal-AI编码助手 Crush">终端Terminal-AI编码助手 Crush</a><time datetime="2025-09-14T13:12:43.476Z" title="发表于 2025-09-14 21:12:43">2025-09-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3396067388/" title="git常用命令"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202407140135572.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git常用命令"/></a><div class="content"><a class="title" href="/posts/3396067388/" title="git常用命令">git常用命令</a><time datetime="2024-07-13T17:33:49.800Z" title="发表于 2024-07-14 01:33:49">2024-07-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3356543462/" title="导航页-工具"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202405022354395.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="导航页-工具"/></a><div class="content"><a class="title" href="/posts/3356543462/" title="导航页-工具">导航页-工具</a><time datetime="2024-05-02T15:40:56.140Z" title="发表于 2024-05-02 23:40:56">2024-05-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/621459748/" title="lobechat聊天机器人介绍与docker部署（有坑需注意）"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202402162122606.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lobechat聊天机器人介绍与docker部署（有坑需注意）"/></a><div class="content"><a class="title" href="/posts/621459748/" title="lobechat聊天机器人介绍与docker部署（有坑需注意）">lobechat聊天机器人介绍与docker部署（有坑需注意）</a><time datetime="2024-02-16T15:09:12.352Z" title="发表于 2024-02-16 23:09:12">2024-02-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4092410180/" title="小米14购买使用体验"><img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202402161222878.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="小米14购买使用体验"/></a><div class="content"><a class="title" href="/posts/4092410180/" title="小米14购买使用体验">小米14购买使用体验</a><time datetime="2024-02-16T04:04:55.581Z" title="发表于 2024-02-16 12:04:55">2024-02-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2025 By atong</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
-  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
-    btf.wrap(item, 'div', { class: 'katex-wrap'})
-  })
-})()</script><script>(() => {
-  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
-  if ($mermaid.length === 0) return
-  const runMermaid = () => {
-    window.loadMermaid = true
-    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+start函数的两个参数
 
-    Array.from($mermaid).forEach((item, index) => {
-      const mermaidSrc = item.firstElementChild
-      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
-      const mermaidID = 'mermaid-' + index
-      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+in_json: {&ldquo;code&rdquo;: &ldquo;#include &mldr;&rdquo;, &ldquo;input&rdquo;: &ldquo;&rdquo;, &ldquo;cpu_limit&rdquo;: 1, &ldquo;mem_limit&rdquo;:10240}
+out_json: {&ldquo;status&rdquo;:0, &ldquo;reason&rdquo;:"", &ldquo;stdout&rdquo;:"", &ldquo;stderr&rdquo;:""}
 
-      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
 
-      const renderV10 = () => {
-        renderFn.then(({svg}) => {
-          mermaidSrc.insertAdjacentHTML('afterend', svg)
-        })
-      }
+in_json字符串中的内容
 
-      const renderV9 = svg => {
-        mermaidSrc.insertAdjacentHTML('afterend', svg)
-      }
+code: 用户提交的代码
+input: 用户给自己提交的代码对应的输入，暂不做处理
+cpu_limit: 时间要求
+mem_limit: 空间要求
 
-      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
-    })
-  }
 
-  const loadMermaid = () => {
-    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
-  }
+out_json字符串中的内容
 
-  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+status: 状态码 （必填）
+reason: 请求结果 （必填）
+stdout: 程序运行完结果 （选填）
+stderr: 运行完的错误结果
 
-  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
-})()</script><script>(()=>{
-  const getGiscusTheme = theme => {
-    return theme === 'dark' ? 'dark' : 'light'
-  }
+Start函数逻辑
 
-  const loadGiscus = () => {
-    const config = Object.assign({
-      src: 'https://giscus.app/client.js',
-      'data-repo': 'atongrun/giscus',
-      'data-repo-id': 'R_kgDOI57fqA',
-      'data-category-id': 'DIC_kwDOI57fqM4CUAZT',
-      'data-mapping': 'pathname',
-      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
-      'data-reactions-enabled': '1',
-      crossorigin: 'anonymous',
-      async: true
-    },null)
+反序列化解析in_json字符串内容
+根据in_json中的内容（代码、输入、限制条件）编译运行
+将编译运行期间的状态、结果、错误等信息序列化，通过输出型参数out_json输出
 
-    const ele = document.createElement('script')
-    for (let key in config) {
-      ele.setAttribute(key, config[key])
-    }
-    document.getElementById('giscus-wrap').appendChild(ele)
-  }
+具体细节代码
+static void Start(const std::string &amp;in_json, std::string *out_json)
+{
+   // 解析 in_json得到 代码 输入 限制条件
+   Json::Value in_value;
+   Json::Reader reader;
+   reader.parse(in_json, in_value);
 
-  const changeGiscusTheme = theme => {
-    const sendMessage = message => {
-      const iframe = document.querySelector('iframe.giscus-frame')
-      if (!iframe) return
-      iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app')
-    }
+   std::string code = in_value["code"].asString();
+   std::string input = in_value["input"].asString();
+   int cpu_limit = in_value["cpu_limit"].asInt();
+   int mem_limit = in_value["mem_limit"].asInt();
 
-    sendMessage({
-      setConfig: {
-        theme: getGiscusTheme(theme)
-      }
-    });
-  }
+	// 根据code 生成一份文件，该文件名必须要有唯一性
+	
+   int status_code=0;
+   Json::Value out_value; 
+   int run_result = 0;
 
-  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+   std::string file_name; // code文件名
 
-  if ('Giscus' === 'Giscus' || !true) {
-    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
-    else loadGiscus()
-  } else {
-    window.loadOtherComment= loadGiscus
-  }
-})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="//code.tidio.co/null.js" async="async"></script><script>(() => {
-  const isChatBtn = false
-  const isChatHideShow = true
+   if(code.size()==0)
+   {
+	   status_code = -1; //代表代码为空
+	   goto END;
+   }
 
-  if (isChatBtn) {
-    let isShow = false
-    const close = () => {
-      window.tidioChatApi.hide()
-      isShow = false
-    }
-    
-    const open = () => {
-      window.tidioChatApi.open()
-      window.tidioChatApi.show()
-      isShow = true
-    }
+	
+   // 形成的文件名要具有唯一性，只是文件名，没有前缀路径和后缀
+   file_name = FileUtil::UniqFileName();
 
-    const onTidioChatApiReady = () => {
-      window.tidioChatApi.hide()
-      window.tidioChatApi.on("close", close)
-    }
-    if (window.tidioChatApi) {
-      window.tidioChatApi.on("ready", onTidioChatApiReady)
-    } else {
-      document.addEventListener("tidioChat-ready", onTidioChatApiReady)
-    }
+   // 文件名有了，接下来是根据文件名，形成src源文件，并将code的内容写入到源文件中
+   if(!FileUtil::WriteFile(PathUtil::Src(file_name), code))
+   {
+	   status_code=-2; //未知错误
+	   goto END;
+   }
 
-    window.chatBtnFn = () => {
-      if (!window.tidioChatApi) return
-      isShow ? close() : open()
-    }
-  } else if (isChatHideShow) {
-    window.chatBtn = {
-      hide: () => {
-        window.tidioChatApi && window.tidioChatApi.hide()
-      },
-      show: () => {
-        window.tidioChatApi && window.tidioChatApi.show()
-      }
-    }
-  }
-})()</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
+   
+   //形成源文件之后开始编译
+   if(!Compiler::Compile(file_name))
+   {
+	   status_code=-3; //代码编译发生错误
+	   goto END;
+   }
+
+   //编译完成之后运行
+   run_result=Runner::Run(file_name, cpu_limit, mem_limit);
+   if(run_result<0)
+   {
+	   status_code=-2;//未知错误
+   }
+   else if(run_result>0)
+   {
+	   //程序运行崩溃
+	   status_code=run_result;
+   }
+   else
+   {
+	   status_code=0; //程序运行成功
+   }
+END:
+   out_value["status"]=status_code;
+   out_value["reason"]=CodeToDesc(status_code, file_name);
+
+   if(status_code==0)
+   {
+	   //整个过程全部成功
+	   std::string _stdout;
+	   FileUtil::ReadFile(PathUtil::Stdout(file_name), &_stdout, true);
+	   out_value["stdout"]=_stdout;
+
+	   std::string _stderr;
+	   FileUtil::ReadFile(PathUtil::Stderr(file_name), &_stderr, true);
+	   out_value["stderr"]=_stderr;
+   }
+
+   Json::StyledWriter writer;
+   *out_json=writer.write(out_value);
+
+   RemoveTempFile(file_name);
+
+}
+补充工具类函数
+状态码解析CodeToDesc
+
+作用：将状态码解析为对应字符串'><meta name=keywords content><meta property="og:url" content="https://atong.run/posts/2587007324/"><meta property="og:site_name" content="atong.run"><meta property="og:title" content="4、负载均衡式在线OJ-编译运行"><meta property="og:description" content='该模块为编译运行功能，该模块需要使用json库，首先安装json，作用是将结构化的数据转化为字符串，做序列化和反序列化工作
+命令：sudo yum install jsoncpp-devel
+整体逻辑 Start函数 static void Start(const std::string &amp;in_json, std::string *out_json){} Start函数参数 start函数的两个参数
+in_json: {“code”: “#include …”, “input”: “”, “cpu_limit”: 1, “mem_limit”:10240} out_json: {“status”:0, “reason”:"", “stdout”:"", “stderr”:""} in_json字符串中的内容
+code: 用户提交的代码 input: 用户给自己提交的代码对应的输入，暂不做处理 cpu_limit: 时间要求 mem_limit: 空间要求 out_json字符串中的内容
+status: 状态码 （必填） reason: 请求结果 （必填） stdout: 程序运行完结果 （选填） stderr: 运行完的错误结果 Start函数逻辑 反序列化解析in_json字符串内容 根据in_json中的内容（代码、输入、限制条件）编译运行 将编译运行期间的状态、结果、错误等信息序列化，通过输出型参数out_json输出 具体细节代码 static void Start(const std::string &amp;in_json, std::string *out_json) { // 解析 in_json得到 代码 输入 限制条件 Json::Value in_value; Json::Reader reader; reader.parse(in_json, in_value); std::string code = in_value["code"].asString(); std::string input = in_value["input"].asString(); int cpu_limit = in_value["cpu_limit"].asInt(); int mem_limit = in_value["mem_limit"].asInt(); // 根据code 生成一份文件，该文件名必须要有唯一性 int status_code=0; Json::Value out_value; int run_result = 0; std::string file_name; // code文件名 if(code.size()==0) { status_code = -1; //代表代码为空 goto END; } // 形成的文件名要具有唯一性，只是文件名，没有前缀路径和后缀 file_name = FileUtil::UniqFileName(); // 文件名有了，接下来是根据文件名，形成src源文件，并将code的内容写入到源文件中 if(!FileUtil::WriteFile(PathUtil::Src(file_name), code)) { status_code=-2; //未知错误 goto END; } //形成源文件之后开始编译 if(!Compiler::Compile(file_name)) { status_code=-3; //代码编译发生错误 goto END; } //编译完成之后运行 run_result=Runner::Run(file_name, cpu_limit, mem_limit); if(run_result<0) { status_code=-2;//未知错误 } else if(run_result>0) { //程序运行崩溃 status_code=run_result; } else { status_code=0; //程序运行成功 } END: out_value["status"]=status_code; out_value["reason"]=CodeToDesc(status_code, file_name); if(status_code==0) { //整个过程全部成功 std::string _stdout; FileUtil::ReadFile(PathUtil::Stdout(file_name), &_stdout, true); out_value["stdout"]=_stdout; std::string _stderr; FileUtil::ReadFile(PathUtil::Stderr(file_name), &_stderr, true); out_value["stderr"]=_stderr; } Json::StyledWriter writer; *out_json=writer.write(out_value); RemoveTempFile(file_name); } 补充工具类函数 状态码解析CodeToDesc 作用：将状态码解析为对应字符串'><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="archive"><meta property="article:published_time" content="2023-06-22T21:24:14+08:00"><meta property="article:modified_time" content="2023-06-22T21:26:23+08:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="4、负载均衡式在线OJ-编译运行"><meta name=twitter:description content='该模块为编译运行功能，该模块需要使用json库，首先安装json，作用是将结构化的数据转化为字符串，做序列化和反序列化工作
+命令：sudo yum install jsoncpp-devel
+整体逻辑 Start函数 static void Start(const std::string &amp;in_json, std::string *out_json){} Start函数参数 start函数的两个参数
+in_json: {“code”: “#include …”, “input”: “”, “cpu_limit”: 1, “mem_limit”:10240} out_json: {“status”:0, “reason”:"", “stdout”:"", “stderr”:""} in_json字符串中的内容
+code: 用户提交的代码 input: 用户给自己提交的代码对应的输入，暂不做处理 cpu_limit: 时间要求 mem_limit: 空间要求 out_json字符串中的内容
+status: 状态码 （必填） reason: 请求结果 （必填） stdout: 程序运行完结果 （选填） stderr: 运行完的错误结果 Start函数逻辑 反序列化解析in_json字符串内容 根据in_json中的内容（代码、输入、限制条件）编译运行 将编译运行期间的状态、结果、错误等信息序列化，通过输出型参数out_json输出 具体细节代码 static void Start(const std::string &amp;in_json, std::string *out_json) { // 解析 in_json得到 代码 输入 限制条件 Json::Value in_value; Json::Reader reader; reader.parse(in_json, in_value); std::string code = in_value["code"].asString(); std::string input = in_value["input"].asString(); int cpu_limit = in_value["cpu_limit"].asInt(); int mem_limit = in_value["mem_limit"].asInt(); // 根据code 生成一份文件，该文件名必须要有唯一性 int status_code=0; Json::Value out_value; int run_result = 0; std::string file_name; // code文件名 if(code.size()==0) { status_code = -1; //代表代码为空 goto END; } // 形成的文件名要具有唯一性，只是文件名，没有前缀路径和后缀 file_name = FileUtil::UniqFileName(); // 文件名有了，接下来是根据文件名，形成src源文件，并将code的内容写入到源文件中 if(!FileUtil::WriteFile(PathUtil::Src(file_name), code)) { status_code=-2; //未知错误 goto END; } //形成源文件之后开始编译 if(!Compiler::Compile(file_name)) { status_code=-3; //代码编译发生错误 goto END; } //编译完成之后运行 run_result=Runner::Run(file_name, cpu_limit, mem_limit); if(run_result<0) { status_code=-2;//未知错误 } else if(run_result>0) { //程序运行崩溃 status_code=run_result; } else { status_code=0; //程序运行成功 } END: out_value["status"]=status_code; out_value["reason"]=CodeToDesc(status_code, file_name); if(status_code==0) { //整个过程全部成功 std::string _stdout; FileUtil::ReadFile(PathUtil::Stdout(file_name), &_stdout, true); out_value["stdout"]=_stdout; std::string _stderr; FileUtil::ReadFile(PathUtil::Stderr(file_name), &_stderr, true); out_value["stderr"]=_stderr; } Json::StyledWriter writer; *out_json=writer.write(out_value); RemoveTempFile(file_name); } 补充工具类函数 状态码解析CodeToDesc 作用：将状态码解析为对应字符串'><meta itemprop=name content="4、负载均衡式在线OJ-编译运行"><meta itemprop=description content='该模块为编译运行功能，该模块需要使用json库，首先安装json，作用是将结构化的数据转化为字符串，做序列化和反序列化工作
+命令：sudo yum install jsoncpp-devel
+整体逻辑 Start函数 static void Start(const std::string &amp;in_json, std::string *out_json){} Start函数参数 start函数的两个参数
+in_json: {“code”: “#include …”, “input”: “”, “cpu_limit”: 1, “mem_limit”:10240} out_json: {“status”:0, “reason”:"", “stdout”:"", “stderr”:""} in_json字符串中的内容
+code: 用户提交的代码 input: 用户给自己提交的代码对应的输入，暂不做处理 cpu_limit: 时间要求 mem_limit: 空间要求 out_json字符串中的内容
+status: 状态码 （必填） reason: 请求结果 （必填） stdout: 程序运行完结果 （选填） stderr: 运行完的错误结果 Start函数逻辑 反序列化解析in_json字符串内容 根据in_json中的内容（代码、输入、限制条件）编译运行 将编译运行期间的状态、结果、错误等信息序列化，通过输出型参数out_json输出 具体细节代码 static void Start(const std::string &amp;in_json, std::string *out_json) { // 解析 in_json得到 代码 输入 限制条件 Json::Value in_value; Json::Reader reader; reader.parse(in_json, in_value); std::string code = in_value["code"].asString(); std::string input = in_value["input"].asString(); int cpu_limit = in_value["cpu_limit"].asInt(); int mem_limit = in_value["mem_limit"].asInt(); // 根据code 生成一份文件，该文件名必须要有唯一性 int status_code=0; Json::Value out_value; int run_result = 0; std::string file_name; // code文件名 if(code.size()==0) { status_code = -1; //代表代码为空 goto END; } // 形成的文件名要具有唯一性，只是文件名，没有前缀路径和后缀 file_name = FileUtil::UniqFileName(); // 文件名有了，接下来是根据文件名，形成src源文件，并将code的内容写入到源文件中 if(!FileUtil::WriteFile(PathUtil::Src(file_name), code)) { status_code=-2; //未知错误 goto END; } //形成源文件之后开始编译 if(!Compiler::Compile(file_name)) { status_code=-3; //代码编译发生错误 goto END; } //编译完成之后运行 run_result=Runner::Run(file_name, cpu_limit, mem_limit); if(run_result<0) { status_code=-2;//未知错误 } else if(run_result>0) { //程序运行崩溃 status_code=run_result; } else { status_code=0; //程序运行成功 } END: out_value["status"]=status_code; out_value["reason"]=CodeToDesc(status_code, file_name); if(status_code==0) { //整个过程全部成功 std::string _stdout; FileUtil::ReadFile(PathUtil::Stdout(file_name), &_stdout, true); out_value["stdout"]=_stdout; std::string _stderr; FileUtil::ReadFile(PathUtil::Stderr(file_name), &_stderr, true); out_value["stderr"]=_stderr; } Json::StyledWriter writer; *out_json=writer.write(out_value); RemoveTempFile(file_name); } 补充工具类函数 状态码解析CodeToDesc 作用：将状态码解析为对应字符串'><meta itemprop=datePublished content="2023-06-22T21:24:14+08:00"><meta itemprop=dateModified content="2023-06-22T21:26:23+08:00"><meta itemprop=wordCount content="303"><meta name=referrer content="no-referrer-when-downgrade"><style>:root{--width:720px;--font-main:Verdana, sans-serif;--font-secondary:Verdana, sans-serif;--font-scale:1em;--background-color:#fff;--heading-color:#222;--text-color:#444;--link-color:#3273dc;--visited-color:#8b6fcb;--blockquote-color:#222}@media(prefers-color-scheme:dark){:root{--background-color:#01242e;--heading-color:#eee;--text-color:#ddd;--link-color:#8cc2dd;--visited-color:#8b6fcb;--blockquote-color:#ccc}}body{font-family:var(--font-secondary);font-size:var(--font-scale);margin:auto;padding:20px;max-width:var(--width);text-align:left;background-color:var(--background-color);word-wrap:break-word;overflow-wrap:break-word;line-height:1.5;color:var(--text-color)}h1,h2,h3,h4,h5,h6{font-family:var(--font-main);color:var(--heading-color)}a{color:var(--link-color);cursor:pointer;text-decoration:none}a:hover{text-decoration:underline}nav a{margin-right:8px}strong,b{color:var(--heading-color)}button{margin:0;cursor:pointer}time{font-family:monospace;font-style:normal;font-size:15px}main{line-height:1.6}table{width:100%}hr{border:0;border-top:1px dashed}img{max-width:100%}code{font-family:monospace;padding:2px;border-radius:3px}blockquote{border-left:1px solid #999;color:var(--blockquote-color);padding-left:20px;font-style:italic}footer{padding:25px 0;text-align:center}.title:hover{text-decoration:none}.title h1{font-size:1.5em}.inline{width:auto !important}.highlight,.code{border-radius:3px;margin-block-start:1em;margin-block-end:1em;overflow-x:auto}.highlight pre,.code pre{min-width:100%;width:max-content}ul.blog-posts{list-style-type:none;padding:unset}ul.blog-posts li{display:flex}ul.blog-posts li span{flex:0 0 130px}ul.blog-posts li a:visited{color:var(--visited-color)}</style></head><body><header><a href=/ class=title><h2>atong.run</h2></a><nav></nav></header><main><content><blockquote><p>该模块为编译运行功能，该模块需要使用json库，首先安装json，作用是将结构化的数据转化为字符串，做序列化和反序列化工作</p></blockquote><p>命令：<code>sudo yum install jsoncpp-devel</code></p><h2 id=整体逻辑>整体逻辑</h2><p><img src=https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202306132110496.png alt=image.png></p><h2 id=start函数>Start函数</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>Start</span>(<span style=color:#66d9ef>const</span> std<span style=color:#f92672>::</span>string <span style=color:#f92672>&amp;</span>in_json, std<span style=color:#f92672>::</span>string <span style=color:#f92672>*</span>out_json){}
+</span></span></code></pre></div><h3 id=start函数参数>Start函数参数</h3><blockquote><p>start函数的两个参数</p></blockquote><ul><li><code>in_json</code>: {&ldquo;code&rdquo;: &ldquo;#include &mldr;&rdquo;, &ldquo;input&rdquo;: &ldquo;&rdquo;, &ldquo;cpu_limit&rdquo;: 1, &ldquo;mem_limit&rdquo;:10240}</li><li><code>out_json</code>: {&ldquo;status&rdquo;:0, &ldquo;reason&rdquo;:"", &ldquo;stdout&rdquo;:"", &ldquo;stderr&rdquo;:""}</li></ul><blockquote><p>in_json字符串中的内容</p></blockquote><ul><li><code>code</code>: 用户提交的代码</li><li><code>input</code>: 用户给自己提交的代码对应的输入，暂不做处理</li><li><code>cpu_limit</code>: 时间要求</li><li><code>mem_limit</code>: 空间要求</li></ul><blockquote><p>out_json字符串中的内容</p></blockquote><ul><li><code>status</code>: 状态码 （必填）</li><li><code>reason</code>: 请求结果 （必填）</li><li><code>stdout</code>: 程序运行完结果 （选填）</li><li><code>stderr</code>: 运行完的错误结果</li></ul><h3 id=start函数逻辑>Start函数逻辑</h3><ol><li>反序列化解析<code>in_json</code>字符串内容</li><li>根据<code>in_json</code>中的内容（代码、输入、限制条件）编译运行</li><li>将编译运行期间的状态、结果、错误等信息序列化，通过输出型参数<code>out_json</code>输出</li></ol><h3 id=具体细节代码>具体细节代码</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>Start</span>(<span style=color:#66d9ef>const</span> std<span style=color:#f92672>::</span>string <span style=color:#f92672>&amp;</span>in_json, std<span style=color:#f92672>::</span>string <span style=color:#f92672>*</span>out_json)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>   <span style=color:#75715e>// 解析 in_json得到 代码 输入 限制条件
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>   Json<span style=color:#f92672>::</span>Value in_value;
+</span></span><span style=display:flex><span>   Json<span style=color:#f92672>::</span>Reader reader;
+</span></span><span style=display:flex><span>   reader.parse(in_json, in_value);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>   std<span style=color:#f92672>::</span>string code <span style=color:#f92672>=</span> in_value[<span style=color:#e6db74>&#34;code&#34;</span>].asString();
+</span></span><span style=display:flex><span>   std<span style=color:#f92672>::</span>string input <span style=color:#f92672>=</span> in_value[<span style=color:#e6db74>&#34;input&#34;</span>].asString();
+</span></span><span style=display:flex><span>   <span style=color:#66d9ef>int</span> cpu_limit <span style=color:#f92672>=</span> in_value[<span style=color:#e6db74>&#34;cpu_limit&#34;</span>].asInt();
+</span></span><span style=display:flex><span>   <span style=color:#66d9ef>int</span> mem_limit <span style=color:#f92672>=</span> in_value[<span style=color:#e6db74>&#34;mem_limit&#34;</span>].asInt();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 根据code 生成一份文件，该文件名必须要有唯一性
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	
+</span></span><span style=display:flex><span>   <span style=color:#66d9ef>int</span> status_code<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>   Json<span style=color:#f92672>::</span>Value out_value; 
+</span></span><span style=display:flex><span>   <span style=color:#66d9ef>int</span> run_result <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>   std<span style=color:#f92672>::</span>string file_name; <span style=color:#75715e>// code文件名
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>   <span style=color:#66d9ef>if</span>(code.size()<span style=color:#f92672>==</span><span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>   {
+</span></span><span style=display:flex><span>	   status_code <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>; <span style=color:#75715e>//代表代码为空
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	   <span style=color:#66d9ef>goto</span> END;
+</span></span><span style=display:flex><span>   }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	
+</span></span><span style=display:flex><span>   <span style=color:#75715e>// 形成的文件名要具有唯一性，只是文件名，没有前缀路径和后缀
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>   file_name <span style=color:#f92672>=</span> FileUtil<span style=color:#f92672>::</span>UniqFileName();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>   <span style=color:#75715e>// 文件名有了，接下来是根据文件名，形成src源文件，并将code的内容写入到源文件中
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>   <span style=color:#66d9ef>if</span>(<span style=color:#f92672>!</span>FileUtil<span style=color:#f92672>::</span>WriteFile(PathUtil<span style=color:#f92672>::</span>Src(file_name), code))
+</span></span><span style=display:flex><span>   {
+</span></span><span style=display:flex><span>	   status_code<span style=color:#f92672>=-</span><span style=color:#ae81ff>2</span>; <span style=color:#75715e>//未知错误
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	   <span style=color:#66d9ef>goto</span> END;
+</span></span><span style=display:flex><span>   }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>   
+</span></span><span style=display:flex><span>   <span style=color:#75715e>//形成源文件之后开始编译
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>   <span style=color:#66d9ef>if</span>(<span style=color:#f92672>!</span>Compiler<span style=color:#f92672>::</span>Compile(file_name))
+</span></span><span style=display:flex><span>   {
+</span></span><span style=display:flex><span>	   status_code<span style=color:#f92672>=-</span><span style=color:#ae81ff>3</span>; <span style=color:#75715e>//代码编译发生错误
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	   <span style=color:#66d9ef>goto</span> END;
+</span></span><span style=display:flex><span>   }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>   <span style=color:#75715e>//编译完成之后运行
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>   run_result<span style=color:#f92672>=</span>Runner<span style=color:#f92672>::</span>Run(file_name, cpu_limit, mem_limit);
+</span></span><span style=display:flex><span>   <span style=color:#66d9ef>if</span>(run_result<span style=color:#f92672>&lt;</span><span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>   {
+</span></span><span style=display:flex><span>	   status_code<span style=color:#f92672>=-</span><span style=color:#ae81ff>2</span>;<span style=color:#75715e>//未知错误
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>   }
+</span></span><span style=display:flex><span>   <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(run_result<span style=color:#f92672>&gt;</span><span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>   {
+</span></span><span style=display:flex><span>	   <span style=color:#75715e>//程序运行崩溃
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	   status_code<span style=color:#f92672>=</span>run_result;
+</span></span><span style=display:flex><span>   }
+</span></span><span style=display:flex><span>   <span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>   {
+</span></span><span style=display:flex><span>	   status_code<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>; <span style=color:#75715e>//程序运行成功
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>   }
+</span></span><span style=display:flex><span>END:
+</span></span><span style=display:flex><span>   out_value[<span style=color:#e6db74>&#34;status&#34;</span>]<span style=color:#f92672>=</span>status_code;
+</span></span><span style=display:flex><span>   out_value[<span style=color:#e6db74>&#34;reason&#34;</span>]<span style=color:#f92672>=</span>CodeToDesc(status_code, file_name);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>   <span style=color:#66d9ef>if</span>(status_code<span style=color:#f92672>==</span><span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>   {
+</span></span><span style=display:flex><span>	   <span style=color:#75715e>//整个过程全部成功
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	   std<span style=color:#f92672>::</span>string _stdout;
+</span></span><span style=display:flex><span>	   FileUtil<span style=color:#f92672>::</span>ReadFile(PathUtil<span style=color:#f92672>::</span>Stdout(file_name), <span style=color:#f92672>&amp;</span>_stdout, true);
+</span></span><span style=display:flex><span>	   out_value[<span style=color:#e6db74>&#34;stdout&#34;</span>]<span style=color:#f92672>=</span>_stdout;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	   std<span style=color:#f92672>::</span>string _stderr;
+</span></span><span style=display:flex><span>	   FileUtil<span style=color:#f92672>::</span>ReadFile(PathUtil<span style=color:#f92672>::</span>Stderr(file_name), <span style=color:#f92672>&amp;</span>_stderr, true);
+</span></span><span style=display:flex><span>	   out_value[<span style=color:#e6db74>&#34;stderr&#34;</span>]<span style=color:#f92672>=</span>_stderr;
+</span></span><span style=display:flex><span>   }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>   Json<span style=color:#f92672>::</span>StyledWriter writer;
+</span></span><span style=display:flex><span>   <span style=color:#f92672>*</span>out_json<span style=color:#f92672>=</span>writer.write(out_value);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>   RemoveTempFile(file_name);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=补充工具类函数>补充工具类函数</h2><h3 id=状态码解析codetodesc>状态码解析CodeToDesc</h3><blockquote><p>作用：将状态码解析为对应字符串</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>static</span> std<span style=color:#f92672>::</span>string CodeToDesc(<span style=color:#66d9ef>int</span> code, <span style=color:#66d9ef>const</span> std<span style=color:#f92672>::</span>string<span style=color:#f92672>&amp;</span> file_name)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	std<span style=color:#f92672>::</span>string desc;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>switch</span>(code)
+</span></span><span style=display:flex><span>	{
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>case</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>		desc<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;编译运行成功&#34;</span>;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>case</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>		desc<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;提交的代码为空&#34;</span>;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>case</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>2</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>		desc<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;未知错误&#34;</span>;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>case</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>3</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>		<span style=color:#75715e>//代码编译时出错
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		FileUtil<span style=color:#f92672>::</span>ReadFile(PathUtil<span style=color:#f92672>::</span>CompilerError(file_name), <span style=color:#f92672>&amp;</span>desc, true);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>case</span> SIGABRT: <span style=color:#75715e>//6
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		desc<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;内存超过范围&#34;</span>;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>case</span> SIGXCPU: <span style=color:#75715e>//24
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		desc<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;CPU使用超时&#34;</span>;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>case</span> SIGFPE: <span style=color:#75715e>//8
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		desc<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;浮点数溢出&#34;</span>;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>default</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>		desc<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;未知&#34;</span><span style=color:#f92672>+</span>std<span style=color:#f92672>::</span>to_string(code);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> desc;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=形成唯一文件名uniqfilename>形成唯一文件名UniqFileName</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>//形成唯一的文件名 
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//通过毫秒级时间戳+原子性递增唯一值来保证唯一性
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>static</span> std<span style=color:#f92672>::</span>string UniqFileName()
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>static</span> std<span style=color:#f92672>::</span>atomic_uint id(<span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>	id<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	std<span style=color:#f92672>::</span>string ms <span style=color:#f92672>=</span> TimeUtil<span style=color:#f92672>::</span>GetTimeMs();
+</span></span><span style=display:flex><span>	std<span style=color:#f92672>::</span>string uniq_id <span style=color:#f92672>=</span> std<span style=color:#f92672>::</span>to_string(id);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> ms<span style=color:#f92672>+</span><span style=color:#e6db74>&#34;_&#34;</span><span style=color:#f92672>+</span>uniq_id;
+</span></span><span style=display:flex><span>	
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=删除临时文件removetempfile>删除临时文件RemoveTempFile</h3><ol><li>判断文件是否存在</li><li>若存在使用unlink函数进行删除</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>RemoveTempFile</span>(<span style=color:#66d9ef>const</span> std<span style=color:#f92672>::</span>string <span style=color:#f92672>&amp;</span>file_name)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//清理源文件
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    std<span style=color:#f92672>::</span>string _src <span style=color:#f92672>=</span> PathUtil<span style=color:#f92672>::</span>Src(file_name);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span>(FileUtil<span style=color:#f92672>::</span>IsFileExists(_src))
+</span></span><span style=display:flex><span>        unlink(_src.c_str());
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//清理编译错误文件
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    std<span style=color:#f92672>::</span>string _compiler_error<span style=color:#f92672>=</span>PathUtil<span style=color:#f92672>::</span>CompilerError(file_name);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span>(FileUtil<span style=color:#f92672>::</span>IsFileExists(_compiler_error))
+</span></span><span style=display:flex><span>        unlink(_compiler_error.c_str());
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//清理可执行程序
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    std<span style=color:#f92672>::</span>string _execute<span style=color:#f92672>=</span>PathUtil<span style=color:#f92672>::</span>Exe(file_name);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span>(FileUtil<span style=color:#f92672>::</span>IsFileExists(_execute))
+</span></span><span style=display:flex><span>        unlink(_execute.c_str());
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//清理输入
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    std<span style=color:#f92672>::</span>string _stdin<span style=color:#f92672>=</span>PathUtil<span style=color:#f92672>::</span>Stdin(file_name);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span>(FileUtil<span style=color:#f92672>::</span>IsFileExists(_stdin))
+</span></span><span style=display:flex><span>        unlink(_stdin.c_str());
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//清理输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    std<span style=color:#f92672>::</span>string _stdout<span style=color:#f92672>=</span>PathUtil<span style=color:#f92672>::</span>Stdout(file_name);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span>(FileUtil<span style=color:#f92672>::</span>IsFileExists(_stdout))
+</span></span><span style=display:flex><span>        unlink(_stdout.c_str());
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//清理错误
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    std<span style=color:#f92672>::</span>string _stderr<span style=color:#f92672>=</span>PathUtil<span style=color:#f92672>::</span>Stderr(file_name);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span>(FileUtil<span style=color:#f92672>::</span>IsFileExists(_stderr))
+</span></span><span style=display:flex><span>        unlink(_stderr.c_str());
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></content><p></p></main><footer>Made with <a href=https://github.com/janraasch/hugo-bearblog/>Hugo ʕ•ᴥ•ʔ Bear</a></footer></body></html>
