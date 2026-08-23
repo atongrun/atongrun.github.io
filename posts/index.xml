@@ -1,4 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>文章 on atong.run</title><link>https://atong.run/posts/</link><description>Recent content in 文章 on atong.run</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 03 May 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://atong.run/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>用了十几年 Windows 后，我买了台 MacBook Air M5</title><link>https://atong.run/posts/macbook-air-m5/</link><pubDate>Sun, 03 May 2026 00:00:00 +0800</pubDate><guid>https://atong.run/posts/macbook-air-m5/</guid><description>&lt;h2 id="一-为什么我买了mac">一 为什么我买了mac&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>文章 on atong.run</title><link>https://atong.run/posts/</link><description>Recent content in 文章 on atong.run</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 23 Aug 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://atong.run/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>终于有了自己稳定的科学上网环境：edge-infra</title><link>https://atong.run/posts/edge-infra-stable-proxy/</link><pubDate>Sun, 23 Aug 2026 00:00:00 +0800</pubDate><guid>https://atong.run/posts/edge-infra-stable-proxy/</guid><description>&lt;p>成功！用自己购买的 VPS 部署了专属于自己的节点，独享！算是终于有了一个稳定的网络环境，Codex 稳稳的。&lt;/p>
+&lt;p>&lt;img src="https://img.atong.run/2026/08/5302233d7acf105fd99c663ac1cd8df6.png" alt="Screenshot 2026-08-23 at 02-26-23.png">&lt;/p>
+&lt;p>整体方案是 Codex 帮我做的，架构如下，Reality 作为主节点，深度用了一个月了很稳定：&lt;/p>
+&lt;pre tabindex="0">&lt;code>Mihomo 主链路 fallback
+ 1. DediOne-Reality VLESS + Reality + Vision TCP 9443
+ 2. DediOne-Trojan Trojan/TLS TCP 8443
+ 3. DediOne-HY2 Hysteria2 UDP 443
+ 4. DediOne-HY2-Hop Hysteria2 port hopping UDP 20000-20031 -&amp;gt; UDP 443
+
+HTTPS subscription nginx TCP 443
+ACME challenge nginx TCP 80
+&lt;/code>&lt;/pre>&lt;p>开源到了 GitHub：&lt;a href="https://github.com/atongrun/edge-infra">edge-infra&lt;/a>，可以直接让 agent 去部署，有点稳定简单，不要面板，到时候就算换 VPS 也能把这行命令复制给 agent 让它一键帮我部署：&lt;/p>
+&lt;pre tabindex="0">&lt;code>curl -fsSL https://raw.githubusercontent.com/atongrun/edge-infra/v0.1.0/docs/guide/installation.md
+&lt;/code>&lt;/pre>&lt;p>我订阅了 4 个机场，两个年包，每月固定流量，一个贵点，一年 100 多，但是只有 20G，另外一个年不到 15；两个固定流量包，一个 50 块钱 150G，另外一个忘了多少流量了可能有个 500G，也 10 块钱左右吧。&lt;/p></description></item><item><title>用了十几年 Windows 后，我买了台 MacBook Air M5</title><link>https://atong.run/posts/macbook-air-m5/</link><pubDate>Sun, 03 May 2026 00:00:00 +0800</pubDate><guid>https://atong.run/posts/macbook-air-m5/</guid><description>&lt;h2 id="一-为什么我买了mac">一 为什么我买了mac&lt;/h2>
 &lt;p>从小到大用了 10 几年windows电脑，以前也觉的买 mac 的人是脑子有泡～&lt;/p>
 &lt;p>现在可能是年纪大了，对游戏什么的也不感兴趣了，上学的时候买的笔记本电脑已经有点卡了，并且电池也不好使了只能一直插着电用&lt;/p>
 &lt;p>本来想组台式机，内存显卡都涨价，这价格相比几年前就太离谱了，现在组就太不合适了&lt;/p>
