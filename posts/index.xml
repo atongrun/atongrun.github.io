@@ -1,24 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>文章 on atong.run</title><link>https://atong.run/posts/</link><description>Recent content in 文章 on atong.run</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 30 Aug 2026 07:09:41 +0000</lastBuildDate><atom:link href="https://atong.run/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Personal Workbench V0.1 acceptance draft</title><link>https://atong.run/posts/personal-workbench-v01-acceptance/</link><pubDate>Sun, 30 Aug 2026 07:09:41 +0000</pubDate><guid>https://atong.run/posts/personal-workbench-v01-acceptance/</guid><description>&lt;h1 id="personal-workbench-v01">Personal Workbench V0.1&lt;/h1>
-&lt;ul>
-&lt;li>D1 draft autosave&lt;/li>
-&lt;li>Sanitized Markdown preview&lt;/li>
-&lt;/ul>
-&lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>Gate&lt;/th>
- &lt;th>Result&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>Draft&lt;/td>
- &lt;td>PASS&lt;/td>
- &lt;/tr>
- &lt;/tbody>
-&lt;/table>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>V0.1 acceptance
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://img.atong.run/2026/08/d0b91c1f-c5d0-432b-a37e-d03e334fc606.png" alt="workbench-acceptance.png">&lt;/p></description></item><item><title>被大雨吵醒的周末-周记</title><link>https://atong.run/posts/rainy-weekend/</link><pubDate>Mon, 24 Aug 2026 00:00:00 +0800</pubDate><guid>https://atong.run/posts/rainy-weekend/</guid><description>&lt;p>周五下班后，身体好像被抽空，身心的疲劳有点压不住了，也就没有再去健身，也没有怎么熬夜，难得的 12 点左右就睡了，以往周五晚上基本都 1 点-2 点吧。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>文章 on atong.run</title><link>https://atong.run/posts/</link><description>Recent content in 文章 on atong.run</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Mon, 24 Aug 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://atong.run/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>被大雨吵醒的周末-周记</title><link>https://atong.run/posts/rainy-weekend/</link><pubDate>Mon, 24 Aug 2026 00:00:00 +0800</pubDate><guid>https://atong.run/posts/rainy-weekend/</guid><description>&lt;p>周五下班后，身体好像被抽空，身心的疲劳有点压不住了，也就没有再去健身，也没有怎么熬夜，难得的 12 点左右就睡了，以往周五晚上基本都 1 点-2 点吧。&lt;/p>
 &lt;p>周六早上下起了大雨，哗啦啦的雨声+雷声把我吵醒了，一看才早上 7 点半，我想着要不要再睡一觉，但是怎么也睡不着。&lt;/p>
 &lt;p>没办法，玩了会手机，起床喝了杯咖啡，愉快地 vibe 了一个上午。edge infra 做好了，自用的中转也搭好了，又顺手推了推自己的小项目。&lt;/p>
 &lt;p>在晚上看到一个说法，vibe coding，其实和钓鱼很像，消磨时间，专注但是没什么用，不钓鱼的时候可能会觉得有些空虚。&lt;/p>
