@@ -1,4 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>atong.run</title><link>https://atong.run/</link><description>Recent content on atong.run</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Mon, 24 Aug 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://atong.run/index.xml" rel="self" type="application/rss+xml"/><item><title>被大雨吵醒的周末-周记</title><link>https://atong.run/posts/rainy-weekend/</link><pubDate>Mon, 24 Aug 2026 00:00:00 +0800</pubDate><guid>https://atong.run/posts/rainy-weekend/</guid><description>&lt;p>周五下班后，身体好像被抽空，身心的疲劳有点压不住了，也就没有再去健身，也没有怎么熬夜，难得的 12 点左右就睡了，以往周五晚上基本都 1 点-2 点吧。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>atong.run</title><link>https://atong.run/</link><description>Recent content on atong.run</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 30 Aug 2026 16:08:09 +0000</lastBuildDate><atom:link href="https://atong.run/index.xml" rel="self" type="application/rss+xml"/><item><title>无语的mcal驱动，spi模式反着写</title><link>https://atong.run/posts/mcal-spi-mode-reversed/</link><pubDate>Sun, 30 Aug 2026 16:08:09 +0000</pubDate><guid>https://atong.run/posts/mcal-spi-mode-reversed/</guid><description>&lt;p>上周调试看门狗好不好使，结果卡在了第一步，spi不通。打了下断点，发现 spi 读取pmic 芯片的device id 有问题，上层的接收buf&lt;/p>
+&lt;pre tabindex="0">&lt;code>RX 前两个字节正常
+第三个字节固定是 0x00
+&lt;/code>&lt;/pre>&lt;p>我没调试过PMIC芯片，这个手写模块上个版本已经测过是没问题，spi也确定是没问题，最痛苦的地方是我不会用示波器，板子也很糙，无从下手
+硬着头皮问ai搜教程，用示波器看波形。搞了半天，&lt;code>CLK&lt;/code>、&lt;code>MOSI&lt;/code>、&lt;code>CS&lt;/code> 几根线倒是都测到过了，时序看起来也没什么明显异常。比较麻烦的是 &lt;code>MISO&lt;/code> 没有方便的 TP 点，不太好直接测
+硬件我经验少，看不出明显问题，先回到配置上排查。
+我先重新同步了一遍最新版 EB 工程里的 SPI 和 Port 配置，然后拿之前确认好用的老版本做对比，还有一个不知道咋改：&lt;/p>
+&lt;pre tabindex="0">&lt;code>旧版本 SPI 外设时钟：100 MHz
+新版本 SPI 外设时钟：200 MHz
+&lt;/code>&lt;/pre>&lt;p>对应的 baudrate prescaler 也从：&lt;/p>
+&lt;pre tabindex="0">&lt;code>0x31 → 0x63
+&lt;/code>&lt;/pre>&lt;p>但是算了下，理论上实际 SPI SCLK 还是保持在 2 MHz，然后开始怀疑&lt;/p>
+&lt;blockquote>
+&lt;p>外设时钟从 100 MHz 变成 200 MHz 以后，一些以 VCLK 为基准的 SPI delay 会不会跟着变短了？&lt;/p>&lt;/blockquote>
+&lt;p>继续翻 LP8774x 的手册，看到 SPI timing 里有一项：&lt;/p>
+&lt;pre tabindex="0">&lt;code>CS 拉低 → 第一个 SCLK
+至少 150 ns
+&lt;/code>&lt;/pre>&lt;p>这时候就有点像
+即使 SCLK 还是 2 MHz，AWR2E44 内部的一些 delay 是按照 100 MHz / 200 MHz 的 VCLK tick 来算的。VCLK 翻倍以后，一个 tick 从 10 ns 变成 5 ns，如果 delay 配置没跟着调整，实际等待时间就可能缩短。
+所以先沿着这个方向试了一把，把：&lt;/p></description></item><item><title>被大雨吵醒的周末-周记</title><link>https://atong.run/posts/rainy-weekend/</link><pubDate>Mon, 24 Aug 2026 00:00:00 +0800</pubDate><guid>https://atong.run/posts/rainy-weekend/</guid><description>&lt;p>周五下班后，身体好像被抽空，身心的疲劳有点压不住了，也就没有再去健身，也没有怎么熬夜，难得的 12 点左右就睡了，以往周五晚上基本都 1 点-2 点吧。&lt;/p>
 &lt;p>周六早上下起了大雨，哗啦啦的雨声+雷声把我吵醒了，一看才早上 7 点半，我想着要不要再睡一觉，但是怎么也睡不着。&lt;/p>
 &lt;p>没办法，玩了会手机，起床喝了杯咖啡，愉快地 vibe 了一个上午。edge infra 做好了，自用的中转也搭好了，又顺手推了推自己的小项目。&lt;/p>
 &lt;p>在晚上看到一个说法，vibe coding，其实和钓鱼很像，消磨时间，专注但是没什么用，不钓鱼的时候可能会觉得有些空虚。&lt;/p>
