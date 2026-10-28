@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>归档 on atong.run</title><link>https://atong.run/archive/</link><description>Recent content in 归档 on atong.run</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 14 Sep 2025 21:14:51 +0800</lastBuildDate><atom:link href="https://atong.run/archive/index.xml" rel="self" type="application/rss+xml"/><item><title>终端Terminal-AI编码助手 Crush</title><link>https://atong.run/posts/2858725456/</link><pubDate>Sun, 14 Sep 2025 21:12:43 +0800</pubDate><guid>https://atong.run/posts/2858725456/</guid><description>&lt;p>前几天看到了一个挺好玩的Github项目-&lt;a href="https://github.com/charmbracelet/crush">Crush&lt;/a>，这个项目是一款Terminal运行的AI工具，Go开发，可以在终端运行~&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>归档 on atong.run</title><link>https://atong.run/archive/</link><description>Recent content in 归档 on atong.run</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Wed, 28 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://atong.run/archive/index.xml" rel="self" type="application/rss+xml"/><item><title>终端Terminal-AI编码助手 Crush</title><link>https://atong.run/posts/2858725456/</link><pubDate>Sun, 14 Sep 2025 21:12:43 +0800</pubDate><guid>https://atong.run/posts/2858725456/</guid><description>&lt;p>前几天看到了一个挺好玩的Github项目-&lt;a href="https://github.com/charmbracelet/crush">Crush&lt;/a>，这个项目是一款Terminal运行的AI工具，Go开发，可以在终端运行~&lt;/p>
 &lt;p>Crush是支持MacOS，Linux和Windows，不过感觉MacOS和Windows应该没啥必要用这个东西，当然 WSL除外&lt;/p>
 &lt;p>核心的功能如下：&lt;/p>
 &lt;ol>
@@ -1088,54 +1088,60 @@ git config [--global] --unset user.email
 &lt;p>&lt;!-- raw HTML omitted -->要记住：手用左手、以及6个数字的位置，顺时针1~6哦&lt;!-- raw HTML omitted -->。&lt;/p>&lt;/blockquote>
 &lt;p>&lt;img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202303221204570.jpg" alt="hand.jpg">&lt;/p>
 &lt;h1 id="实操">实操&lt;/h1>
+&lt;section class="xiaoliuren-tool" aria-label="小六壬计数演示">
+ &lt;h2>小六壬计数演示&lt;/h2>
+ &lt;p>手动输入农历日期和时辰，按本文的计数方法查看位置。仅供了解文章中的算法。&lt;/p>
+ &lt;form data-mode="day-hour">
+ 
+ &lt;label>农历日 &lt;input name="day" type="number" min="1" max="30" value="5" required>&lt;/label>
+ &lt;label>时辰
+ &lt;select name="hour">
+ &lt;option value="1">子时 23:00–01:00&lt;/option>
+ &lt;option value="2">丑时 01:00–03:00&lt;/option>
+ &lt;option value="3">寅时 03:00–05:00&lt;/option>
+ &lt;option value="4">卯时 05:00–07:00&lt;/option>
+ &lt;option value="5" selected>辰时 07:00–09:00&lt;/option>
+ &lt;option value="6">巳时 09:00–11:00&lt;/option>
+ &lt;option value="7">午时 11:00–13:00&lt;/option>
+ &lt;option value="8">未时 13:00–15:00&lt;/option>
+ &lt;option value="9">申时 15:00–17:00&lt;/option>
+ &lt;option value="10">酉时 17:00–19:00&lt;/option>
+ &lt;option value="11">戌时 19:00–21:00&lt;/option>
+ &lt;option value="12">亥时 21:00–23:00&lt;/option>
+ &lt;/select>
+ &lt;/label>
+ &lt;button type="submit">演示计算&lt;/button>
+ &lt;p>&lt;output aria-live="polite">&lt;/output>&lt;/p>
+ &lt;/form>
+&lt;/section>
+&lt;script>
+ (() => {
+ const form = document.currentScript.previousElementSibling.querySelector('form');
+ const names = ['大安', '留连', '速喜', '赤口', '小吉', '空亡'];
+ const step = (start, count) => ((start + count - 2) % 6) + 1;
+ const label = (position) => `${position} ${names[position - 1]}`;
+ form.addEventListener('submit', (event) => {
+ event.preventDefault();
+ const day = Number(form.elements.day.value);
+ const hour = Number(form.elements.hour.value);
+ if (!form.reportValidity()) return;
+ let start = 1;
+ const positions = [];
+ if (form.dataset.mode === 'month-day-hour') {
+ start = step(start, Number(form.elements.month.value));
+ positions.push(`月：${label(start)}`);
+ }
+ start = step(start, day);
+ positions.push(`日：${label(start)}`);
+ start = step(start, hour);
+ positions.push(`时：${label(start)}`);
+ form.querySelector('output').textContent = positions.join(' → ');
+ });
+ })();
+&lt;/script>
+
 &lt;blockquote>
-&lt;p>记住位置就可以进行实操了，只要你会数数就可以了。&lt;/p>&lt;/blockquote>
-&lt;ol>
-&lt;li>首先知道现在是农历的几号，什么时辰。比如今天是农历5日（不用看月份），早上8点多，也就是辰时。&lt;/li>
-&lt;li>然后看上边的手掌图，从1的位置开始数，日数是5，顺时针数5下，到了红色的5位置（无名指的下部），&lt;!-- raw HTML omitted -->记住5这个数字&lt;!-- raw HTML omitted -->。&lt;/li>
-&lt;li>然后从5位置数，这里是重点啊，新的位置是5开始，辰时是第五个时辰，数5下，到了红色的3位置，&lt;!-- raw HTML omitted -->记住3这个数字&lt;!-- raw HTML omitted -->。&lt;/li>
-&lt;li>最后结果就是5+3，也就是小吉+速喜&lt;/li>
-&lt;/ol>
-&lt;blockquote>
-&lt;p>或者：上边的第二步的日可以换成心中想到的一个字的笔画，比如丢了卡，就是笔画数+时辰，如果不知道什么时辰丢的，就是当前突然心有所感，想找东西的这个时辰&lt;/p>&lt;/blockquote>
-&lt;hr>
-&lt;blockquote>
-&lt;p>小六壬日加时断方法中，一共有六种不同的状态，分别为大安、留连、速喜、赤口、小吉和空亡，每种状态都有不同的意义和解释。在小六壬日加时断方法中，根据客体和主体的不同组合，可以得到以下36种组合，每种组合都有其对应的意义和解释。&lt;/p>&lt;/blockquote>
-&lt;ol>
-&lt;li>
-&lt;p>（1+1）大安（客体）+大安（主体）：适宜寻找时间：整日；大致方位：室内&lt;/p>
-&lt;p>说明：适合在室内全天寻找失物，容易找到失物。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>（1+2）大安（客体）+留连（主体）：适宜寻找时间：中午；大致方位：南方&lt;/p>
-&lt;p>说明：在中午时寻找，比较容易找到失物，失物可能在南方。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>（1+3）大安（客体）+速喜（主体）：适宜寻找时间：早晨；大致方位：东南方&lt;/p>
-&lt;p>说明：在早晨时寻找，比较容易找到失物，失物可能在东南方。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>（1+4）大安（客体）+赤口（主体）：适宜寻找时间：下午；大致方位：西南方&lt;/p>
-&lt;p>说明：在下午时寻找，比较容易找到失物，失物可能在西南方。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>（1+5）大安（客体）+小吉（主体）：适宜寻找时间：晚上；大致方位：东方&lt;/p>
-&lt;p>说明：在晚上时寻找，比较容易找到失物，失物可能在东方。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>（1+6）大安（客体）+空亡（主体）：适宜寻找时间：半夜；大致方位：无定位&lt;/p>
-&lt;p>说明：在半夜时寻找，难以找到失物，失物可能在一个不确定的方位。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>（2+1）留连（客体）+大安（主体）：适宜寻找时间：上午；大致方位：北方&lt;/p>
-&lt;p>说明：在上午时寻找，比较容易找到失物，失物可能在北方。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>（2+2）留连（客体）+留连（主体）：适宜寻找时间：傍晚；大致方位：西方&lt;/p>
-&lt;p>说明：在傍晚时寻找，比较容易找到失物，失物可能在西方。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>（2+3）留连（客体）+速喜（主体）：适宜寻找时间：黄昏；大致方位：东南方&lt;/p></description></item><item><title>小六壬感情算法-专业复杂篇</title><link>https://atong.run/posts/4247744594/</link><pubDate>Sat, 25 Mar 2023 12:45:01 +0800</pubDate><guid>https://atong.run/posts/4247744594/</guid><description>&lt;blockquote>
+&lt;p>记住位置就可以进行实操了，只要你会数数就可以了。&lt;/p></description></item><item><title>小六壬感情算法-专业复杂篇</title><link>https://atong.run/posts/4247744594/</link><pubDate>Sat, 25 Mar 2023 12:45:01 +0800</pubDate><guid>https://atong.run/posts/4247744594/</guid><description>&lt;blockquote>
 &lt;p>小六壬是中国古代的一种占卜方法，据传已有两千多年的历史，被广泛用于卜筮、求测吉凶、探究人生运势等方面。小六壬算感情也是小六壬应用的一种方向，它可以通过推算时空变化来预测感情状况、指导恋爱婚姻等。本文将介绍小六壬算感情的基本原理和方法，以及如何日加时断简单地运用小六壬算感情，并给出一个具体的实例分析。&lt;/p>&lt;/blockquote>
 &lt;p>&lt;strong>注意：要相信科学，杜绝迷信！！！&lt;/strong> 小六壬只是一种工具，它提供的只是一个概率。在决定你的感情之路时，应该更多地依赖于自己的直觉和个人经验，同时牢记传统文化只是人类智慧的一个方面，人生百态千变万化，不要把自己局限于某些结论之中&lt;/p>
 &lt;h2 id="一小六壬算感情的原理">一、小六壬算感情的原理&lt;/h2>
@@ -1233,31 +1239,60 @@ git config [--global] --unset user.email
 &lt;p>&lt;!-- raw HTML omitted -->要记住：手用左手、以及6个数字的位置，顺时针1~6哦&lt;!-- raw HTML omitted -->。&lt;/p>&lt;/blockquote>
 &lt;p>&lt;img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202303221204570.jpg" alt="hand.jpg">&lt;/p>
 &lt;h1 id="实操">实操&lt;/h1>
+&lt;section class="xiaoliuren-tool" aria-label="小六壬计数演示">
+ &lt;h2>小六壬计数演示&lt;/h2>
+ &lt;p>手动输入农历日期和时辰，按本文的计数方法查看位置。仅供了解文章中的算法。&lt;/p>
+ &lt;form data-mode="day-hour">
+ 
+ &lt;label>农历日 &lt;input name="day" type="number" min="1" max="30" value="5" required>&lt;/label>
+ &lt;label>时辰
+ &lt;select name="hour">
+ &lt;option value="1">子时 23:00–01:00&lt;/option>
+ &lt;option value="2">丑时 01:00–03:00&lt;/option>
+ &lt;option value="3">寅时 03:00–05:00&lt;/option>
+ &lt;option value="4">卯时 05:00–07:00&lt;/option>
+ &lt;option value="5" selected>辰时 07:00–09:00&lt;/option>
+ &lt;option value="6">巳时 09:00–11:00&lt;/option>
+ &lt;option value="7">午时 11:00–13:00&lt;/option>
+ &lt;option value="8">未时 13:00–15:00&lt;/option>
+ &lt;option value="9">申时 15:00–17:00&lt;/option>
+ &lt;option value="10">酉时 17:00–19:00&lt;/option>
+ &lt;option value="11">戌时 19:00–21:00&lt;/option>
+ &lt;option value="12">亥时 21:00–23:00&lt;/option>
+ &lt;/select>
+ &lt;/label>
+ &lt;button type="submit">演示计算&lt;/button>
+ &lt;p>&lt;output aria-live="polite">&lt;/output>&lt;/p>
+ &lt;/form>
+&lt;/section>
+&lt;script>
+ (() => {
+ const form = document.currentScript.previousElementSibling.querySelector('form');
+ const names = ['大安', '留连', '速喜', '赤口', '小吉', '空亡'];
+ const step = (start, count) => ((start + count - 2) % 6) + 1;
+ const label = (position) => `${position} ${names[position - 1]}`;
+ form.addEventListener('submit', (event) => {
+ event.preventDefault();
+ const day = Number(form.elements.day.value);
+ const hour = Number(form.elements.hour.value);
+ if (!form.reportValidity()) return;
+ let start = 1;
+ const positions = [];
+ if (form.dataset.mode === 'month-day-hour') {
+ start = step(start, Number(form.elements.month.value));
+ positions.push(`月：${label(start)}`);
+ }
+ start = step(start, day);
+ positions.push(`日：${label(start)}`);
+ start = step(start, hour);
+ positions.push(`时：${label(start)}`);
+ form.querySelector('output').textContent = positions.join(' → ');
+ });
+ })();
+&lt;/script>
+
 &lt;blockquote>
-&lt;p>记住位置就可以进行实操了，只要你会数数就可以了。&lt;/p>&lt;/blockquote>
-&lt;ol>
-&lt;li>首先知道现在是农历的几号，什么时辰。比如今天是农历5日（不用看月份），早上8点多，也就是辰时。&lt;/li>
-&lt;li>然后看上边的手掌图，从1的位置开始数，日数是5，顺时针数5下，到了红色的5位置（无名指的下部），&lt;!-- raw HTML omitted -->记住5这个数字&lt;!-- raw HTML omitted -->。&lt;/li>
-&lt;li>然后从5位置数，这里是重点啊，新的位置是5开始，辰时是第五个时辰，数5下，到了红色的3位置，&lt;!-- raw HTML omitted -->记住3这个数字&lt;!-- raw HTML omitted -->。&lt;/li>
-&lt;li>最后结果就是5+3&lt;/li>
-&lt;/ol>
-&lt;blockquote>
-&lt;p>或者：上边的第二步的日可以换成心中想到的一个字的笔画，笔画数+时辰&lt;/p>&lt;/blockquote>
-&lt;hr>
-&lt;blockquote>
-&lt;p>采用方式：日加时断，这里就给大家提一个要求：好的咱们就是说：算的真准；坏的咱们就说：我命由我不由天&lt;/p>&lt;/blockquote>
-&lt;ol>
-&lt;li>
-&lt;p>(1+2) 大安 + 留连：这个组合表示感情比较稳定，但可能会有些平淡。建议双方在日常生活中多沟通和互动，增加一些情趣和活力。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>(1+3) 大安 + 速喜：这个组合预示着感情发展较为迅速，双方之间会有很多机会和好运。但有时也需要注意不要走得太快，需要合理安排时间和精力来经营和维护感情。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>(1+4) 大安 + 赤口：这个组合表示感情比较平淡，但双方之间的感情可能会比较深厚和稳定。需要双方多一些理解和包容，同时也要注意不要让感情变得太过沉闷。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>(2+3) 留连 + 速喜：这个组合可能会让感情发展比较迅速，但也容易出现一些波折和矛盾。建议双方多沟通和理解，共同努力克服各种困难。&lt;/p></description></item><item><title>快去申请！谷歌bard智能AI聊天机器人正式公测！</title><link>https://atong.run/posts/1346622597/</link><pubDate>Thu, 23 Mar 2023 19:41:04 +0800</pubDate><guid>https://atong.run/posts/1346622597/</guid><description>&lt;blockquote>
+&lt;p>记住位置就可以进行实操了，只要你会数数就可以了。&lt;/p></description></item><item><title>快去申请！谷歌bard智能AI聊天机器人正式公测！</title><link>https://atong.run/posts/1346622597/</link><pubDate>Thu, 23 Mar 2023 19:41:04 +0800</pubDate><guid>https://atong.run/posts/1346622597/</guid><description>&lt;blockquote>
 &lt;p>注册链接：https://bard.google.com/&lt;/p>&lt;/blockquote>
 &lt;p>&lt;!-- raw HTML omitted -->&lt;strong>快去加入waitlist！！！！&lt;!-- raw HTML omitted -->&lt;/strong>&lt;/p>
 &lt;p>&lt;img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202303231931160.png" alt="image.png">&lt;/p>
@@ -1309,74 +1344,62 @@ git config [--global] --unset user.email
 &lt;p>&lt;!-- raw HTML omitted -->只需要记住：红色就是好，绿色就是不好，这是重点，还有就是手掌是左手哦&lt;!-- raw HTML omitted -->。&lt;/p>&lt;/blockquote>
 &lt;p>&lt;img src="https://cdn.jsdelivr.net/gh/atongrun/ImageHost@main/202303192121621.png" alt="image.png">&lt;/p>
 &lt;h1 id="实操">实操&lt;/h1>
+&lt;section class="xiaoliuren-tool" aria-label="小六壬计数演示">
+ &lt;h2>小六壬计数演示&lt;/h2>
+ &lt;p>手动输入农历日期和时辰，按本文的计数方法查看位置。仅供了解文章中的算法。&lt;/p>
+ &lt;form data-mode="month-day-hour">
+ 
+ &lt;label>农历月 &lt;input name="month" type="number" min="1" max="12" value="2" required>&lt;/label>
+ 
+ &lt;label>农历日 &lt;input name="day" type="number" min="1" max="30" value="5" required>&lt;/label>
+ &lt;label>时辰
+ &lt;select name="hour">
+ &lt;option value="1">子时 23:00–01:00&lt;/option>
+ &lt;option value="2">丑时 01:00–03:00&lt;/option>
+ &lt;option value="3">寅时 03:00–05:00&lt;/option>
+ &lt;option value="4">卯时 05:00–07:00&lt;/option>
+ &lt;option value="5" selected>辰时 07:00–09:00&lt;/option>
+ &lt;option value="6">巳时 09:00–11:00&lt;/option>
+ &lt;option value="7">午时 11:00–13:00&lt;/option>
+ &lt;option value="8">未时 13:00–15:00&lt;/option>
+ &lt;option value="9">申时 15:00–17:00&lt;/option>
+ &lt;option value="10">酉时 17:00–19:00&lt;/option>
+ &lt;option value="11">戌时 19:00–21:00&lt;/option>
+ &lt;option value="12">亥时 21:00–23:00&lt;/option>
+ &lt;/select>
+ &lt;/label>
+ &lt;button type="submit">演示计算&lt;/button>
+ &lt;p>&lt;output aria-live="polite">&lt;/output>&lt;/p>
+ &lt;/form>
+&lt;/section>
+&lt;script>
+ (() => {
+ const form = document.currentScript.previousElementSibling.querySelector('form');
+ const names = ['大安', '留连', '速喜', '赤口', '小吉', '空亡'];
+ const step = (start, count) => ((start + count - 2) % 6) + 1;
+ const label = (position) => `${position} ${names[position - 1]}`;
+ form.addEventListener('submit', (event) => {
+ event.preventDefault();
+ const day = Number(form.elements.day.value);
+ const hour = Number(form.elements.hour.value);
+ if (!form.reportValidity()) return;
+ let start = 1;
+ const positions = [];
+ if (form.dataset.mode === 'month-day-hour') {
+ start = step(start, Number(form.elements.month.value));
+ positions.push(`月：${label(start)}`);
+ }
+ start = step(start, day);
+ positions.push(`日：${label(start)}`);
+ start = step(start, hour);
+ positions.push(`时：${label(start)}`);
+ form.querySelector('output').textContent = positions.join(' → ');
+ });
+ })();
+&lt;/script>
+
 &lt;blockquote>
-&lt;p>记住好坏之后就可以进行实操了，只要你会数数就可以了。&lt;/p>&lt;/blockquote>
-&lt;ol>
-&lt;li>首先知道现在是阴历的几月几号，现在是什么时辰。比如今天是阴历2月5日，早上8点多，也就是辰时。&lt;/li>
-&lt;li>然后看上边的手掌图，从1的位置开始数，月数是2，顺时针数两下，到了绿色的2位置&lt;/li>
-&lt;li>然后从2位置数，这里是重点啊，新的位置是2开始，数5下，到了绿色的6位置&lt;/li>
-&lt;li>最后数时辰，辰时是第五个，从6的位置顺时针数5下，就到了绿色的位置，术语叫做赤口，说明你现在在这个时辰的运势不大好&lt;/li>
-&lt;/ol>
-&lt;hr>
-&lt;p>时间对照图&lt;/p>
-&lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>时辰&lt;/th>
- &lt;th>时间&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>子时&lt;/td>
- &lt;td>23:00-01:00&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>丑时&lt;/td>
- &lt;td>01:00-03:00&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>寅时&lt;/td>
- &lt;td>03:00-05:00&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>卯时&lt;/td>
- &lt;td>05:00-07:00&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>辰时&lt;/td>
- &lt;td>07:00-09:00&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>巳时&lt;/td>
- &lt;td>09:00-11:00&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>午时&lt;/td>
- &lt;td>11:00-13:00&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>未时&lt;/td>
- &lt;td>13:00-15:00&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>申时&lt;/td>
- &lt;td>15:00-17:00&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>酉时&lt;/td>
- &lt;td>17:00-19:00&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>戌时&lt;/td>
- &lt;td>19:00-21:00&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>亥时&lt;/td>
- &lt;td>21:00-23:00&lt;/td>
- &lt;/tr>
- &lt;/tbody>
-&lt;/table></description></item><item><title>KMP算法</title><link>https://atong.run/posts/765481613/</link><pubDate>Sat, 18 Mar 2023 16:41:04 +0800</pubDate><guid>https://atong.run/posts/765481613/</guid><description>&lt;p>&lt;a href="https://leetcode.cn/problems/find-the-index-of-the-first-occurrence-in-a-string/">28. 找出字符串中第一个匹配项的下标 - 力扣（LeetCode）&lt;/a>&lt;/p>
+&lt;p>记住好坏之后就可以进行实操了，只要你会数数就可以了。&lt;/p></description></item><item><title>KMP算法</title><link>https://atong.run/posts/765481613/</link><pubDate>Sat, 18 Mar 2023 16:41:04 +0800</pubDate><guid>https://atong.run/posts/765481613/</guid><description>&lt;p>&lt;a href="https://leetcode.cn/problems/find-the-index-of-the-first-occurrence-in-a-string/">28. 找出字符串中第一个匹配项的下标 - 力扣（LeetCode）&lt;/a>&lt;/p>
 &lt;blockquote>
 &lt;p>给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串的第一个匹配项的下标（下标从 0 开始）。如果 needle 不是 haystack 的一部分，则返回  -1 。&lt;/p>&lt;/blockquote>
 &lt;p>这种字符串匹配，常见两种算法，一个是BF，暴力算法，另一个是KMP算法，KMP算法难点就是求next数组（该数组保存回退的位置，利用真子串的特性，减少匹配的次数）&lt;/p>
