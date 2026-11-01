@@ -1,4 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>文章 on atong.run</title><link>https://atong.run/posts/</link><description>Recent content in 文章 on atong.run</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Wed, 28 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://atong.run/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>无语的mcal驱动，spi模式反着写</title><link>https://atong.run/posts/mcal-spi-mode-reversed/</link><pubDate>Sun, 30 Aug 2026 16:08:09 +0000</pubDate><guid>https://atong.run/posts/mcal-spi-mode-reversed/</guid><description>&lt;p>上周调试看门狗好不好使，结果卡在了第一步，spi不通。打了下断点，发现 spi 读取pmic 芯片的device id 有问题，上层的接收buf&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>文章 on atong.run</title><link>https://atong.run/posts/</link><description>Recent content in 文章 on atong.run</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 01 Nov 2026 15:19:59 +0000</lastBuildDate><atom:link href="https://atong.run/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>震惊，中兴 F50 竟然能刷 Openwrt，我的随身 wifi 变成了软路由，焕发第二春！</title><link>https://atong.run/posts/zte-f50-openwrt/</link><pubDate>Sun, 01 Nov 2026 15:19:59 +0000</pubDate><guid>https://atong.run/posts/zte-f50-openwrt/</guid><description>&lt;p>好早之前搬家，因为拉宽带太贵了，想着后续搬家也不方便，就打算买个随身 WiFi。&lt;/p>
+&lt;p>我倒是看了不少的测评，判断不出来有没有坑，小红书好多就觉得有点不靠谱，都像是广告，索性直接买了个大牌中兴。&lt;/p>
+&lt;p>贵是贵了点，但整体还是靠谱的。当时还写了篇自己的测评发到了微信公众号：&lt;a href="https://mp.weixin.qq.com/s/DQFhVQTTnXedZH0crX-uvw">中兴随身wifi使用体验 (https://mp.weixin.qq.com/s/DQFhVQTTnXedZH0crX-uvw)&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://img.atong.run/2026/10/aff016c3-8b35-446b-965f-33dda06a077b.jpg" alt="image">&lt;/p>
+&lt;p>F50整体还算不错，但是 F50 有一个大缺点，就是散热太差了，必须再买个散热套件，加上散热套件之后，用起来就挺顺心了，工作温度不超过50，但这个带来了另外一个问题，就是便携性就差了不少&lt;/p>
+&lt;p>&lt;img src="https://img.atong.run/2026/10/efe54030-d8bb-490c-9276-85b6e0eeef15.png" alt="image">&lt;/p>
+&lt;p>其实在我我买的时候，F50还有一个隐藏的“缺点”，就是他的系统还是比较封闭的，不能刷别的系统，虽然日常使用没有什么大影响，但是对想折腾刷个OpenWrt的用户来说，还是少了些乐趣，毕竟还是连个wifi 就能畅游世界的感觉还是比较爽的&lt;/p>
+&lt;p>但是，但是，没想到一年多后的今天，我刷到一个帖子，有大神做出了整套的刷机工具，然后开源到了 github&lt;/p>
+&lt;p>&lt;img src="https://img.atong.run/2026/10/8e49900b-feab-456b-8541-bedbac3429f4.png" alt="image">&lt;/p>
+&lt;p>我的这个中兴 F50，是256GB 存储版。平时插着 SIM 卡当随身 Wi-Fi，用起来没什么问题。看到有人把 F50 装成 OpenWrt，还保留 Android 双系统，我就心里痒痒的，想着直接让codex给我也刷一个得了，没想到实际操作起来到处是坑&lt;/p>
+&lt;blockquote>
+&lt;p>想入手同款的话，这是我放在自己小站上的京东链接：&lt;a href="https://aibuy.bid/go/jd-f50">中兴 F50（京东）&lt;/a>。F50 有好几个容量版本，下单前看清楚，想刷机的话不同容量的分区情况不一样，后面会说到。&lt;/p>&lt;/blockquote>
+&lt;p>Codex 看文档、查设备、跑命令、翻日志，我打辅助，拔插设备、拿手机测网。10 月 7 日开始弄，一直拖到 10 月 10 日才算能正常上网。&lt;/p>
+&lt;h2 id="256gb-的机器愣是没地方装-openwrt">256GB 的机器，愣是没地方装 OpenWrt&lt;/h2>
+&lt;p>我是直接复制了一段网上现成的提示词给 Codex，我也没细看，里面其实写了一句&amp;quot;已插入一张可以清空的 SD 卡&amp;quot;&lt;/p>
+&lt;p>但我的F50没有 SD 卡，聊到装在哪的时候才反应过来这句不对。&lt;/p>
+&lt;p>而且更吓人的是，F50 在 Windows 里挂了个 228GB 左右的共享盘，Codex 差一点要把它整个备份一遍，还好我机智，多问了一句&lt;/p>
+&lt;p>最后让codex 直接装进去得了，我的F50是存储版本，256GB 呢，里面也没存啥东西。&lt;/p>
+&lt;p>&lt;img src="https://img.atong.run/2026/10/8aab8f17-adea-4fd5-8550-d84197b7b8b2.png" alt="image">&lt;/p>
+&lt;p>安装开始时一查分区表，差点又搞错，项目作者常用的参考机是 64GB 的 F50，那台在 Android 分区后面本来就留着一块空地，Linux 直接放进去。&lt;/p>
+&lt;p>但是我的这台是 256GB 的，Android 的数据分区一路占到快到磁盘末尾，Windows 的共享盘就是从这块空间里共享出来的，Codex一直给我搞不定了就&lt;/p></description></item><item><title>无语的mcal驱动，spi模式反着写</title><link>https://atong.run/posts/mcal-spi-mode-reversed/</link><pubDate>Sun, 30 Aug 2026 16:08:09 +0000</pubDate><guid>https://atong.run/posts/mcal-spi-mode-reversed/</guid><description>&lt;p>上周调试看门狗好不好使，结果卡在了第一步，spi不通。打了下断点，发现 spi 读取pmic 芯片的device id 有问题，上层的接收buf&lt;/p>
 &lt;pre tabindex="0">&lt;code>RX 前两个字节正常
 第三个字节固定是 0x00
 &lt;/code>&lt;/pre>&lt;p>我没调试过PMIC芯片，这个手写模块上个版本已经测过是没问题，spi也确定是没问题，最痛苦的地方是我不会用示波器，板子也很糙，无从下手
