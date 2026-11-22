@@ -1,4 +1,31 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>文章 on atong.run</title><link>https://atong.run/posts/</link><description>Recent content in 文章 on atong.run</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 01 Nov 2026 15:19:59 +0000</lastBuildDate><atom:link href="https://atong.run/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>震惊，中兴 F50 竟然能刷 Openwrt，我的随身 wifi 变成了软路由，焕发第二春！</title><link>https://atong.run/posts/zte-f50-openwrt/</link><pubDate>Sun, 01 Nov 2026 15:19:59 +0000</pubDate><guid>https://atong.run/posts/zte-f50-openwrt/</guid><description>&lt;p>好早之前搬家，因为拉宽带太贵了，想着后续搬家也不方便，就打算买个随身 WiFi。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>文章 on atong.run</title><link>https://atong.run/posts/</link><description>Recent content in 文章 on atong.run</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 22 Nov 2026 09:37:07 +0000</lastBuildDate><atom:link href="https://atong.run/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>UU 远程要出会员了，我折腾了个开源平替，没想到真挺好用</title><link>https://atong.run/posts/rustdesk-relay/</link><pubDate>Sun, 22 Nov 2026 09:37:07 +0000</pubDate><guid>https://atong.run/posts/rustdesk-relay/</guid><description>&lt;h2 id="01uu-远程要出会员了免费版还够用吗">01｜UU 远程要出会员了，免费版还够用吗？&lt;/h2>
+&lt;p>昨天打开网易UU远程，直接一个公告消息弹出来，说要出会员，UU还是准备收费啦，12 月 1 日起上线， VIP 和 SVIP&lt;/p>
+&lt;p>&lt;img src="https://img.atong.run/2026/11/645bcc573e4a70b2eeb4799259a25eb4.png" alt="image.png">&lt;/p>
+&lt;p>距官方说基础远控继续免费，不限次、不限时、不排队、无广告，免费版最高留在 1080P、30 帧（这个30帧还是很难受的，而且就算自己局域网连接也有这个限制）&lt;/p>
+&lt;p>&lt;img src="https://img.atong.run/2026/11/df5e3fc2837f66a6e36bee266f6b026f.png" alt="image.png">&lt;/p>
+&lt;p>VIP 年卡 238 元，连续包月 24 元；SVIP 年卡 758 元，主要是多了全球远控节点。12 月 1 日前注册的老用户，年卡还能五折，VIP 大概 119 元一年，UU免费无广告了这么久，我看着整体收费也还合理～&lt;/p>
+&lt;h2 id="02收费能理解但我更想找个开源方案">02｜收费能理解，但我更想找个开源方案&lt;/h2>
+&lt;p>只是偶尔连回家传个文件、帮家里人点两下，免费版其实还够用。&lt;/p>
+&lt;p>但是我个人还是更倾向于开源免费方案的，不大想把体验绑在会员上，我很讨厌一些年费会员的形式，之前在ai订阅上被坑过（搞降智，降低额度）&lt;/p>
+&lt;h2 id="03找到了-rustdesk我的几台电脑都能用">03｜找到了 RustDesk，我的几台电脑都能用&lt;/h2>
+&lt;p>我是找的 RustDesk当平替，这个是开源的远程桌面，我比较看好的是它有多个客户端&lt;/p>
+&lt;p>&lt;img src="https://img.atong.run/2026/11/fc5c6885efb64c66d901e6f9ab679be0.png" alt="image.png">&lt;/p>
+&lt;p>Windows、Mac、Linux、苹果安卓都能装，正好我有一个win笔记本一个mac一个linux的台式机，两个手机，一个苹果一个安卓～&lt;/p>
+&lt;p>客户端不收费，开源版服务端自己搭也不收费。我正好有腾讯云的轻量服务器，就拿它当了中继节点。搭完之后效果出乎意料的好，Mac、Windows、Linux 之间都能正常远控，日常用起来很稳。&lt;/p>
+&lt;p>&lt;img src="https://img.atong.run/2026/11/440096fe65edc44ec3c66cfdfc2b2d87.png" alt="image.png">&lt;/p>
+&lt;h2 id="04远控为什么会卡先说说打洞和中继">04｜远控为什么会卡？先说说打洞和中继&lt;/h2>
+&lt;p>远控软件最难的事情是两台设置怎么稳定的连接，如果两台设备的两头都在家宽、公司网或者手机热点后面时，设备通常没有独立的公网 IP，其实稳定连接非常的费劲的，要先「打洞」，试着直接连到对方。&lt;/p>
+&lt;p>同一局域网、网络条件好的时候，这条直连路很通畅，延迟也低。但跨省、两端都是热点、或者某一头在对称 NAT、运营商大内网后面时，打洞就很容易失败。&lt;/p>
+&lt;p>失败以后，画面和键鼠都得绕路，那就别想稳定使用了，走一台中转服务器，两端都连到中转，才能继续会话。&lt;/p>
+&lt;p>免费远控看起来不花钱，成本其实就堆在这里。招呼两台机器互相找到对方，开销不大；真费钱的，是打洞失败之后，全国、甚至全球的用户都把视频流打到官方中继上。&lt;/p>
+&lt;p>人一多，带宽就是硬成本。所以很多产品会把更高分辨率、更高帧率、更高码率放进会员，全球节点再单独做成更高一档。UU 的 VIP 和 SVIP，很大一块买的就是这条路和路上的画质余量。&lt;/p>
+&lt;h2 id="05正好有台腾讯云拿来给-rustdesk-做中继">05｜正好有台腾讯云，拿来给 RustDesk 做中继&lt;/h2>
+&lt;p>自己搭中继，就是把最贵的那个线路成本，换成一台自己的小服务器。有了一个小vps做中继，两端都连到你的节点上，国内跨省、出差在外，都能稳定转起来，全国用起来就非常流畅&lt;/p>
+&lt;p>我的方案就是下图所示：&lt;/p>
+&lt;p>&lt;img src="https://img.atong.run/2026/11/b55faa2091b5cf390004a91adc4d6b37.png" alt="image.png">&lt;/p>
+&lt;h2 id="06搭好之后这几个地方用着挺舒服">06｜搭好之后，这几个地方用着挺舒服&lt;/h2>
+&lt;p>我用下来，觉得自建还有这几处实在的好处：&lt;/p>
+&lt;p>软件本身不锁画质。UU 免费版从 12 月 1 日起最高是 1080P、30 帧，直连时也按这个档走；RustDesk 没有这道会员墙，网络允许的情况下，可以把画质和帧率开得更高。&lt;/p></description></item><item><title>震惊，中兴 F50 竟然能刷 Openwrt，我的随身 wifi 变成了软路由，焕发第二春！</title><link>https://atong.run/posts/zte-f50-openwrt/</link><pubDate>Sun, 01 Nov 2026 15:19:59 +0000</pubDate><guid>https://atong.run/posts/zte-f50-openwrt/</guid><description>&lt;p>好早之前搬家，因为拉宽带太贵了，想着后续搬家也不方便，就打算买个随身 WiFi。&lt;/p>
 &lt;p>我倒是看了不少的测评，判断不出来有没有坑，小红书好多就觉得有点不靠谱，都像是广告，索性直接买了个大牌中兴。&lt;/p>
 &lt;p>贵是贵了点，但整体还是靠谱的。当时还写了篇自己的测评发到了微信公众号：&lt;a href="https://mp.weixin.qq.com/s/DQFhVQTTnXedZH0crX-uvw">中兴随身wifi使用体验 (https://mp.weixin.qq.com/s/DQFhVQTTnXedZH0crX-uvw)&lt;/a>&lt;/p>
 &lt;p>&lt;img src="https://img.atong.run/2026/10/aff016c3-8b35-446b-965f-33dda06a077b.jpg" alt="image">&lt;/p>
